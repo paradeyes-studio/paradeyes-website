@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "title": "Paradeyes Agency",
+    "description": "Creative agency powering your growth."
+  },
+  "pages": {
+    "home": "Home",
+    "agency": "Agency",
+    "offers": "Offers",
+    "branding": "Branding",
+    "sites-and-platforms": "Sites and platforms",
+    "content-creation": "Content creation",
+    "deployment-and-media": "Deployment and media",
+    "acquisition-and-reputation": "Acquisition and reputation",
+    "projects": "Projects",
+    "project": "Project",
+    "journal": "Journal",
+    "article": "Article",
+    "contact": "Contact",
+    "client-area": "Client area",
+    "legal": "Legal notice",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "not-found": "Page not found"
+  }
+}
