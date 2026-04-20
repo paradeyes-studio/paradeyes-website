@@ -7,20 +7,12 @@
     "home": "Accueil",
     "agency": "Agence",
     "offers": "Offres",
-    "branding": "Branding",
-    "sites-and-platforms": "Sites et plateformes",
-    "content-creation": "Création de contenus",
-    "deployment-and-media": "Déploiement et supports",
-    "acquisition-and-reputation": "Acquisition et réputation",
     "projects": "Réalisations",
-    "project": "Réalisation",
     "journal": "Journal",
-    "article": "Article",
     "contact": "Contact",
-    "client-area": "Espace client",
+    "clientArea": "Espace client",
     "legal": "Mentions légales",
     "terms": "CGV",
-    "privacy": "Confidentialité",
-    "not-found": "Page introuvable"
+    "privacy": "Confidentialité"
   }
 }

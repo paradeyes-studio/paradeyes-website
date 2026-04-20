@@ -7,20 +7,12 @@
     "home": "Home",
     "agency": "Agency",
     "offers": "Offers",
-    "branding": "Branding",
-    "sites-and-platforms": "Sites and platforms",
-    "content-creation": "Content creation",
-    "deployment-and-media": "Deployment and media",
-    "acquisition-and-reputation": "Acquisition and reputation",
-    "projects": "Projects",
-    "project": "Project",
+    "projects": "Work",
     "journal": "Journal",
-    "article": "Article",
     "contact": "Contact",
-    "client-area": "Client area",
+    "clientArea": "Client area",
     "legal": "Legal notice",
     "terms": "Terms",
-    "privacy": "Privacy",
-    "not-found": "Page not found"
+    "privacy": "Privacy"
   }
 }

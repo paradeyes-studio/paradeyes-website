@@ -23,20 +23,43 @@
  * light surfaces. Reserve it strictly for dark-green backgrounds.
  */
 
+/* Dark mode is default */
+:root {
+  --bg-primary: #023236;
+  --bg-secondary: #011a1d;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --accent: #57eea1;
+}
+
+/* Light mode - to be designed at Étape 10 */
+/* IMPORTANT: #57EEA1 must NEVER appear on white or light backgrounds */
+@media (prefers-color-scheme: light) {
+  :root {
+    /* TODO: define light mode tokens at Étape 10 */
+    /* For now, force dark mode everywhere */
+    --bg-primary: #023236;
+    --bg-secondary: #011a1d;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --accent: #57eea1;
+  }
+}
+
 html,
 body {
   height: 100%;
 }
 
 body {
-  background: var(--color-dark-green);
-  color: var(--color-white);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-satoshi), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: var(--color-electric-green);
-  color: var(--color-dark-green);
+  background: var(--accent);
+  color: var(--bg-primary);
 }
