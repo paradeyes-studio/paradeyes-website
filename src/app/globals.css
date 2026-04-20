@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-green: #023236;
+  --color-electric-green: #57eea1;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-breathing: cubic-bezier(0.4, 0, 0.6, 1);
+
+  --duration-breathing: 8s;
+}
+
+/* Font tokens reference next/font CSS variables, kept inline so they stay dynamic */
+@theme inline {
+  --font-satoshi: var(--font-satoshi);
+  --font-dm-sans: var(--font-dm-sans);
+}
+
+/*
+ * Brand rule: #57EEA1 (electric green) must NEVER be used on white or
+ * light surfaces. Reserve it strictly for dark-green backgrounds.
+ */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--color-dark-green);
+  color: var(--color-white);
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-electric-green);
+  color: var(--color-dark-green);
+}
