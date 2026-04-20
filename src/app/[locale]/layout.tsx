@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { DM_Sans } from "next/font/google";
+import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -79,6 +80,12 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider>
           <LenisProvider>{children}</LenisProvider>
         </NextIntlClientProvider>
+        <Script
+          defer
+          data-domain="paradeyesagency.com"
+          src="https://plausible.io/js/pa-CD_gF2weNAXJGFleuQ1HH.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

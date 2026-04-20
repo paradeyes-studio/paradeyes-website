@@ -1,6 +1,8 @@
 import { createClient } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 
+// Sanity project ID "tw2dddh1" is wired via .env.local.
+// No schemas exist yet, so no live queries are performed at this stage.
 export const sanityClient = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
