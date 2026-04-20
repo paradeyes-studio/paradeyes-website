@@ -43,6 +43,13 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: "https://paradeyesagency.com",
+    languages: {
+      fr: "https://paradeyesagency.com",
+      en: "https://paradeyesagency.com/en",
+    },
+  },
   icons: {
     icon: "/favicon.ico",
   },
