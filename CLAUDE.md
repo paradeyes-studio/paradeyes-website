@@ -107,4 +107,5 @@ Ne jamais toucher à ses DNS, son déploiement Vercel, ou son sous-domaine.
 ## Contacts
 
 - Email : hello@paradeyesagency.com
-- LinkedIagram.com/paradeyesagency
+- LinkedIn : linkedin.com/company/paradeyesagency
+- Instagram : instagram.com/paradeyesagency
