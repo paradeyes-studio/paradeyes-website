@@ -1,18 +1,20 @@
 import { createClient } from "@sanity/client";
-import imageUrlBuilder from "@sanity/image-url";
+import imageUrlBuilder, { type SanityImageSource } from "@sanity/image-url";
 
-// Sanity project ID "tw2dddh1" is wired via .env.local.
-// No schemas exist yet, so no live queries are performed at this stage.
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!;
+const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-01-01";
+
 export const sanityClient = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  apiVersion: process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-04-21",
+  projectId,
+  dataset,
+  apiVersion,
   useCdn: true,
+  perspective: "published",
 });
 
 const builder = imageUrlBuilder(sanityClient);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function urlFor(source: any) {
+export function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
