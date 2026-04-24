@@ -86,8 +86,8 @@ export function Header({ locale }: HeaderProps) {
     };
   }, [isMobileMenuOpen]);
 
-  const isDarkSection = currentTheme === "dark";
   void locale;
+  void currentTheme;
 
   return (
     <>
@@ -98,21 +98,16 @@ export function Header({ locale }: HeaderProps) {
         className="fixed top-0 inset-x-0 z-40 pt-5 lg:pt-6"
       >
         <div className="max-w-[calc(var(--container-site)_-_80px)] mx-auto px-5 lg:px-6 flex items-center justify-between gap-4">
-          {/* Logo gauche */}
+          {/* Logo gauche, séparé, toutes tailles */}
           <Link
             href="/"
             aria-label="Paradeyes, retour à l'accueil"
             className="transition-opacity duration-300 ease-out hover:opacity-70"
           >
-            <Logo
-              className={cn(
-                "h-8 w-auto",
-                isDarkSection ? "text-white" : "text-[#023236]",
-              )}
-            />
+            <Logo className="h-7 lg:h-8" />
           </Link>
 
-          {/* Nav pill centrale */}
+          {/* Nav pill centrale (desktop) */}
           <nav className="hidden lg:block">
             <ul
               className="flex items-center gap-1 p-1.5 rounded-full"
@@ -150,7 +145,7 @@ export function Header({ locale }: HeaderProps) {
             </ul>
           </nav>
 
-          {/* CTA droite desktop */}
+          {/* CTA droite desktop avec point pulsant */}
           <Link
             href="/contact#appel"
             onClick={() => {
@@ -176,11 +171,16 @@ export function Header({ locale }: HeaderProps) {
               e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.3)";
             }}
           >
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full pulse-green-dot"
+              style={{ backgroundColor: "#57eea1" }}
+              aria-hidden="true"
+            />
             Un appel gratuit de 30 min
             <ArrowRight className="w-4 h-4" />
           </Link>
 
-          {/* Burger mobile dans pill blanche */}
+          {/* Burger mobile en pill blanche */}
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(true)}

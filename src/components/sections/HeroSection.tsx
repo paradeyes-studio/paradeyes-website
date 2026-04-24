@@ -125,6 +125,16 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
   const variant = (delay: number, y?: number): Variants =>
     prefersReducedMotion ? fadeSlideUpReduced(delay) : fadeSlideUp(delay, y);
 
+  // Split tagline to emphasize the last word (ex: "performe.") in italic green
+  const taglineWords = tagline.trim().split(" ");
+  const taglineLast = taglineWords[taglineWords.length - 1] ?? "";
+  const taglineLead = taglineWords.slice(0, -1).join(" ");
+
+  // Split IRIS lead to bold "IRIS"
+  const irisLeadParts = fallback.irisLead.split("IRIS");
+  const irisBefore = irisLeadParts[0] ?? "";
+  const irisAfter = irisLeadParts[1] ?? "";
+
   return (
     <section
       ref={heroRef}
@@ -135,7 +145,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         minHeight: "max(100vh, 800px)",
       }}
     >
-      {/* Gradient organique - Couche ambient (la plus large) */}
+      {/* Halo - Couche 1 ambient, centered */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         initial={{ opacity: 0 }}
@@ -143,34 +153,41 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         transition={{ duration: 2, delay: 0.2 }}
         aria-hidden="true"
       >
-        <motion.div
+        <div
           className="absolute"
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  scale: [1, 1.05, 1],
-                  x: [0, 20, 0],
-                }
-          }
-          transition={{
-            duration: 14,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
           style={{
-            top: "20%",
-            left: "-15%",
-            width: "80%",
-            height: "80%",
-            background:
-              "radial-gradient(ellipse 70% 60% at 30% 50%, rgba(87, 238, 161, 0.45) 0%, rgba(87, 238, 161, 0.15) 30%, transparent 60%)",
-            filter: "blur(80px)",
+            top: "25%",
+            left: "50%",
+            width: "90%",
+            height: "70%",
+            transform: "translateX(-50%)",
           }}
-        />
+        >
+          <motion.div
+            className="w-full h-full"
+            animate={
+              prefersReducedMotion
+                ? {}
+                : {
+                    scale: [1, 1.05, 1],
+                    x: [0, 20, 0],
+                  }
+            }
+            transition={{
+              duration: 14,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(87, 238, 161, 0.55) 0%, rgba(87, 238, 161, 0.2) 30%, transparent 60%)",
+              filter: "blur(80px)",
+            }}
+          />
+        </div>
       </motion.div>
 
-      {/* Gradient core (plus concentré) */}
+      {/* Halo - Couche 2 core, centered */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         initial={{ opacity: 0 }}
@@ -178,34 +195,41 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         transition={{ duration: 2, delay: 0.4 }}
         aria-hidden="true"
       >
-        <motion.div
+        <div
           className="absolute"
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  scale: [1, 1.08, 1],
-                }
-          }
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
           style={{
             top: "40%",
-            left: "10%",
+            left: "50%",
             width: "45%",
             height: "60%",
-            background:
-              "radial-gradient(circle, rgba(87, 238, 161, 0.35) 0%, transparent 55%)",
-            filter: "blur(60px)",
+            transform: "translateX(-50%)",
           }}
-        />
+        >
+          <motion.div
+            className="w-full h-full"
+            animate={
+              prefersReducedMotion
+                ? {}
+                : {
+                    scale: [1, 1.08, 1],
+                  }
+            }
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+            style={{
+              background:
+                "radial-gradient(circle, rgba(87, 238, 161, 0.5) 0%, transparent 55%)",
+              filter: "blur(60px)",
+            }}
+          />
+        </div>
       </motion.div>
 
-      {/* Gradient highlight (très concentré, subtil) */}
+      {/* Halo - Couche 3 highlight, centered */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         initial={{ opacity: 0 }}
@@ -213,37 +237,44 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         transition={{ duration: 2, delay: 0.6 }}
         aria-hidden="true"
       >
-        <motion.div
+        <div
           className="absolute"
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  scale: [1, 1.12, 1],
-                  opacity: [0.6, 0.85, 0.6],
-                }
-          }
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
           style={{
             top: "50%",
-            left: "25%",
+            left: "50%",
             width: "20%",
             height: "30%",
-            background:
-              "radial-gradient(circle, rgba(87, 238, 161, 0.6) 0%, transparent 70%)",
-            filter: "blur(40px)",
+            transform: "translateX(-50%)",
           }}
-        />
+        >
+          <motion.div
+            className="w-full h-full"
+            animate={
+              prefersReducedMotion
+                ? {}
+                : {
+                    scale: [1, 1.12, 1],
+                    opacity: [0.6, 0.85, 0.6],
+                  }
+            }
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 2,
+            }}
+            style={{
+              background:
+                "radial-gradient(circle, rgba(87, 238, 161, 0.7) 0%, transparent 70%)",
+              filter: "blur(40px)",
+            }}
+          />
+        </div>
       </motion.div>
 
-      {/* Grain overlay pour texture filmique */}
+      {/* Grain overlay */}
       <div
-        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.05]"
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.06]"
         style={{
           backgroundImage: "url('/noise.svg')",
           backgroundSize: "300px 300px",
@@ -278,7 +309,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             </p>
           </motion.div>
 
-          {/* Titre H1 */}
+          {/* Titre H1 — italique vert sur le dernier mot */}
           <motion.h1
             variants={variant(0.15, 24)}
             initial="hidden"
@@ -292,7 +323,8 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               maxWidth: "20ch",
             }}
           >
-            {tagline}
+            {taglineLead}{" "}
+            <em className="italic text-[#57eea1] font-medium">{taglineLast}</em>
           </motion.h1>
 
           {/* Subtitle */}
@@ -309,29 +341,30 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             {subtitle}
           </motion.p>
 
-          {/* Carte IRIS */}
+          {/* Carte IRIS — matière premium crème */}
           <motion.div
             variants={variant(0.65, 16)}
             initial="hidden"
             animate="visible"
-            className="w-full max-w-xl mb-10"
+            className="w-full max-w-xl"
           >
             <div
               className="relative rounded-3xl p-5 lg:p-6"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%)",
+                  "linear-gradient(180deg, #FAFAF7 0%, #F5F5F0 100%)",
                 backdropFilter: "blur(24px) saturate(180%)",
                 WebkitBackdropFilter: "blur(24px) saturate(180%)",
                 boxShadow: [
                   "inset 0 1px 0 rgba(255, 255, 255, 1)",
+                  "inset 0 -1px 0 rgba(2, 50, 54, 0.05)",
                   "0 1px 2px rgba(0, 0, 0, 0.04)",
-                  "0 20px 50px -10px rgba(0, 0, 0, 0.2)",
-                  "0 40px 80px -20px rgba(87, 238, 161, 0.15)",
+                  "0 20px 50px -10px rgba(0, 0, 0, 0.25)",
+                  "0 40px 80px -20px rgba(87, 238, 161, 0.2)",
                 ].join(", "),
               }}
             >
-              {/* Header card */}
+              {/* Header card avec IRIS en gras */}
               <p
                 className="text-center font-body mb-5"
                 style={{
@@ -340,7 +373,14 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                   lineHeight: "1.5",
                 }}
               >
-                {fallback.irisLead}
+                {irisBefore}
+                <strong
+                  className="font-semibold"
+                  style={{ color: "#023236" }}
+                >
+                  IRIS
+                </strong>
+                {irisAfter}
               </p>
 
               {/* Input row */}
@@ -385,13 +425,13 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               </div>
 
               {/* Pills suggestions */}
-              <div className="flex flex-wrap items-center justify-center gap-2">
+              <div className="flex flex-wrap items-center justify-center gap-2.5">
                 {fallback.suggestions.map((suggestion, i) => (
                   <button
                     key={suggestion}
                     type="button"
                     className={cn(
-                      "px-4 py-1.5 rounded-full",
+                      "px-5 py-2 rounded-full",
                       "font-body text-body-sm font-medium",
                       "transition-all duration-200 ease-out",
                     )}
@@ -404,7 +444,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                         : {
                             background: "transparent",
                             color: "rgba(2, 50, 54, 0.8)",
-                            border: "1px solid rgba(2, 50, 54, 0.15)",
+                            border: "1px solid rgba(2, 50, 54, 0.2)",
                           }
                     }
                   >
@@ -415,12 +455,12 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             </div>
           </motion.div>
 
-          {/* Trust badges */}
+          {/* Trust badges — une seule ligne horizontale */}
           <motion.ul
             variants={variant(0.85)}
             initial="hidden"
             animate="visible"
-            className="flex flex-col md:flex-row items-center gap-3 md:gap-8"
+            className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-3 md:gap-8 mt-10"
           >
             {trustBadges.map((label, i) => (
               <li key={`${label}-${i}`} className="inline-flex items-center gap-2">
@@ -435,7 +475,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                   style={{
                     fontSize: "0.6875rem",
                     letterSpacing: "0.1em",
-                    color: "rgba(255, 255, 255, 0.5)",
+                    color: "rgba(255, 255, 255, 0.55)",
                   }}
                 >
                   {label}
@@ -446,36 +486,47 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Section numbers bottom-left */}
+      {/* Section numbers bottom-left, vertical stack */}
       <div
-        className="absolute bottom-8 left-5 lg:left-6 flex items-center gap-6 z-10"
+        className="absolute bottom-12 left-6 lg:left-10 flex flex-col gap-3 z-10"
         aria-hidden="true"
       >
-        {["01", "02", "03"].map((num, i) => (
-          <div key={num} className="relative">
-            <span
-              className="font-mono"
-              style={{
-                fontSize: "0.75rem",
-                color:
-                  i === 0
-                    ? "rgba(255, 255, 255, 0.9)"
-                    : "rgba(255, 255, 255, 0.3)",
-              }}
-            >
-              {num}.
-            </span>
-            {i === 0 && (
-              <span
-                className="absolute -bottom-1 left-0 w-full h-[1px]"
-                style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
-              />
-            )}
-          </div>
-        ))}
+        <div className="inline-flex items-center gap-4">
+          <span
+            className="font-mono"
+            style={{
+              fontSize: "0.8125rem",
+              color: "rgba(255, 255, 255, 0.9)",
+            }}
+          >
+            01.
+          </span>
+          <span
+            className="w-8 h-[1px]"
+            style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+          />
+        </div>
+        <span
+          className="font-mono"
+          style={{
+            fontSize: "0.8125rem",
+            color: "rgba(255, 255, 255, 0.3)",
+          }}
+        >
+          02.
+        </span>
+        <span
+          className="font-mono"
+          style={{
+            fontSize: "0.8125rem",
+            color: "rgba(255, 255, 255, 0.3)",
+          }}
+        >
+          03.
+        </span>
       </div>
 
-      {/* Bouton Découvrir bottom-right */}
+      {/* Bouton Découvrir bottom-right, 2 éléments séparés */}
       <motion.button
         type="button"
         onClick={() => {
@@ -486,11 +537,11 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.2 }}
-        className="absolute bottom-8 right-5 lg:right-6 flex flex-col items-center gap-3 z-10"
+        className="absolute bottom-12 right-6 lg:right-10 flex flex-col items-center gap-3 z-10"
         aria-label="Découvrir la suite"
       >
         <div
-          className="w-16 h-16 rounded-full flex items-center justify-center"
+          className="w-[70px] h-[70px] rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-105"
           style={{
             background: "linear-gradient(135deg, #034045 0%, #023236 100%)",
             border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -514,9 +565,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
           animate={prefersReducedMotion ? {} : { y: [0, 4, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="w-8 h-8 rounded-full border flex items-center justify-center"
-          style={{
-            borderColor: "rgba(255, 255, 255, 0.2)",
-          }}
+          style={{ borderColor: "rgba(255, 255, 255, 0.2)" }}
         >
           <ChevronDown
             className="w-4 h-4"

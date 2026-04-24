@@ -131,7 +131,7 @@ export default async function Home({ params }: Props) {
   const sections: HomeSection[] = [
     { id: "proof", theme: "light", ...mergeSection("proof", homeData?.proof) },
     {
-      id: "offers",
+      id: "section-offres",
       theme: "dark",
       ...mergeSection("offers", homeData?.offersIntro),
     },
