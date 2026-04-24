@@ -56,6 +56,8 @@ export const metadata: Metadata = {
   },
 };
 
+const ANTI_FLASH_SCRIPT = `(function(){try{var s=localStorage.getItem('paradeyes_theme');if(s==='dark'||s==='light'){document.documentElement.setAttribute('data-theme',s);}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark');}else{document.documentElement.setAttribute('data-theme','light');}}catch(e){}})();`;
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -76,6 +78,11 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} className={`${satoshi.variable} ${dmSans.variable}`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: ANTI_FLASH_SCRIPT }}
+        />
+      </head>
       <body className="antialiased">
         <NextIntlClientProvider>
           <LenisProvider>{children}</LenisProvider>

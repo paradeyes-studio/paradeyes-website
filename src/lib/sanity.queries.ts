@@ -1,22 +1,21 @@
 import { groq } from "next-sanity";
 
 /**
- * Queries GROQ Paradeyes Website
+ * GROQ queries — Paradeyes Website
  *
- * Architecture : lecture seule. Les schémas sont définis dans paradeyes-dashboard.
- * Le Studio d'édition est accessible depuis dashboard.paradeyesagency.com/admin/cms
+ * Architecture : read-only. Schemas live in paradeyes-dashboard.
+ * Studio : dashboard.paradeyesagency.com/admin/cms
  *
  * Project ID : tw2dddh1
  * Dataset : production
  */
 
 // ============================================================
-// SINGLETONS (documents uniques partagés par toute l'organisation)
+// SINGLETONS
 // ============================================================
 
 /**
- * Configuration SEO globale du site
- * Utilisée par layout.tsx pour generateMetadata
+ * Global SEO defaults. Used by layout.tsx for generateMetadata.
  */
 export const seoQuery = groq`*[_type == "seo"][0]{
   titleGoogle,
@@ -35,34 +34,173 @@ export type SeoData = {
 };
 
 /**
- * Coordonnees de contact Paradeyes
- * Utilisee dans le footer, la page contact, le JSON-LD
+ * Public contact info. Used in footer, contact page, JSON-LD.
  */
 export const contactQuery = groq`*[_type == "contact"][0]{
   email,
   linkedinUrl,
-  instagramUrl
+  instagramUrl,
+  behanceUrl,
+  phone,
+  address
 }`;
 
 export type ContactData = {
   email: string;
   linkedinUrl: string;
   instagramUrl: string;
+  behanceUrl?: string;
+  phone?: string;
+  address?: string;
 };
 
 /**
- * Home du site web
- * A completer avec les champs reels quand le schema home sera cree dans paradeyes-dashboard
+ * Site-wide settings. Branding, footer content, default pre-footer CTA.
  */
-export const homeQuery = groq`*[_type == "home"][0]`;
+export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
+  siteName,
+  tagline,
+  defaultOgImage,
+  footerStatement,
+  footerLocation,
+  preFooterDefault{
+    eyebrow,
+    title,
+    description,
+    primaryLabel,
+    secondaryLabel
+  }
+}`;
+
+export type SiteSettingsData = {
+  siteName: string;
+  tagline: string;
+  defaultOgImage?: { asset: { _ref: string } };
+  footerStatement?: string;
+  footerLocation?: string;
+  preFooterDefault?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    primaryLabel: string;
+    secondaryLabel: string;
+  };
+};
+
+/**
+ * Home page content. Hero, proof, offers, method, projects highlight, journal highlight, IRIS.
+ */
+export const homePageQuery = groq`*[_type == "homePage"][0]{
+  hero{
+    eyebrow,
+    title,
+    description,
+    ctaLabel,
+    ctaHref
+  },
+  proof{
+    eyebrow,
+    title,
+    description,
+    brands[]->{name, logo}
+  },
+  offersIntro{
+    eyebrow,
+    title,
+    description
+  },
+  method{
+    eyebrow,
+    title,
+    steps[]{
+      label,
+      title,
+      description
+    }
+  },
+  projectsHighlight{
+    eyebrow,
+    title,
+    projects[]->{
+      _id,
+      slug,
+      title,
+      cover
+    }
+  },
+  journalHighlight{
+    eyebrow,
+    title,
+    articles[]->{
+      _id,
+      slug,
+      title,
+      excerpt,
+      publishedAt
+    }
+  },
+  iris{
+    eyebrow,
+    title,
+    description
+  }
+}`;
+
+export type HomePageData = {
+  hero?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    ctaLabel?: string;
+    ctaHref?: string;
+  };
+  proof?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    brands?: Array<{ name: string; logo?: { asset: { _ref: string } } }>;
+  };
+  offersIntro?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  method?: {
+    eyebrow: string;
+    title: string;
+    steps?: Array<{ label: string; title: string; description: string }>;
+  };
+  projectsHighlight?: {
+    eyebrow: string;
+    title: string;
+    projects?: Array<{
+      _id: string;
+      slug: { current: string };
+      title: string;
+      cover?: { asset: { _ref: string } };
+    }>;
+  };
+  journalHighlight?: {
+    eyebrow: string;
+    title: string;
+    articles?: Array<{
+      _id: string;
+      slug: { current: string };
+      title: string;
+      excerpt: string;
+      publishedAt: string;
+    }>;
+  };
+  iris?: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+};
 
 // ============================================================
-// COLLECTIONS (documents multiples, a activer au fur et a mesure)
+// COLLECTIONS (placeholders — activate when schemas exist in dashboard)
 // ============================================================
-
-// Les queries ci-dessous sont des placeholders commentes pour le futur.
-// Elles seront activees quand les schemas correspondants seront crees
-// dans paradeyes-dashboard.
 
 /*
 export const pageOffreQuery = groq`*[_type == "pageOffre" && slug.current == $slug][0]`;
