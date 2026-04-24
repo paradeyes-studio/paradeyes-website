@@ -107,7 +107,10 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
   const heroRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const fallback = COPY[locale] ?? COPY.fr;
+  // Fallback strategy: always use FR when Sanity/i18n is empty, to avoid
+  // FR/EN mix on /en when only some fields are translated.
+  void locale;
+  const fallback = COPY.fr;
 
   const badge = data?.heroBadgePositionnement || fallback.badge;
   const tagline = data?.heroPhraseAccroche || fallback.tagline;
@@ -126,7 +129,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
     <section
       ref={heroRef}
       data-section-theme="dark"
-      className="relative overflow-hidden flex items-center justify-center min-h-screen pt-32 lg:pt-40 pb-16 lg:pb-24"
+      className="relative overflow-hidden flex items-center justify-center min-h-screen pt-24 lg:pt-32 pb-16 lg:pb-24"
       style={{
         backgroundColor: "#023236",
         minHeight: "max(100vh, 800px)",
@@ -267,7 +270,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               className="font-mono uppercase font-medium"
               style={{
                 fontSize: "0.75rem",
-                letterSpacing: "0.18em",
+                letterSpacing: "0.14em",
                 color: "rgba(255, 255, 255, 0.6)",
               }}
             >
@@ -282,11 +285,11 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             animate="visible"
             className="font-display font-medium mb-6"
             style={{
-              fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
+              fontSize: "clamp(2rem, 3.5vw, 3.25rem)",
               lineHeight: "1.1",
               letterSpacing: "-0.035em",
               color: "white",
-              maxWidth: "22ch",
+              maxWidth: "20ch",
             }}
           >
             {tagline}
@@ -311,10 +314,10 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             variants={variant(0.65, 16)}
             initial="hidden"
             animate="visible"
-            className="w-full max-w-2xl mb-10"
+            className="w-full max-w-xl mb-10"
           >
             <div
-              className="relative rounded-3xl p-6 lg:p-8"
+              className="relative rounded-3xl p-5 lg:p-6"
               style={{
                 background:
                   "linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%)",
@@ -342,7 +345,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
 
               {/* Input row */}
               <div
-                className="relative flex items-center gap-3 rounded-full p-2 pl-5 mb-5"
+                className="relative flex items-center gap-2 rounded-full p-1.5 pl-4 mb-4"
                 style={{
                   background: "rgba(2, 50, 54, 0.04)",
                   border: "1px solid rgba(2, 50, 54, 0.08)",
@@ -366,7 +369,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 />
                 <button
                   type="button"
-                  className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-105"
+                  className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-105"
                   style={{
                     background:
                       "linear-gradient(135deg, #023236 0%, #013235 100%)",
@@ -417,7 +420,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             variants={variant(0.85)}
             initial="hidden"
             animate="visible"
-            className="flex flex-col md:flex-row items-center gap-3 md:gap-6"
+            className="flex flex-col md:flex-row items-center gap-3 md:gap-8"
           >
             {trustBadges.map((label, i) => (
               <li key={`${label}-${i}`} className="inline-flex items-center gap-2">
@@ -487,7 +490,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         aria-label="Découvrir la suite"
       >
         <div
-          className="w-20 h-20 rounded-full flex items-center justify-center"
+          className="w-16 h-16 rounded-full flex items-center justify-center"
           style={{
             background: "linear-gradient(135deg, #034045 0%, #023236 100%)",
             border: "1px solid rgba(255, 255, 255, 0.1)",
@@ -508,7 +511,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
           </span>
         </div>
         <motion.div
-          animate={prefersReducedMotion ? {} : { y: [0, 6, 0] }}
+          animate={prefersReducedMotion ? {} : { y: [0, 4, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           className="w-8 h-8 rounded-full border flex items-center justify-center"
           style={{

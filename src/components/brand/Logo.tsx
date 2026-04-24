@@ -28,9 +28,9 @@ export function Logo({ className, withWordmark = true }: LogoProps) {
       {withWordmark && (
         <text
           x="36"
-          y="22"
+          y="21"
           fontFamily="var(--font-satoshi)"
-          fontSize="18"
+          fontSize="14"
           fontWeight="500"
           letterSpacing="-0.02em"
           fill="currentColor"

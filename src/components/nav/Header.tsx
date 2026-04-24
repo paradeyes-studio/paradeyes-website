@@ -161,19 +161,19 @@ export function Header({ locale }: HeaderProps) {
             }}
             className="hidden lg:inline-flex items-center gap-2 px-5 py-3 rounded-full font-body text-body-sm font-medium transition-all duration-300 ease-out"
             style={{
-              border: "1px solid rgba(87, 238, 161, 0.5)",
+              border: "1px solid rgba(87, 238, 161, 0.3)",
               color: "#57eea1",
-              background: "rgba(87, 238, 161, 0.05)",
+              background: "transparent",
               backdropFilter: "blur(12px)",
               WebkitBackdropFilter: "blur(12px)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(87, 238, 161, 0.15)";
-              e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.8)";
+              e.currentTarget.style.background = "rgba(87, 238, 161, 0.12)";
+              e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.6)";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = "rgba(87, 238, 161, 0.05)";
-              e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.5)";
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.3)";
             }}
           >
             Un appel gratuit de 30 min
