@@ -102,7 +102,7 @@ export function Header({ locale }: HeaderProps) {
           y: scrollState.isVisible ? 0 : "-100%",
         }}
         transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-        className="fixed top-0 inset-x-0 z-header h-16 lg:h-[72px] border-b border-transparent"
+        className="fixed top-0 inset-x-0 z-40 h-16 lg:h-[72px] border-b border-transparent"
         style={{
           backdropFilter: scrollState.isScrolled ? "blur(24px) saturate(180%)" : "none",
           WebkitBackdropFilter: scrollState.isScrolled

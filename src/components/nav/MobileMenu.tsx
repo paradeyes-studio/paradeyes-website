@@ -43,7 +43,7 @@ export function MobileMenu({ onClose, activeHref, locale }: MobileMenuProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.24, ease: [0.25, 1, 0.5, 1] }}
-      className="fixed inset-0 z-modal bg-[var(--color-bg-inverse)] text-[var(--color-text-inverse)]"
+      className="fixed inset-0 z-50 bg-[var(--color-bg-inverse)] text-[var(--color-text-inverse)]"
       role="dialog"
       aria-modal="true"
       aria-label="Menu de navigation"
