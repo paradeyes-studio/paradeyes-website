@@ -15,23 +15,50 @@ export interface HeroData {
 
 interface HeroSectionProps {
   data?: HeroData;
+  locale?: "fr" | "en";
 }
 
-const FALLBACK = {
-  badge: "AGENCE DE COMMUNICATION PREMIUM",
-  tagline:
-    "On identifie ce qui bloque votre croissance. On construit ce qui performe.",
-  subtitle:
-    "Une agence qui comprend votre business avant de proposer. Communication stratégique, design, vidéo, site web. Construits sur-mesure, pensés pour convertir.",
-  irisPlaceholder:
-    "Décrivez votre projet. IRIS vous oriente en 2 minutes.",
-  trustBadges: [
-    "Une seule agence, un seul interlocuteur",
-    "Approche sur-mesure, jamais de template",
-    "ROI mesurable sur chaque projet",
-  ],
-  ctaSecondary:
-    "Prendre rendez-vous directement pour un appel gratuit de 30 minutes",
+type HeroCopy = {
+  badge: string;
+  tagline: string;
+  subtitle: string;
+  irisPlaceholder: string;
+  irisHelper: string;
+  trustBadges: string[];
+  ctaSecondary: string;
+};
+
+const COPY: Record<"fr" | "en", HeroCopy> = {
+  fr: {
+    badge: "AGENCE DE COMMUNICATION PREMIUM",
+    tagline:
+      "On identifie ce qui bloque votre croissance. On construit ce qui performe.",
+    subtitle:
+      "Une agence qui comprend votre business avant de proposer. Communication stratégique, design, vidéo, site web. Construits sur-mesure, pensés pour convertir.",
+    irisPlaceholder: "Décrivez votre projet. IRIS vous oriente en 2 minutes.",
+    irisHelper: "Diagnostic gratuit en 2 minutes",
+    trustBadges: [
+      "Une seule agence, un seul interlocuteur",
+      "Approche sur-mesure, jamais de template",
+      "ROI mesurable sur chaque projet",
+    ],
+    ctaSecondary:
+      "Prendre rendez-vous directement pour un appel gratuit de 30 minutes",
+  },
+  en: {
+    badge: "PREMIUM COMMUNICATION AGENCY",
+    tagline: "We identify what blocks your growth. We build what performs.",
+    subtitle:
+      "An agency that understands your business before proposing. Strategic communication, design, video, web. Custom-built, engineered to convert.",
+    irisPlaceholder: "Describe your project. IRIS guides you in 2 minutes.",
+    irisHelper: "Free 2-minute diagnostic",
+    trustBadges: [
+      "One agency, one single point of contact",
+      "Bespoke approach, never a template",
+      "Measurable ROI on every project",
+    ],
+    ctaSecondary: "Book a free 30-minute call directly",
+  },
 };
 
 const fadeSlideUp = (delay: number, y: number = 16): Variants => ({
@@ -51,19 +78,21 @@ const fadeOnly = (delay: number): Variants => ({
   },
 });
 
-export function HeroSection({ data }: HeroSectionProps) {
+export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
   const heroRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const badge = data?.heroBadgePositionnement || FALLBACK.badge;
-  const tagline = data?.heroPhraseAccroche || FALLBACK.tagline;
-  const subtitle = data?.heroSubtitle || FALLBACK.subtitle;
+  const fallback = COPY[locale] ?? COPY.fr;
+
+  const badge = data?.heroBadgePositionnement || fallback.badge;
+  const tagline = data?.heroPhraseAccroche || fallback.tagline;
+  const subtitle = data?.heroSubtitle || fallback.subtitle;
   const irisPlaceholder =
-    data?.heroPlaceholderIris || FALLBACK.irisPlaceholder;
+    data?.heroPlaceholderIris || fallback.irisPlaceholder;
   const trustBadges =
     data?.heroBadges && data.heroBadges.length > 0
       ? data.heroBadges.map((b) => b.label)
-      : FALLBACK.trustBadges;
+      : fallback.trustBadges;
 
   const variant = (delay: number, y?: number): Variants =>
     prefersReducedMotion ? fadeOnly(delay) : fadeSlideUp(delay, y);
@@ -73,14 +102,13 @@ export function HeroSection({ data }: HeroSectionProps) {
       ref={heroRef}
       data-section-theme="light"
       className={cn(
-        "relative overflow-hidden flex items-center",
-        "min-h-screen",
-        "pt-[var(--spacing-11)] pb-[var(--spacing-9)]",
+        "relative overflow-hidden flex items-center min-h-screen",
+        "pt-[calc(64px+var(--spacing-6))] pb-[var(--spacing-8)]",
+        "lg:pt-[calc(72px+var(--spacing-9))] lg:pb-[var(--spacing-9)]",
         "bg-[var(--color-bg-canvas)]",
       )}
-      style={{ minHeight: "max(100vh, 720px)" }}
     >
-      {/* Halo vert volumétrique */}
+      {/* Halo vert volumétrique — opacity 0.5, blur 60px, vertically centered */}
       <div
         className="absolute inset-0 pointer-events-none flex items-center justify-center"
         aria-hidden="true"
@@ -92,9 +120,8 @@ export function HeroSection({ data }: HeroSectionProps) {
           className="w-[600px] h-[600px] rounded-full"
           style={{
             background:
-              "radial-gradient(circle, rgba(87, 238, 161, 0.4) 0%, transparent 70%)",
-            filter: "blur(40px)",
-            transform: "translateY(60px)",
+              "radial-gradient(circle, rgba(87, 238, 161, 0.5) 0%, transparent 70%)",
+            filter: "blur(60px)",
           }}
         />
       </div>
@@ -119,7 +146,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             </p>
           </motion.div>
 
-          {/* Row 2 : Phrase d'accroche (h1) */}
+          {/* Row 2 : Phrase d'accroche (h1) — Satoshi via font-display */}
           <motion.h1
             variants={variant(0.1, 24)}
             initial="hidden"
@@ -137,7 +164,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             {tagline}
           </motion.h1>
 
-          {/* Row 3 : Sous-titre */}
+          {/* Row 3 : Sous-titre — DM Sans via font-body */}
           <motion.p
             variants={variant(0.35)}
             initial="hidden"
@@ -153,7 +180,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             {subtitle}
           </motion.p>
 
-          {/* Row 4 : Bloc IRIS hero (placeholder disabled) */}
+          {/* Row 4 : Bloc IRIS — glass placeholder */}
           <motion.div
             variants={
               prefersReducedMotion
@@ -179,14 +206,15 @@ export function HeroSection({ data }: HeroSectionProps) {
               className={cn(
                 "relative flex items-center gap-3",
                 "px-5 py-4 rounded-2xl",
-                "bg-[rgb(2_50_54/0.04)]",
-                "border border-[var(--color-border-default)]",
-                "backdrop-blur-sm",
+                "bg-[rgb(255_255_255/0.6)]",
+                "border border-[rgb(2_50_54/0.18)]",
+                "backdrop-blur-md",
+                "shadow-[0_4px_24px_-8px_rgb(2_50_54/0.12)]",
                 "transition-all duration-[var(--duration-base)] ease-[var(--ease-out-quart)]",
-                "hover:border-[var(--color-accent-special)]",
-                "hover:shadow-[0_0_0_1px_var(--color-accent-special)]",
-                "focus-within:border-[var(--color-accent-special)]",
-                "focus-within:shadow-[0_0_0_1px_var(--color-accent-special)]",
+                "hover:border-[var(--color-accent-primary)]",
+                "hover:shadow-[0_8px_32px_-8px_rgb(2_50_54/0.18)]",
+                "focus-within:border-[var(--color-accent-primary)]",
+                "focus-within:shadow-[0_0_0_2px_rgb(2_50_54/0.12),0_8px_32px_-8px_rgb(2_50_54/0.18)]",
               )}
             >
               <div className="flex-1">
@@ -210,6 +238,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                   "w-10 h-10 rounded-xl",
                   "bg-[var(--color-accent-primary)]",
                   "text-[var(--color-text-inverse)]",
+                  "shadow-[0_2px_8px_-2px_rgb(2_50_54/0.35)]",
                   "transition-transform duration-[var(--duration-base)] ease-[var(--ease-out-quart)]",
                   "hover:scale-105",
                 )}
@@ -219,7 +248,7 @@ export function HeroSection({ data }: HeroSectionProps) {
               </div>
             </div>
             <p className="mt-2 text-center font-mono text-mono-xs text-[var(--color-text-secondary)] tracking-wider">
-              Diagnostic gratuit en 2 minutes
+              {fallback.irisHelper}
             </p>
           </motion.div>
 
@@ -274,9 +303,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                 "rounded-sm",
               )}
             >
-              <span>
-                {FALLBACK.ctaSecondary}
-              </span>
+              <span>{fallback.ctaSecondary}</span>
               <ArrowRight
                 className="w-3.5 h-3.5 transition-transform duration-[var(--duration-base)] ease-[var(--ease-out-quart)] group-hover:translate-x-0.5"
                 aria-hidden="true"

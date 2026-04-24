@@ -56,20 +56,31 @@ export function Header({ locale }: HeaderProps) {
     const sections = document.querySelectorAll("[data-section-theme]");
     if (sections.length === 0) return;
 
+    // Sync initial theme from the first section in the viewport before the
+    // observer kicks in — avoids a flash of the wrong theme on first paint.
+    const firstVisible = Array.from(sections).find((section) => {
+      const rect = section.getBoundingClientRect();
+      return rect.top < window.innerHeight * 0.25 && rect.bottom > 80;
+    });
+    const firstTheme = firstVisible?.getAttribute("data-section-theme");
+    if (firstTheme === "light" || firstTheme === "dark") {
+      setCurrentTheme(firstTheme);
+    }
+
+    // Thin detection band just below the header. threshold: 0 fires as soon
+    // as a section enters the band, regardless of section height.
     const observer = new IntersectionObserver(
       (entries) => {
-        const visibleSection = entries.find((entry) => entry.isIntersecting);
-        if (visibleSection) {
-          const theme = visibleSection.target.getAttribute("data-section-theme") as
-            | "light"
-            | "dark"
-            | null;
-          if (theme === "light" || theme === "dark") {
-            setCurrentTheme(theme);
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const theme = entry.target.getAttribute("data-section-theme");
+            if (theme === "light" || theme === "dark") {
+              setCurrentTheme(theme);
+            }
           }
-        }
+        });
       },
-      { threshold: 0.5, rootMargin: "-40% 0px -40% 0px" },
+      { threshold: 0, rootMargin: "-72px 0px -75% 0px" },
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();

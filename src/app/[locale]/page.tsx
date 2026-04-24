@@ -155,6 +155,7 @@ export default async function Home({ params }: Props) {
 
       <main id="main">
         <HeroSection
+          locale={typedLocale}
           data={{
             heroBadgePositionnement: resolveLocalized(
               homeData?.heroBadgePositionnement,
