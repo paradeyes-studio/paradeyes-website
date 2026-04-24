@@ -42,8 +42,7 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "Approche sur-mesure, jamais de template",
       "ROI mesurable sur chaque projet",
     ],
-    ctaSecondary:
-      "Prendre rendez-vous directement pour un appel gratuit de 30 minutes",
+    ctaSecondary: "Appel direct de 30 minutes",
   },
   en: {
     badge: "PREMIUM COMMUNICATION AGENCY",
@@ -57,20 +56,29 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "Bespoke approach, never a template",
       "Measurable ROI on every project",
     ],
-    ctaSecondary: "Book a free 30-minute call directly",
+    ctaSecondary: "Direct 30-minute call",
   },
 };
 
 const fadeSlideUp = (delay: number, y: number = 16): Variants => ({
-  hidden: { opacity: 0, y },
+  hidden: {
+    opacity: 0,
+    y,
+    filter: "blur(8px)",
+  },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay, ease: [0.25, 1, 0.5, 1] },
+    filter: "blur(0px)",
+    transition: {
+      duration: 0.9,
+      delay,
+      ease: [0.22, 1, 0.36, 1],
+    },
   },
 });
 
-const fadeOnly = (delay: number): Variants => ({
+const fadeSlideUpReduced = (delay: number): Variants => ({
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -95,35 +103,108 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
       : fallback.trustBadges;
 
   const variant = (delay: number, y?: number): Variants =>
-    prefersReducedMotion ? fadeOnly(delay) : fadeSlideUp(delay, y);
+    prefersReducedMotion ? fadeSlideUpReduced(delay) : fadeSlideUp(delay, y);
 
   return (
     <section
       ref={heroRef}
       data-section-theme="light"
       className={cn(
-        "relative overflow-hidden flex items-center min-h-screen",
+        "relative overflow-hidden flex items-center min-h-[100vh] max-h-[1080px]",
         "pt-[calc(64px+var(--spacing-6))] pb-[var(--spacing-8)]",
-        "lg:pt-[calc(72px+var(--spacing-9))] lg:pb-[var(--spacing-9)]",
+        "lg:pt-[var(--spacing-10)] lg:pb-[var(--spacing-8)]",
         "bg-[var(--color-bg-canvas)]",
       )}
     >
-      {/* Halo vert volumétrique — opacity 0.5, blur 60px, vertically centered */}
+      {/* Halo vert volumétrique multi-couches */}
       <div
-        className="absolute inset-0 pointer-events-none flex items-center justify-center"
+        className="absolute inset-0 pointer-events-none overflow-hidden"
         aria-hidden="true"
       >
+        {/* Couche 1 : ambient (la plus large) */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.6, delay: 0.3 }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <motion.div
+            animate={
+              prefersReducedMotion
+                ? {}
+                : { scale: [1, 1.03, 1] }
+            }
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="w-[1400px] h-[900px]"
+            style={{
+              background:
+                "radial-gradient(ellipse 60% 50% at 50% 65%, rgba(87, 238, 161, 0.35) 0%, transparent 60%)",
+              filter: "blur(60px)",
+            }}
+          />
+        </motion.div>
+
+        {/* Couche 2 : core (moyen) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.2, delay: 0.5 }}
-          className="w-[600px] h-[600px] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(87, 238, 161, 0.5) 0%, transparent 70%)",
-            filter: "blur(60px)",
-          }}
-        />
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <motion.div
+            animate={
+              prefersReducedMotion
+                ? {}
+                : { scale: [1, 1.05, 1] }
+            }
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 0.5,
+            }}
+            className="w-[700px] h-[700px] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(87, 238, 161, 0.5) 0%, transparent 60%)",
+              filter: "blur(30px)",
+              transform: "translateY(40px)",
+            }}
+          />
+        </motion.div>
+
+        {/* Couche 3 : highlight (concentré) */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.0, delay: 0.7 }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          <motion.div
+            animate={
+              prefersReducedMotion
+                ? {}
+                : { scale: [1, 1.08, 1] }
+            }
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: 1,
+            }}
+            className="w-[320px] h-[320px] rounded-full"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(87, 238, 161, 0.75) 0%, transparent 70%)",
+              filter: "blur(18px)",
+              transform: "translateY(30px)",
+            }}
+          />
+        </motion.div>
       </div>
 
       <div className="relative w-full max-w-[var(--container-site)] mx-auto px-[var(--spacing-5)] lg:px-[var(--spacing-6)]">
@@ -133,12 +214,10 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             variants={variant(0)}
             initial="hidden"
             animate="visible"
-            className="inline-flex items-center gap-2 mb-[var(--spacing-6)]"
+            className="inline-flex items-center gap-2 mb-[var(--spacing-7)]"
           >
-            <motion.span
-              className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--color-accent-special)]"
-              animate={prefersReducedMotion ? {} : { opacity: [0.4, 1, 0.4] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--color-accent-special)] pulse-green-dot"
               aria-hidden="true"
             />
             <p className="font-mono text-mono-sm uppercase tracking-[0.12em] font-medium text-[var(--color-text-primary)]">
@@ -148,17 +227,17 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
 
           {/* Row 2 : Phrase d'accroche (h1) — Satoshi via font-display */}
           <motion.h1
-            variants={variant(0.1, 24)}
+            variants={variant(0.15, 24)}
             initial="hidden"
             animate="visible"
             className={cn(
-              "font-display font-medium",
+              "font-display font-semibold",
               "text-display-lg lg:text-display-xl",
               "leading-[var(--leading-heading-1)]",
-              "tracking-[var(--tracking-tight)]",
+              "tracking-[-0.035em]",
               "text-[var(--color-text-primary)]",
               "max-w-[18ch]",
-              "mb-[var(--spacing-5)]",
+              "mb-[var(--spacing-6)]",
             )}
           >
             {tagline}
@@ -166,7 +245,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
 
           {/* Row 3 : Sous-titre — DM Sans via font-body */}
           <motion.p
-            variants={variant(0.35)}
+            variants={variant(0.4)}
             initial="hidden"
             animate="visible"
             className={cn(
@@ -174,7 +253,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               "leading-[var(--leading-body-lg)]",
               "text-[var(--color-text-secondary)]",
               "max-w-[56ch]",
-              "mb-[var(--spacing-7)]",
+              "mb-[var(--spacing-8)]",
             )}
           >
             {subtitle}
@@ -184,7 +263,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
           <motion.div
             variants={
               prefersReducedMotion
-                ? fadeOnly(0.5)
+                ? fadeSlideUpReduced(0.6)
                 : {
                     hidden: { opacity: 0, scale: 0.96 },
                     visible: {
@@ -192,7 +271,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                       scale: 1,
                       transition: {
                         duration: 0.8,
-                        delay: 0.5,
+                        delay: 0.6,
                         ease: [0.16, 1, 0.3, 1],
                       },
                     },
@@ -206,16 +285,42 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               className={cn(
                 "relative flex items-center gap-3",
                 "px-5 py-4 rounded-2xl",
-                "bg-[rgb(255_255_255/0.6)]",
-                "border border-[rgb(2_50_54/0.18)]",
-                "backdrop-blur-md",
-                "shadow-[0_4px_24px_-8px_rgb(2_50_54/0.12)]",
-                "transition-all duration-[var(--duration-base)] ease-[var(--ease-out-quart)]",
-                "hover:border-[var(--color-accent-primary)]",
-                "hover:shadow-[0_8px_32px_-8px_rgb(2_50_54/0.18)]",
-                "focus-within:border-[var(--color-accent-primary)]",
-                "focus-within:shadow-[0_0_0_2px_rgb(2_50_54/0.12),0_8px_32px_-8px_rgb(2_50_54/0.18)]",
+                "transition-all duration-300 ease-out",
+                "group/iris",
               )}
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%)",
+                backdropFilter: "blur(24px) saturate(180%)",
+                WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                border: "1px solid rgba(2, 50, 54, 0.12)",
+                boxShadow: [
+                  "inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+                  "0 1px 2px rgba(2, 50, 54, 0.04)",
+                  "0 20px 40px -10px rgba(2, 50, 54, 0.1)",
+                  "0 0 0 1px rgba(2, 50, 54, 0.02)",
+                ].join(", "),
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.5)";
+                e.currentTarget.style.boxShadow = [
+                  "inset 0 1px 0 rgba(255, 255, 255, 1)",
+                  "0 1px 2px rgba(2, 50, 54, 0.04)",
+                  "0 30px 60px -10px rgba(2, 50, 54, 0.15)",
+                  "0 0 0 1px rgba(87, 238, 161, 0.3)",
+                ].join(", ");
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.borderColor = "rgba(2, 50, 54, 0.12)";
+                e.currentTarget.style.boxShadow = [
+                  "inset 0 1px 0 rgba(255, 255, 255, 0.9)",
+                  "0 1px 2px rgba(2, 50, 54, 0.04)",
+                  "0 20px 40px -10px rgba(2, 50, 54, 0.1)",
+                  "0 0 0 1px rgba(2, 50, 54, 0.02)",
+                ].join(", ");
+              }}
             >
               <div className="flex-1">
                 <input
@@ -235,16 +340,23 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               <div
                 className={cn(
                   "shrink-0 flex items-center justify-center",
-                  "w-10 h-10 rounded-xl",
-                  "bg-[var(--color-accent-primary)]",
+                  "w-11 h-11 rounded-xl",
                   "text-[var(--color-text-inverse)]",
-                  "shadow-[0_2px_8px_-2px_rgb(2_50_54/0.35)]",
-                  "transition-transform duration-[var(--duration-base)] ease-[var(--ease-out-quart)]",
-                  "hover:scale-105",
+                  "transition-transform duration-300 ease-out",
+                  "group-hover/iris:scale-105",
                 )}
+                style={{
+                  background:
+                    "linear-gradient(135deg, #023236 0%, #013235 100%)",
+                  boxShadow: [
+                    "inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+                    "0 4px 12px -2px rgba(2, 50, 54, 0.4)",
+                    "0 0 0 1px rgba(255, 255, 255, 0.05)",
+                  ].join(", "),
+                }}
                 aria-hidden="true"
               >
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/iris:translate-x-0.5" />
               </div>
             </div>
             <p className="mt-2 text-center font-mono text-mono-xs text-[var(--color-text-secondary)] tracking-wider">
@@ -258,7 +370,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               {trustBadges.map((label, i) => (
                 <motion.li
                   key={`${label}-${i}`}
-                  variants={variant(0.7 + i * 0.06)}
+                  variants={variant(0.85 + i * 0.08)}
                   initial="hidden"
                   animate="visible"
                   className="inline-flex items-center gap-2"
@@ -276,7 +388,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             </ul>
 
             <motion.a
-              variants={variant(0.88)}
+              variants={variant(1.05)}
               initial="hidden"
               animate="visible"
               href="/contact#appel"
@@ -303,7 +415,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 "rounded-sm",
               )}
             >
-              <span>{fallback.ctaSecondary}</span>
+              <span>Appel direct de 30 minutes</span>
               <ArrowRight
                 className="w-3.5 h-3.5 transition-transform duration-[var(--duration-base)] ease-[var(--ease-out-quart)] group-hover:translate-x-0.5"
                 aria-hidden="true"
@@ -312,6 +424,27 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
           </div>
         </div>
       </div>
+
+      {/* Grain overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.04]"
+        style={{
+          backgroundImage: "url('/noise.svg')",
+          backgroundSize: "300px 300px",
+          backgroundRepeat: "repeat",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Transition douce vers la section suivante */}
+      <div
+        className="absolute bottom-0 inset-x-0 h-24 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent 0%, rgba(2, 50, 54, 0.02) 50%, rgba(2, 50, 54, 0.08) 100%)",
+        }}
+        aria-hidden="true"
+      />
     </section>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -26,8 +26,27 @@ export function Header({ locale }: HeaderProps) {
 
   const [scrollState, setScrollState] = useState({ isScrolled: false, isVisible: true });
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("dark");
+  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useLayoutEffect(() => {
+    // Lire le thème de la première section visible en top du viewport
+    const sections = document.querySelectorAll("[data-section-theme]");
+    for (const section of Array.from(sections)) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top <= 80 && rect.bottom > 80) {
+        const theme = section.getAttribute("data-section-theme") as "light" | "dark";
+        setCurrentTheme(theme);
+        return;
+      }
+    }
+    // Fallback : si aucune section n'est en top, prendre la première
+    const firstSection = sections[0];
+    if (firstSection) {
+      const theme = firstSection.getAttribute("data-section-theme") as "light" | "dark";
+      setCurrentTheme(theme);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
