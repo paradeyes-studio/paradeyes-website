@@ -148,9 +148,9 @@ export function Footer({
             <p className="pdy-foot-col-title">Plan du site</p>
             <nav className="pdy-foot-links" aria-label="Plan du site">
               <Link href="/agence">Agence</Link>
-              <Link href="/offres">Offres</Link>
               <Link href="/realisations">Réalisations</Link>
               <Link href="/journal">Journal</Link>
+              <Link href="/faq">FAQ</Link>
               <Link href="/contact">Contact</Link>
             </nav>
           </div>
@@ -175,6 +175,7 @@ export function Footer({
                 href="https://linkedin.com/company/paradeyesagency"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="LinkedIn (lien externe)"
               >
                 <LinkedinIcon />
                 LinkedIn
@@ -184,6 +185,7 @@ export function Footer({
                 href="https://instagram.com/paradeyesagency"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Instagram (lien externe)"
               >
                 <InstagramIcon />
                 Instagram
@@ -193,6 +195,7 @@ export function Footer({
                 href="https://behance.net/paradeyesagency"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Behance (lien externe)"
               >
                 <BehanceIcon />
                 Behance
@@ -210,6 +213,7 @@ export function Footer({
             <Link href="/mentions-legales">Mentions légales</Link>
             <Link href="/confidentialite">Confidentialité</Link>
             <Link href="/cgv">CGV</Link>
+            <Link href="/cookies">Cookies</Link>
           </div>
         </div>
       </footer>

@@ -96,6 +96,22 @@ export const durations = {
   epic: 1800,
 } as const;
 
+/**
+ * Stagger timings (ms) for cascade animations.
+ * cards  : 120ms between cards in a grid (Notion signature cadence)
+ * words  : 60ms between words in a split-words reveal
+ * lines  : 150ms between lines in a split-lines reveal
+ * items  : 80ms between items in short lists (trust row, side numbers)
+ */
+export const stagger = {
+  cards: 120,
+  words: 60,
+  lines: 150,
+  items: 80,
+} as const;
+
+export type StaggerKey = keyof typeof stagger;
+
 export const easings = {
   expo: "cubic-bezier(0.16, 1, 0.3, 1)",
   quart: "cubic-bezier(0.25, 1, 0.5, 1)",
