@@ -1,6 +1,6 @@
 "use client";
 
-import { useTransition } from "react";
+import { Fragment, useTransition } from "react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -8,10 +8,9 @@ type Locale = "fr" | "en";
 
 interface LangSwitchProps {
   locale: Locale;
-  isDark: boolean;
 }
 
-export function LangSwitch({ locale, isDark }: LangSwitchProps) {
+export function LangSwitch({ locale }: LangSwitchProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -27,37 +26,39 @@ export function LangSwitch({ locale, isDark }: LangSwitchProps) {
     <div
       role="group"
       aria-label="Sélectionner la langue"
-      className={cn(
-        "inline-flex items-center gap-1 p-0.5 rounded-full",
-        "font-mono text-mono-xs uppercase tracking-wider font-medium",
-        isDark
-          ? "bg-[rgb(255_255_255/0.08)] border border-[rgb(255_255_255/0.12)]"
-          : "bg-[rgb(0_49_53/0.04)] border border-[var(--color-border-subtle)]",
-      )}
+      className="inline-flex items-center gap-1.5"
     >
-      {(["fr", "en"] as const).map((lang) => {
+      {(["fr", "en"] as const).map((lang, i) => {
         const isActive = locale === lang;
         return (
-          <button
-            key={lang}
-            type="button"
-            onClick={() => switchTo(lang)}
-            className={cn(
-              "px-2 py-1 rounded-full transition-colors duration-base ease-out-quart",
-              "focus-visible:outline-2 focus-visible:outline-offset-2",
-              isActive
-                ? isDark
-                  ? "bg-[var(--color-accent-on-dark)] text-[var(--color-accent-primary)]"
-                  : "bg-[var(--color-accent-primary)] text-[var(--color-text-inverse)]"
-                : isDark
-                  ? "text-[rgb(255_255_255/0.6)] hover:text-[var(--color-text-inverse)] focus-visible:outline-[var(--color-accent-on-dark)]"
-                  : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] focus-visible:outline-[var(--color-focus-on-light)]",
+          <Fragment key={lang}>
+            {i > 0 && (
+              <span
+                className="text-white/20 select-none"
+                aria-hidden="true"
+                style={{ fontSize: "0.75rem" }}
+              >
+                |
+              </span>
             )}
-            aria-label={`Passer en ${lang === "fr" ? "français" : "anglais"}`}
-            aria-pressed={isActive}
-          >
-            {lang}
-          </button>
+            <button
+              type="button"
+              onClick={() => switchTo(lang)}
+              className={cn(
+                "font-mono uppercase transition-colors duration-300",
+                "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#57eea1] rounded-sm",
+              )}
+              style={{
+                fontSize: "0.6875rem",
+                letterSpacing: "0.1em",
+                color: isActive ? "white" : "rgba(255, 255, 255, 0.4)",
+              }}
+              aria-label={`Passer en ${lang === "fr" ? "français" : "anglais"}`}
+              aria-pressed={isActive}
+            >
+              {lang}
+            </button>
+          </Fragment>
         );
       })}
     </div>

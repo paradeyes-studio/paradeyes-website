@@ -6,6 +6,8 @@ import { ArrowRight, Menu } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/brand/Logo";
+import { LangSwitch } from "./LangSwitch";
+import { ThemeSwitch } from "./ThemeSwitch";
 import { MobileMenu } from "./MobileMenu";
 
 interface HeaderProps {
@@ -86,7 +88,6 @@ export function Header({ locale }: HeaderProps) {
     };
   }, [isMobileMenuOpen]);
 
-  void locale;
   void currentTheme;
 
   return (
@@ -145,40 +146,47 @@ export function Header({ locale }: HeaderProps) {
             </ul>
           </nav>
 
-          {/* CTA droite desktop avec point pulsant */}
-          <Link
-            href="/contact#appel"
-            onClick={() => {
-              const plausible = (window as PlausibleWindow).plausible;
-              if (typeof plausible === "function") {
-                plausible("cta_header_clicked");
-              }
-            }}
-            className="hidden lg:inline-flex items-center gap-2 px-5 py-3 rounded-full font-body text-body-sm font-medium transition-all duration-300 ease-out"
-            style={{
-              border: "1px solid rgba(87, 238, 161, 0.3)",
-              color: "#57eea1",
-              background: "transparent",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "rgba(87, 238, 161, 0.12)";
-              e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.6)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "transparent";
-              e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.3)";
-            }}
-          >
-            <span
-              className="inline-block w-1.5 h-1.5 rounded-full pulse-green-dot"
-              style={{ backgroundColor: "#57eea1" }}
-              aria-hidden="true"
-            />
-            Un appel gratuit de 30 min
-            <ArrowRight className="w-4 h-4" />
-          </Link>
+          {/* Zone droite desktop : utilitaires + CTA */}
+          <div className="hidden lg:flex items-center gap-5 shrink-0">
+            <div className="flex items-center gap-3">
+              <LangSwitch locale={locale} />
+              <ThemeSwitch />
+            </div>
+
+            <Link
+              href="/contact#appel"
+              onClick={() => {
+                const plausible = (window as PlausibleWindow).plausible;
+                if (typeof plausible === "function") {
+                  plausible("cta_header_clicked");
+                }
+              }}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-body text-body-sm font-medium transition-all duration-300 ease-out"
+              style={{
+                border: "1px solid rgba(87, 238, 161, 0.3)",
+                color: "#57eea1",
+                background: "transparent",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(87, 238, 161, 0.12)";
+                e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.6)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "transparent";
+                e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.3)";
+              }}
+            >
+              <span
+                className="inline-block w-1.5 h-1.5 rounded-full pulse-green-dot"
+                style={{ backgroundColor: "#57eea1" }}
+                aria-hidden="true"
+              />
+              Un appel gratuit de 30 min
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
 
           {/* Burger mobile en pill blanche */}
           <button
@@ -209,6 +217,7 @@ export function Header({ locale }: HeaderProps) {
           <MobileMenu
             onClose={() => setIsMobileMenuOpen(false)}
             activeHref={activeHref}
+            locale={locale}
           />
         )}
       </AnimatePresence>

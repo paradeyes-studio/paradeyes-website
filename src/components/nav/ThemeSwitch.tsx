@@ -8,15 +8,11 @@ import { cn } from "@/lib/utils";
 type Theme = "light" | "dark";
 const THEME_STORAGE_KEY = "paradeyes_theme";
 
-interface ThemeSwitchProps {
-  isDarkSection: boolean;
-}
-
 type PlausibleWindow = Window & {
   plausible?: (event: string, options?: { props?: Record<string, unknown> }) => void;
 };
 
-export function ThemeSwitch({ isDarkSection }: ThemeSwitchProps) {
+export function ThemeSwitch() {
   const [theme, setTheme] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
@@ -46,7 +42,7 @@ export function ThemeSwitch({ isDarkSection }: ThemeSwitchProps) {
     }
   };
 
-  if (!mounted) return <div className="w-9 h-9" aria-hidden="true" />;
+  if (!mounted) return <div className="w-8 h-8" aria-hidden="true" />;
 
   return (
     <button
@@ -55,13 +51,10 @@ export function ThemeSwitch({ isDarkSection }: ThemeSwitchProps) {
       aria-label={theme === "light" ? "Passer en mode sombre" : "Passer en mode clair"}
       aria-pressed={theme === "dark"}
       className={cn(
-        "relative inline-flex items-center justify-center w-9 h-9 rounded-full",
-        "transition-all duration-base ease-out-quart",
-        "active:scale-[0.97]",
-        "focus-visible:outline-2 focus-visible:outline-offset-2",
-        isDarkSection
-          ? "bg-[rgb(255_255_255/0.08)] text-[var(--color-text-inverse)] hover:bg-[rgb(255_255_255/0.16)] focus-visible:outline-[var(--color-accent-on-dark)]"
-          : "bg-[rgb(0_49_53/0.04)] text-[var(--color-text-primary)] hover:bg-[rgb(0_49_53/0.08)] focus-visible:outline-[var(--color-focus-on-light)]",
+        "inline-flex items-center justify-center w-8 h-8 rounded-full",
+        "transition-all duration-300 ease-out",
+        "hover:bg-white/10",
+        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#57eea1]",
       )}
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -71,12 +64,12 @@ export function ThemeSwitch({ isDarkSection }: ThemeSwitchProps) {
           animate={{ opacity: 1, rotate: 0, scale: 1 }}
           exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
           transition={{ duration: 0.24, ease: [0.25, 1, 0.5, 1] }}
-          className="inline-flex"
+          className="inline-flex text-white/40 hover:text-white"
         >
           {theme === "light" ? (
-            <Moon className="w-4 h-4" aria-hidden="true" />
+            <Moon className="w-[14px] h-[14px]" aria-hidden="true" />
           ) : (
-            <Sun className="w-4 h-4" aria-hidden="true" />
+            <Sun className="w-[14px] h-[14px]" aria-hidden="true" />
           )}
         </motion.span>
       </AnimatePresence>

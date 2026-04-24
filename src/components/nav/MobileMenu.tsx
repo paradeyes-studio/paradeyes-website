@@ -6,6 +6,8 @@ import { X, ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/brand/Logo";
+import { LangSwitch } from "./LangSwitch";
+import { ThemeSwitch } from "./ThemeSwitch";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -19,13 +21,14 @@ const NAV_ITEMS = [
 interface MobileMenuProps {
   onClose: () => void;
   activeHref: string;
+  locale: "fr" | "en";
 }
 
 type PlausibleWindow = Window & {
   plausible?: (event: string, options?: { props?: Record<string, unknown> }) => void;
 };
 
-export function MobileMenu({ onClose, activeHref }: MobileMenuProps) {
+export function MobileMenu({ onClose, activeHref, locale }: MobileMenuProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -47,7 +50,7 @@ export function MobileMenu({ onClose, activeHref }: MobileMenuProps) {
     >
       <div className="h-full flex flex-col">
         <div className="h-16 px-[var(--spacing-5)] flex items-center justify-between border-b border-[rgb(255_255_255/0.12)]">
-          <Logo className="h-7 w-auto text-[var(--color-text-inverse)]" />
+          <Logo className="h-7 w-auto" />
           <button
             type="button"
             onClick={onClose}
@@ -93,11 +96,16 @@ export function MobileMenu({ onClose, activeHref }: MobileMenuProps) {
         </nav>
 
         <motion.div
-          className="px-[var(--spacing-5)] py-[var(--spacing-5)] border-t border-[rgb(255_255_255/0.12)]"
+          className="px-[var(--spacing-5)] py-[var(--spacing-5)] border-t border-[rgb(255_255_255/0.12)] flex flex-col gap-[var(--spacing-4)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
+          <div className="flex items-center justify-center gap-5">
+            <LangSwitch locale={locale} />
+            <ThemeSwitch />
+          </div>
+
           <Button
             variant="primary-light"
             size="lg"
