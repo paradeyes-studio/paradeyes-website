@@ -36,19 +36,27 @@ export function Header({ locale }: HeaderProps) {
   const navRef = useRef<HTMLElement>(null);
   const underlineRef = useRef<HTMLSpanElement>(null);
 
-  // Initial theme sync (avoids flash-of-wrong-theme on first paint).
+  // Initial theme sync from the DOM (avoids flash-of-wrong-theme).
+  // Legitimate external-to-React read (DOM rects + data attribute).
   useLayoutEffect(() => {
     const sections = document.querySelectorAll("[data-section-theme]");
+    let initial: boolean | null = null;
     for (const section of Array.from(sections)) {
       const rect = section.getBoundingClientRect();
       if (rect.top <= 80 && rect.bottom > 80) {
-        setIsLight(section.getAttribute("data-section-theme") === "light");
-        return;
+        initial = section.getAttribute("data-section-theme") === "light";
+        break;
       }
     }
-    const first = sections[0];
-    if (first) {
-      setIsLight(first.getAttribute("data-section-theme") === "light");
+    if (initial === null) {
+      const first = sections[0];
+      if (first) {
+        initial = first.getAttribute("data-section-theme") === "light";
+      }
+    }
+    if (initial !== null) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsLight(initial);
     }
   }, []);
 
