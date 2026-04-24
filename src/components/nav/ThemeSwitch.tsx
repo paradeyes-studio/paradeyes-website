@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 type Theme = "light" | "dark";
 const THEME_STORAGE_KEY = "paradeyes_theme";
@@ -42,7 +41,9 @@ export function ThemeSwitch() {
     }
   };
 
-  if (!mounted) return <div className="w-8 h-8" aria-hidden="true" />;
+  if (!mounted) {
+    return <div className="pdy-theme-switch" aria-hidden="true" />;
+  }
 
   return (
     <button
@@ -50,12 +51,7 @@ export function ThemeSwitch() {
       onClick={toggleTheme}
       aria-label={theme === "light" ? "Passer en mode sombre" : "Passer en mode clair"}
       aria-pressed={theme === "dark"}
-      className={cn(
-        "inline-flex items-center justify-center w-8 h-8 rounded-full",
-        "transition-all duration-300 ease-out",
-        "hover:bg-white/10",
-        "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#57eea1]",
-      )}
+      className="pdy-theme-switch"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span
@@ -64,12 +60,12 @@ export function ThemeSwitch() {
           animate={{ opacity: 1, rotate: 0, scale: 1 }}
           exit={{ opacity: 0, rotate: 90, scale: 0.6 }}
           transition={{ duration: 0.24, ease: [0.25, 1, 0.5, 1] }}
-          className="inline-flex text-white/40 hover:text-white"
+          className="inline-flex"
         >
           {theme === "light" ? (
-            <Moon className="w-[14px] h-[14px]" aria-hidden="true" />
+            <Moon aria-hidden="true" />
           ) : (
-            <Sun className="w-[14px] h-[14px]" aria-hidden="true" />
+            <Sun aria-hidden="true" />
           )}
         </motion.span>
       </AnimatePresence>

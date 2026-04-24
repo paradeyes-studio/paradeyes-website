@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { AnimatePresence } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
 import { Logo } from "@/components/brand/Logo";
 import { LangSwitch } from "./LangSwitch";
 import { ThemeSwitch } from "./ThemeSwitch";
@@ -29,37 +28,41 @@ type PlausibleWindow = Window & {
 export function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const activeHref = pathname || "/";
+  void activeHref;
 
   const [isScrolled, setIsScrolled] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
+  const [isLight, setIsLight] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+  const underlineRef = useRef<HTMLSpanElement>(null);
 
+  // Initial theme sync (avoids flash-of-wrong-theme on first paint).
   useLayoutEffect(() => {
     const sections = document.querySelectorAll("[data-section-theme]");
     for (const section of Array.from(sections)) {
       const rect = section.getBoundingClientRect();
       if (rect.top <= 80 && rect.bottom > 80) {
-        const theme = section.getAttribute("data-section-theme") as "light" | "dark";
-        setCurrentTheme(theme);
+        setIsLight(section.getAttribute("data-section-theme") === "light");
         return;
       }
     }
-    const firstSection = sections[0];
-    if (firstSection) {
-      const theme = firstSection.getAttribute("data-section-theme") as "light" | "dark";
-      setCurrentTheme(theme);
+    const first = sections[0];
+    if (first) {
+      setIsLight(first.getAttribute("data-section-theme") === "light");
     }
   }, []);
 
+  // Scroll state (transparent <= 80, scrolled > 80).
   useEffect(() => {
-    const handleScroll = () => {
+    const onScroll = () => {
       setIsScrolled(window.scrollY > 80);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Theme detection per section via IntersectionObserver (v5.1 logic).
   useEffect(() => {
     const sections = document.querySelectorAll("[data-section-theme]");
     if (sections.length === 0) return;
@@ -69,18 +72,56 @@ export function Header({ locale }: HeaderProps) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const theme = entry.target.getAttribute("data-section-theme");
-            if (theme === "light" || theme === "dark") {
-              setCurrentTheme(theme);
-            }
+            setIsLight(theme === "light");
           }
         });
       },
-      { threshold: 0, rootMargin: "-72px 0px -75% 0px" },
+      { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
     );
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, []);
 
+  // Nav underline slide on hover (JS-driven, not layoutId).
+  useEffect(() => {
+    const nav = navRef.current;
+    const underline = underlineRef.current;
+    if (!nav || !underline) return;
+
+    const links = nav.querySelectorAll<HTMLAnchorElement>("a[data-nav]");
+    const move = (el: HTMLElement) => {
+      const r = el.getBoundingClientRect();
+      const nr = nav.getBoundingClientRect();
+      underline.style.left = `${r.left - nr.left}px`;
+      underline.style.width = `${r.width}px`;
+    };
+    const reset = () => {
+      underline.style.width = "0px";
+    };
+
+    const enterHandlers: Array<[HTMLAnchorElement, () => void]> = [];
+    const focusHandlers: Array<[HTMLAnchorElement, () => void]> = [];
+
+    links.forEach((a) => {
+      const enter = () => move(a);
+      const focus = () => move(a);
+      a.addEventListener("mouseenter", enter);
+      a.addEventListener("focus", focus);
+      enterHandlers.push([a, enter]);
+      focusHandlers.push([a, focus]);
+    });
+    nav.addEventListener("mouseleave", reset);
+    nav.addEventListener("blur", reset, true);
+
+    return () => {
+      enterHandlers.forEach(([a, h]) => a.removeEventListener("mouseenter", h));
+      focusHandlers.forEach(([a, h]) => a.removeEventListener("focus", h));
+      nav.removeEventListener("mouseleave", reset);
+      nav.removeEventListener("blur", reset, true);
+    };
+  }, []);
+
+  // Body scroll lock while mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
     return () => {
@@ -88,129 +129,72 @@ export function Header({ locale }: HeaderProps) {
     };
   }, [isMobileMenuOpen]);
 
-  void currentTheme;
+  const headerClass = [
+    "pdy-header",
+    isScrolled ? "scrolled" : "",
+    isLight ? "light" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <>
-      <motion.header
-        initial={false}
-        animate={{ y: isScrolled ? -4 : 0 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed top-0 inset-x-0 z-40 pt-5 lg:pt-6"
+      <header
+        id="site-header"
+        className={headerClass}
+        data-theme={isLight ? "light" : "dark"}
       >
-        <div className="max-w-[calc(var(--container-site)_-_80px)] mx-auto px-5 lg:px-6 flex items-center justify-between gap-4">
-          {/* Logo gauche, séparé, toutes tailles */}
+        <div className="pdy-header-inner">
           <Link
             href="/"
             aria-label="Paradeyes, retour à l'accueil"
-            className="transition-opacity duration-300 ease-out hover:opacity-70"
+            className="pdy-header-logo"
           >
-            <Logo className="h-7 lg:h-8" />
+            <Logo />
           </Link>
 
-          {/* Nav pill centrale (desktop) */}
-          <nav className="hidden lg:block">
-            <ul
-              className="flex items-center gap-1 p-1.5 rounded-full"
-              style={{
-                background: "rgba(255, 255, 255, 0.95)",
-                backdropFilter: "blur(24px) saturate(180%)",
-                WebkitBackdropFilter: "blur(24px) saturate(180%)",
-                boxShadow: [
-                  "inset 0 1px 0 rgba(255, 255, 255, 1)",
-                  "0 4px 20px rgba(0, 0, 0, 0.08)",
-                  "0 1px 2px rgba(0, 0, 0, 0.04)",
-                ].join(", "),
-              }}
-            >
-              {NAV_ITEMS.map((item) => {
-                const isActive = activeHref.startsWith(item.href);
-                return (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "inline-flex items-center px-4 py-2 rounded-full",
-                        "font-body text-body-sm font-medium",
-                        "transition-all duration-300 ease-out",
-                        isActive
-                          ? "bg-[#023236] text-white"
-                          : "text-[#023236] hover:bg-[rgba(2,50,54,0.06)]",
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+          <nav ref={navRef} className="pdy-header-nav" aria-label="Principale">
+            {NAV_ITEMS.map((item) => (
+              <Link key={item.href} href={item.href} data-nav>
+                {item.label}
+              </Link>
+            ))}
+            <span
+              ref={underlineRef}
+              className="pdy-nav-underline"
+              aria-hidden="true"
+            />
           </nav>
 
-          {/* Zone droite desktop : utilitaires + CTA */}
-          <div className="hidden lg:flex items-center gap-5 shrink-0">
-            <div className="flex items-center gap-3">
-              <LangSwitch locale={locale} />
-              <ThemeSwitch />
-            </div>
-
+          <div className="pdy-header-tools">
+            <LangSwitch locale={locale} />
+            <ThemeSwitch />
             <Link
               href="/contact#appel"
+              className="pdy-header-cta"
               onClick={() => {
                 const plausible = (window as PlausibleWindow).plausible;
                 if (typeof plausible === "function") {
                   plausible("cta_header_clicked");
                 }
               }}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-body text-body-sm font-medium transition-all duration-300 ease-out"
-              style={{
-                border: "1px solid rgba(87, 238, 161, 0.3)",
-                color: "#57eea1",
-                background: "transparent",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(87, 238, 161, 0.12)";
-                e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.6)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.3)";
-              }}
             >
-              <span
-                className="inline-block w-1.5 h-1.5 rounded-full pulse-green-dot"
-                style={{ backgroundColor: "#57eea1" }}
-                aria-hidden="true"
-              />
-              Un appel gratuit de 30 min
-              <ArrowRight className="w-4 h-4" />
+              <span className="pdy-cta-dot" aria-hidden="true" />
+              <span className="pdy-cta-label">Un appel gratuit de 30 min</span>
+              <ArrowRight aria-hidden="true" />
             </Link>
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="pdy-header-burger"
+              aria-label="Ouvrir le menu"
+              aria-expanded={isMobileMenuOpen}
+            >
+              <Menu aria-hidden="true" />
+            </button>
           </div>
-
-          {/* Burger mobile en pill blanche */}
-          <button
-            type="button"
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-full transition-transform duration-300 ease-out hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#023236]"
-            style={{
-              background: "rgba(255, 255, 255, 0.95)",
-              backdropFilter: "blur(24px) saturate(180%)",
-              WebkitBackdropFilter: "blur(24px) saturate(180%)",
-              boxShadow: [
-                "inset 0 1px 0 rgba(255, 255, 255, 1)",
-                "0 4px 20px rgba(0, 0, 0, 0.08)",
-                "0 1px 2px rgba(0, 0, 0, 0.04)",
-              ].join(", "),
-              color: "#023236",
-            }}
-            aria-label="Ouvrir le menu"
-            aria-expanded={isMobileMenuOpen}
-          >
-            <Menu className="w-5 h-5" aria-hidden="true" />
-          </button>
         </div>
-      </motion.header>
+      </header>
 
       <AnimatePresence>
         {isMobileMenuOpen && (

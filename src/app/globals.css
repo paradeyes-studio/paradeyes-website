@@ -308,3 +308,186 @@ h1, h2, h3, h4 {
 @media (prefers-reduced-motion: reduce) {
   .pulse-green-dot { animation: none; }
 }
+
+/* ================================================================
+   HEADER (source : reference/paradeyes-home-v5.1.html)
+   2 scroll states (transparent / scrolled) × 2 themes (dark / light).
+   Nav underline is JS-driven (hover slide), not Framer layoutId.
+================================================================ */
+.pdy-header{
+  position:fixed;top:0;left:0;right:0;z-index:40;
+  height:72px;
+  transition:background var(--d-base) var(--ease-quart),
+             border-color var(--d-base) var(--ease-quart),
+             backdrop-filter var(--d-base) var(--ease-quart);
+  border-bottom:1px solid transparent;
+}
+.pdy-header-inner{
+  max-width:1440px;margin:0 auto;
+  padding:0 32px;height:100%;
+  display:flex;align-items:center;gap:32px;
+  position:relative;
+}
+.pdy-header-logo{
+  height:22px;color:#fff;flex-shrink:0;
+  display:inline-flex;align-items:center;
+  opacity:.92;
+  transition:color var(--d-base) var(--ease-quart),opacity var(--d-base) var(--ease-quart);
+  letter-spacing:normal;
+}
+.pdy-header-logo:hover{opacity:1}
+.pdy-header-logo svg{height:100%;width:auto}
+
+.pdy-header-nav{
+  display:flex;align-items:center;gap:32px;
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+}
+.pdy-header-nav a{
+  font-family:var(--font-dm-sans),system-ui,sans-serif;
+  font-size:14px;font-weight:500;
+  color:#fff;
+  opacity:.78;
+  position:relative;padding:6px 0;
+  transition:color var(--d-base) var(--ease-quart),opacity var(--d-base) var(--ease-quart);
+}
+.pdy-header-nav a:hover{opacity:1}
+.pdy-nav-underline{
+  position:absolute;bottom:0;left:0;height:1.5px;
+  background:var(--color-green-electric);
+  transition:left .4s var(--ease-expo),width .4s var(--ease-expo),background var(--d-base) var(--ease-quart);
+  width:0;pointer-events:none;
+}
+
+.pdy-header-tools{margin-left:auto;display:flex;align-items:center;gap:12px}
+
+/* LangSwitch (pill) */
+.pdy-lang-switch{
+  display:inline-flex;gap:2px;padding:2px;
+  border-radius:999px;
+  border:1px solid var(--color-w-12);
+  background:var(--color-w-08);
+  transition:background var(--d-base) var(--ease-quart),border-color var(--d-base) var(--ease-quart);
+}
+.pdy-lang-switch button{
+  font-family:var(--font-dm-mono),ui-monospace,monospace;
+  font-size:11px;font-weight:500;
+  text-transform:uppercase;letter-spacing:0.08em;
+  padding:4px 10px;border-radius:999px;
+  color:var(--color-w-60);
+  transition:background var(--d-base) var(--ease-quart),color var(--d-base) var(--ease-quart);
+  cursor:pointer;
+}
+.pdy-lang-switch button.active{
+  background:var(--color-green-electric);
+  color:var(--color-green-deep);
+}
+
+/* ThemeSwitch */
+.pdy-theme-switch{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--color-w-08);border:1px solid var(--color-w-12);
+  display:grid;place-items:center;color:#fff;
+  transition:background var(--d-base) var(--ease-quart),border-color var(--d-base) var(--ease-quart),color var(--d-base) var(--ease-quart);
+  cursor:pointer;
+}
+.pdy-theme-switch:hover{background:var(--color-w-16)}
+.pdy-theme-switch svg{width:16px;height:16px;transition:transform var(--d-base) var(--ease-quart)}
+
+/* Header CTA pill */
+.pdy-header-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 18px 10px 14px;border-radius:999px;
+  background:var(--color-green-electric);color:var(--color-green-deep);
+  font-family:var(--font-dm-sans),system-ui,sans-serif;
+  font-size:13px;font-weight:500;
+  transition:background var(--d-base) var(--ease-quart),color var(--d-base) var(--ease-quart),transform var(--d-fast) var(--ease-quart);
+  position:relative;
+}
+.pdy-header-cta::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;
+  box-shadow:0 0 0 0 rgba(87,238,161,0);
+  transition:box-shadow var(--d-base) var(--ease-quart);
+  pointer-events:none;
+}
+.pdy-header-cta:hover::before{box-shadow:0 0 40px 0 rgba(87,238,161,.45)}
+.pdy-header-cta:active{transform:scale(.97)}
+.pdy-header-cta .pdy-cta-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--color-green-deep);
+  animation:pdy-pulse-dot 2s ease-in-out infinite;
+}
+.pdy-header-cta svg{width:14px;height:14px;transition:transform var(--d-base) var(--ease-quart)}
+.pdy-header-cta:hover svg{transform:translateX(2px)}
+
+@keyframes pdy-pulse-dot{
+  0%,100%{opacity:.4}
+  50%{opacity:1}
+}
+
+/* Mobile burger (addition, not in v5.1 ref) */
+.pdy-header-burger{
+  display:none;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--color-w-08);border:1px solid var(--color-w-12);
+  place-items:center;color:#fff;
+  transition:background var(--d-base) var(--ease-quart),border-color var(--d-base) var(--ease-quart),color var(--d-base) var(--ease-quart);
+}
+.pdy-header-burger:hover{background:var(--color-w-16)}
+.pdy-header-burger svg{width:18px;height:18px}
+
+/* State 2 : scrolled */
+.pdy-header.scrolled{
+  background:rgba(20,34,46,.64);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  border-bottom-color:var(--color-w-08);
+}
+
+/* Light variant (over light section) */
+.pdy-header.light .pdy-header-logo{color:var(--color-green-deep)}
+.pdy-header.light .pdy-header-nav a{color:var(--color-green-deep)}
+.pdy-header.light .pdy-nav-underline{background:var(--color-green-deep)}
+.pdy-header.light .pdy-lang-switch{background:var(--color-gd-04);border-color:var(--color-gd-08)}
+.pdy-header.light .pdy-lang-switch button{color:var(--color-gd-60)}
+.pdy-header.light .pdy-lang-switch button.active{background:var(--color-green-deep);color:var(--color-white-warm)}
+.pdy-header.light .pdy-theme-switch{background:var(--color-gd-04);border-color:var(--color-gd-08);color:var(--color-green-deep)}
+.pdy-header.light .pdy-theme-switch:hover{background:var(--color-gd-08)}
+.pdy-header.light .pdy-header-burger{background:var(--color-gd-04);border-color:var(--color-gd-08);color:var(--color-green-deep)}
+.pdy-header.light .pdy-header-burger:hover{background:var(--color-gd-08)}
+.pdy-header.light .pdy-header-cta{background:var(--color-green-deep);color:var(--color-white-warm)}
+.pdy-header.light .pdy-header-cta .pdy-cta-dot{background:var(--color-green-electric)}
+.pdy-header.light.scrolled{
+  background:rgba(255,255,255,.72);
+  border-bottom-color:var(--color-gd-08);
+}
+
+@media (max-width:1023px){
+  .pdy-header-nav{display:none}
+  .pdy-lang-switch{display:none}
+  .pdy-header-burger{display:grid}
+}
+@media (max-width:767px){
+  .pdy-header{height:64px}
+  .pdy-header-inner{padding:0 24px;gap:16px}
+  .pdy-header-logo{height:20px}
+  .pdy-header-cta > .pdy-cta-label{display:none}
+  .pdy-header-cta{padding:10px 12px}
+}
+
+/* Focus ring harmonised with ref */
+.pdy-header-nav a:focus-visible,
+.pdy-lang-switch button:focus-visible,
+.pdy-theme-switch:focus-visible,
+.pdy-header-burger:focus-visible,
+.pdy-header-cta:focus-visible{
+  outline:2px solid var(--color-green-electric);
+  outline-offset:4px;
+  border-radius:4px;
+}
+.pdy-header.light .pdy-header-nav a:focus-visible,
+.pdy-header.light .pdy-lang-switch button:focus-visible,
+.pdy-header.light .pdy-theme-switch:focus-visible,
+.pdy-header.light .pdy-header-burger:focus-visible,
+.pdy-header.light .pdy-header-cta:focus-visible{
+  outline-color:var(--color-green-deep);
+}

@@ -50,7 +50,7 @@ export function MobileMenu({ onClose, activeHref, locale }: MobileMenuProps) {
     >
       <div className="h-full flex flex-col">
         <div className="h-16 px-[var(--spacing-5)] flex items-center justify-between border-b border-[rgb(255_255_255/0.12)]">
-          <Logo className="h-7 w-auto" />
+          <Logo className="h-7 text-[var(--color-white-warm)]" />
           <button
             type="button"
             onClick={onClose}
