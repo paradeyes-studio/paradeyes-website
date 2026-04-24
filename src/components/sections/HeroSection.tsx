@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { Check, ArrowRight } from "lucide-react";
+import { Check, ArrowRight, Paperclip, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface HeroData {
@@ -22,10 +22,11 @@ type HeroCopy = {
   badge: string;
   tagline: string;
   subtitle: string;
+  irisLead: string;
   irisPlaceholder: string;
-  irisHelper: string;
+  suggestions: string[];
   trustBadges: string[];
-  ctaSecondary: string;
+  discover: string;
 };
 
 const COPY: Record<"fr" | "en", HeroCopy> = {
@@ -35,28 +36,44 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "On identifie ce qui bloque votre croissance. On construit ce qui performe.",
     subtitle:
       "Une agence qui comprend votre business avant de proposer. Communication stratégique, design, vidéo, site web. Construits sur-mesure, pensés pour convertir.",
-    irisPlaceholder: "Décrivez votre projet. IRIS vous oriente en 2 minutes.",
-    irisHelper: "Diagnostic gratuit en 2 minutes",
+    irisLead: "Décrivez votre projet. IRIS vous oriente en 2 minutes.",
+    irisPlaceholder:
+      "Qu'aimeriez-vous améliorer pour rendre votre business plus performant ?",
+    suggestions: [
+      "Branding",
+      "Site web",
+      "Contenus",
+      "Déploiement",
+      "Acquisition",
+    ],
     trustBadges: [
       "Une seule agence, un seul interlocuteur",
       "Approche sur-mesure, jamais de template",
       "ROI mesurable sur chaque projet",
     ],
-    ctaSecondary: "Appel direct de 30 minutes",
+    discover: "Découvrir",
   },
   en: {
     badge: "PREMIUM COMMUNICATION AGENCY",
     tagline: "We identify what blocks your growth. We build what performs.",
     subtitle:
       "An agency that understands your business before proposing. Strategic communication, design, video, web. Custom-built, engineered to convert.",
-    irisPlaceholder: "Describe your project. IRIS guides you in 2 minutes.",
-    irisHelper: "Free 2-minute diagnostic",
+    irisLead: "Describe your project. IRIS guides you in 2 minutes.",
+    irisPlaceholder:
+      "What would you like to improve to make your business perform better?",
+    suggestions: [
+      "Branding",
+      "Website",
+      "Content",
+      "Deployment",
+      "Acquisition",
+    ],
     trustBadges: [
       "One agency, one single point of contact",
       "Bespoke approach, never a template",
       "Measurable ROI on every project",
     ],
-    ctaSecondary: "Direct 30-minute call",
+    discover: "Discover",
   },
 };
 
@@ -108,326 +125,122 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
   return (
     <section
       ref={heroRef}
-      data-section-theme="light"
-      className={cn(
-        "relative overflow-hidden flex items-center min-h-[100vh] max-h-[1080px]",
-        "pt-[calc(64px+var(--spacing-6))] pb-[var(--spacing-8)]",
-        "lg:pt-[var(--spacing-10)] lg:pb-[var(--spacing-8)]",
-        "bg-[var(--color-bg-canvas)]",
-      )}
+      data-section-theme="dark"
+      className="relative overflow-hidden flex items-center justify-center min-h-screen pt-32 lg:pt-40 pb-16 lg:pb-24"
+      style={{
+        backgroundColor: "#023236",
+        minHeight: "max(100vh, 800px)",
+      }}
     >
-      {/* Halo vert volumétrique multi-couches */}
-      <div
-        className="absolute inset-0 pointer-events-none overflow-hidden"
+      {/* Gradient organique - Couche ambient (la plus large) */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 0.2 }}
         aria-hidden="true"
       >
-        {/* Couche 1 : ambient (la plus large) */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.6, delay: 0.3 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <motion.div
-            animate={
-              prefersReducedMotion
-                ? {}
-                : { scale: [1, 1.03, 1] }
-            }
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="w-[1400px] h-[900px]"
-            style={{
-              background:
-                "radial-gradient(ellipse 60% 50% at 50% 65%, rgba(87, 238, 161, 0.35) 0%, transparent 60%)",
-              filter: "blur(60px)",
-            }}
-          />
-        </motion.div>
-
-        {/* Couche 2 : core (moyen) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <motion.div
-            animate={
-              prefersReducedMotion
-                ? {}
-                : { scale: [1, 1.05, 1] }
-            }
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 0.5,
-            }}
-            className="w-[700px] h-[700px] rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(87, 238, 161, 0.5) 0%, transparent 60%)",
-              filter: "blur(30px)",
-              transform: "translateY(40px)",
-            }}
-          />
-        </motion.div>
-
-        {/* Couche 3 : highlight (concentré) */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.0, delay: 0.7 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <motion.div
-            animate={
-              prefersReducedMotion
-                ? {}
-                : { scale: [1, 1.08, 1] }
-            }
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1,
-            }}
-            className="w-[320px] h-[320px] rounded-full"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(87, 238, 161, 0.75) 0%, transparent 70%)",
-              filter: "blur(18px)",
-              transform: "translateY(30px)",
-            }}
-          />
-        </motion.div>
-      </div>
-
-      <div className="relative w-full max-w-[var(--container-site)] mx-auto px-[var(--spacing-5)] lg:px-[var(--spacing-6)]">
-        <div className="flex flex-col items-center text-center">
-          {/* Row 1 : Badge positionnement */}
-          <motion.div
-            variants={variant(0)}
-            initial="hidden"
-            animate="visible"
-            className="inline-flex items-center gap-2 mb-[var(--spacing-7)]"
-          >
-            <span
-              className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--color-accent-special)] pulse-green-dot"
-              aria-hidden="true"
-            />
-            <p className="font-mono text-mono-sm uppercase tracking-[0.12em] font-medium text-[var(--color-text-primary)]">
-              {badge}
-            </p>
-          </motion.div>
-
-          {/* Row 2 : Phrase d'accroche (h1) — Satoshi via font-display */}
-          <motion.h1
-            variants={variant(0.15, 24)}
-            initial="hidden"
-            animate="visible"
-            className={cn(
-              "font-display font-semibold",
-              "text-display-lg lg:text-display-xl",
-              "leading-[var(--leading-heading-1)]",
-              "tracking-[-0.035em]",
-              "text-[var(--color-text-primary)]",
-              "max-w-[18ch]",
-              "mb-[var(--spacing-6)]",
-            )}
-          >
-            {tagline}
-          </motion.h1>
-
-          {/* Row 3 : Sous-titre — DM Sans via font-body */}
-          <motion.p
-            variants={variant(0.4)}
-            initial="hidden"
-            animate="visible"
-            className={cn(
-              "font-body text-body-lg",
-              "leading-[var(--leading-body-lg)]",
-              "text-[var(--color-text-secondary)]",
-              "max-w-[56ch]",
-              "mb-[var(--spacing-8)]",
-            )}
-          >
-            {subtitle}
-          </motion.p>
-
-          {/* Row 4 : Bloc IRIS — glass placeholder */}
-          <motion.div
-            variants={
-              prefersReducedMotion
-                ? fadeSlideUpReduced(0.6)
-                : {
-                    hidden: { opacity: 0, scale: 0.96 },
-                    visible: {
-                      opacity: 1,
-                      scale: 1,
-                      transition: {
-                        duration: 0.8,
-                        delay: 0.6,
-                        ease: [0.16, 1, 0.3, 1],
-                      },
-                    },
-                  }
-            }
-            initial="hidden"
-            animate="visible"
-            className="w-full max-w-2xl mb-[var(--spacing-6)]"
-          >
-            <div
-              className={cn(
-                "relative flex items-center gap-3",
-                "px-5 py-4 rounded-2xl",
-                "transition-all duration-300 ease-out",
-                "group/iris",
-              )}
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.6) 100%)",
-                backdropFilter: "blur(24px) saturate(180%)",
-                WebkitBackdropFilter: "blur(24px) saturate(180%)",
-                border: "1px solid rgba(2, 50, 54, 0.12)",
-                boxShadow: [
-                  "inset 0 1px 0 rgba(255, 255, 255, 0.9)",
-                  "0 1px 2px rgba(2, 50, 54, 0.04)",
-                  "0 20px 40px -10px rgba(2, 50, 54, 0.1)",
-                  "0 0 0 1px rgba(2, 50, 54, 0.02)",
-                ].join(", "),
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.5)";
-                e.currentTarget.style.boxShadow = [
-                  "inset 0 1px 0 rgba(255, 255, 255, 1)",
-                  "0 1px 2px rgba(2, 50, 54, 0.04)",
-                  "0 30px 60px -10px rgba(2, 50, 54, 0.15)",
-                  "0 0 0 1px rgba(87, 238, 161, 0.3)",
-                ].join(", ");
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.borderColor = "rgba(2, 50, 54, 0.12)";
-                e.currentTarget.style.boxShadow = [
-                  "inset 0 1px 0 rgba(255, 255, 255, 0.9)",
-                  "0 1px 2px rgba(2, 50, 54, 0.04)",
-                  "0 20px 40px -10px rgba(2, 50, 54, 0.1)",
-                  "0 0 0 1px rgba(2, 50, 54, 0.02)",
-                ].join(", ");
-              }}
-            >
-              <div className="flex-1">
-                <input
-                  type="text"
-                  placeholder={irisPlaceholder}
-                  disabled
-                  className={cn(
-                    "w-full bg-transparent",
-                    "font-body text-body-md",
-                    "text-[var(--color-text-primary)]",
-                    "placeholder:text-[var(--color-text-secondary)]",
-                    "outline-none cursor-default",
-                  )}
-                  aria-label="IRIS diagnostic"
-                />
-              </div>
-              <div
-                className={cn(
-                  "shrink-0 flex items-center justify-center",
-                  "w-11 h-11 rounded-xl",
-                  "text-[var(--color-text-inverse)]",
-                  "transition-transform duration-300 ease-out",
-                  "group-hover/iris:scale-105",
-                )}
-                style={{
-                  background:
-                    "linear-gradient(135deg, #023236 0%, #013235 100%)",
-                  boxShadow: [
-                    "inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                    "0 4px 12px -2px rgba(2, 50, 54, 0.4)",
-                    "0 0 0 1px rgba(255, 255, 255, 0.05)",
-                  ].join(", "),
-                }}
-                aria-hidden="true"
-              >
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/iris:translate-x-0.5" />
-              </div>
-            </div>
-            <p className="mt-2 text-center font-mono text-mono-xs text-[var(--color-text-secondary)] tracking-wider">
-              {fallback.irisHelper}
-            </p>
-          </motion.div>
-
-          {/* Row 5 : Trust badges + CTA secondaire */}
-          <div className="w-full flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-[var(--spacing-5)] lg:gap-[var(--spacing-6)] max-w-[var(--container-4xl)]">
-            <ul className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
-              {trustBadges.map((label, i) => (
-                <motion.li
-                  key={`${label}-${i}`}
-                  variants={variant(0.85 + i * 0.08)}
-                  initial="hidden"
-                  animate="visible"
-                  className="inline-flex items-center gap-2"
-                >
-                  <Check
-                    className="w-3.5 h-3.5 text-[var(--color-accent-primary)] shrink-0"
-                    aria-hidden="true"
-                    strokeWidth={2.5}
-                  />
-                  <span className="font-mono text-mono-xs uppercase tracking-[0.08em] text-[var(--color-text-secondary)]">
-                    {label}
-                  </span>
-                </motion.li>
-              ))}
-            </ul>
-
-            <motion.a
-              variants={variant(1.05)}
-              initial="hidden"
-              animate="visible"
-              href="/contact#appel"
-              onClick={() => {
-                if (
-                  typeof window !== "undefined" &&
-                  typeof (window as unknown as { plausible?: (event: string) => void }).plausible === "function"
-                ) {
-                  (window as unknown as { plausible: (event: string) => void }).plausible(
-                    "cta_hero_secondary_clicked",
-                  );
+          className="absolute"
+          animate={
+            prefersReducedMotion
+              ? {}
+              : {
+                  scale: [1, 1.05, 1],
+                  x: [0, 20, 0],
                 }
-              }}
-              className={cn(
-                "group inline-flex items-center gap-1.5",
-                "font-body text-body-sm font-medium",
-                "text-[var(--color-text-primary)]",
-                "underline underline-offset-4 decoration-[var(--color-border-default)]",
-                "hover:text-[var(--color-accent-primary)]",
-                "hover:decoration-[var(--color-accent-primary)]",
-                "transition-colors duration-[var(--duration-base)] ease-[var(--ease-out-quart)]",
-                "focus-visible:outline-2 focus-visible:outline-offset-4",
-                "focus-visible:outline-[var(--color-focus-on-light)]",
-                "rounded-sm",
-              )}
-            >
-              <span>Appel direct de 30 minutes</span>
-              <ArrowRight
-                className="w-3.5 h-3.5 transition-transform duration-[var(--duration-base)] ease-[var(--ease-out-quart)] group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
-            </motion.a>
-          </div>
-        </div>
-      </div>
+          }
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{
+            top: "20%",
+            left: "-15%",
+            width: "80%",
+            height: "80%",
+            background:
+              "radial-gradient(ellipse 70% 60% at 30% 50%, rgba(87, 238, 161, 0.45) 0%, rgba(87, 238, 161, 0.15) 30%, transparent 60%)",
+            filter: "blur(80px)",
+          }}
+        />
+      </motion.div>
 
-      {/* Grain overlay */}
+      {/* Gradient core (plus concentré) */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 0.4 }}
+        aria-hidden="true"
+      >
+        <motion.div
+          className="absolute"
+          animate={
+            prefersReducedMotion
+              ? {}
+              : {
+                  scale: [1, 1.08, 1],
+                }
+          }
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          style={{
+            top: "40%",
+            left: "10%",
+            width: "45%",
+            height: "60%",
+            background:
+              "radial-gradient(circle, rgba(87, 238, 161, 0.35) 0%, transparent 55%)",
+            filter: "blur(60px)",
+          }}
+        />
+      </motion.div>
+
+      {/* Gradient highlight (très concentré, subtil) */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2, delay: 0.6 }}
+        aria-hidden="true"
+      >
+        <motion.div
+          className="absolute"
+          animate={
+            prefersReducedMotion
+              ? {}
+              : {
+                  scale: [1, 1.12, 1],
+                  opacity: [0.6, 0.85, 0.6],
+                }
+          }
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          style={{
+            top: "50%",
+            left: "25%",
+            width: "20%",
+            height: "30%",
+            background:
+              "radial-gradient(circle, rgba(87, 238, 161, 0.6) 0%, transparent 70%)",
+            filter: "blur(40px)",
+          }}
+        />
+      </motion.div>
+
+      {/* Grain overlay pour texture filmique */}
       <div
-        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.04]"
+        className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-[0.05]"
         style={{
           backgroundImage: "url('/noise.svg')",
           backgroundSize: "300px 300px",
@@ -436,15 +249,278 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         aria-hidden="true"
       />
 
-      {/* Transition douce vers la section suivante */}
+      <div className="relative w-full max-w-[var(--container-site)] mx-auto px-5 lg:px-6">
+        <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+          {/* Badge positionnement */}
+          <motion.div
+            variants={variant(0)}
+            initial="hidden"
+            animate="visible"
+            className="inline-flex items-center gap-2 mb-8"
+          >
+            <span
+              className="inline-block w-1.5 h-1.5 rounded-full pulse-green-dot"
+              style={{ backgroundColor: "#57eea1" }}
+              aria-hidden="true"
+            />
+            <p
+              className="font-mono uppercase font-medium"
+              style={{
+                fontSize: "0.75rem",
+                letterSpacing: "0.18em",
+                color: "rgba(255, 255, 255, 0.6)",
+              }}
+            >
+              {badge}
+            </p>
+          </motion.div>
+
+          {/* Titre H1 */}
+          <motion.h1
+            variants={variant(0.15, 24)}
+            initial="hidden"
+            animate="visible"
+            className="font-display font-medium mb-6"
+            style={{
+              fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
+              lineHeight: "1.1",
+              letterSpacing: "-0.035em",
+              color: "white",
+              maxWidth: "22ch",
+            }}
+          >
+            {tagline}
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            variants={variant(0.4)}
+            initial="hidden"
+            animate="visible"
+            className="font-body text-body-lg mb-14 max-w-[56ch]"
+            style={{
+              color: "rgba(255, 255, 255, 0.65)",
+              lineHeight: "1.6",
+            }}
+          >
+            {subtitle}
+          </motion.p>
+
+          {/* Carte IRIS */}
+          <motion.div
+            variants={variant(0.65, 16)}
+            initial="hidden"
+            animate="visible"
+            className="w-full max-w-2xl mb-10"
+          >
+            <div
+              className="relative rounded-3xl p-6 lg:p-8"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%)",
+                backdropFilter: "blur(24px) saturate(180%)",
+                WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                boxShadow: [
+                  "inset 0 1px 0 rgba(255, 255, 255, 1)",
+                  "0 1px 2px rgba(0, 0, 0, 0.04)",
+                  "0 20px 50px -10px rgba(0, 0, 0, 0.2)",
+                  "0 40px 80px -20px rgba(87, 238, 161, 0.15)",
+                ].join(", "),
+              }}
+            >
+              {/* Header card */}
+              <p
+                className="text-center font-body mb-5"
+                style={{
+                  fontSize: "0.875rem",
+                  color: "rgba(2, 50, 54, 0.7)",
+                  lineHeight: "1.5",
+                }}
+              >
+                {fallback.irisLead}
+              </p>
+
+              {/* Input row */}
+              <div
+                className="relative flex items-center gap-3 rounded-full p-2 pl-5 mb-5"
+                style={{
+                  background: "rgba(2, 50, 54, 0.04)",
+                  border: "1px solid rgba(2, 50, 54, 0.08)",
+                }}
+              >
+                <Paperclip
+                  className="w-4 h-4 shrink-0"
+                  style={{ color: "rgba(2, 50, 54, 0.4)" }}
+                  aria-hidden="true"
+                />
+                <input
+                  type="text"
+                  disabled
+                  placeholder={irisPlaceholder}
+                  className="flex-1 bg-transparent outline-none font-body"
+                  style={{
+                    fontSize: "0.9375rem",
+                    color: "#023236",
+                  }}
+                  aria-label="IRIS diagnostic"
+                />
+                <button
+                  type="button"
+                  className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-105"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #023236 0%, #013235 100%)",
+                    boxShadow: [
+                      "inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+                      "0 4px 10px -2px rgba(2, 50, 54, 0.3)",
+                    ].join(", "),
+                  }}
+                  aria-label="Envoyer"
+                >
+                  <ArrowRight className="w-4 h-4 text-white" />
+                </button>
+              </div>
+
+              {/* Pills suggestions */}
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {fallback.suggestions.map((suggestion, i) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    className={cn(
+                      "px-4 py-1.5 rounded-full",
+                      "font-body text-body-sm font-medium",
+                      "transition-all duration-200 ease-out",
+                    )}
+                    style={
+                      i === 0
+                        ? {
+                            background: "#023236",
+                            color: "white",
+                          }
+                        : {
+                            background: "transparent",
+                            color: "rgba(2, 50, 54, 0.8)",
+                            border: "1px solid rgba(2, 50, 54, 0.15)",
+                          }
+                    }
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Trust badges */}
+          <motion.ul
+            variants={variant(0.85)}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col md:flex-row items-center gap-3 md:gap-6"
+          >
+            {trustBadges.map((label, i) => (
+              <li key={`${label}-${i}`} className="inline-flex items-center gap-2">
+                <Check
+                  className="w-3 h-3 shrink-0"
+                  style={{ color: "#57eea1" }}
+                  strokeWidth={2.5}
+                  aria-hidden="true"
+                />
+                <span
+                  className="font-mono uppercase"
+                  style={{
+                    fontSize: "0.6875rem",
+                    letterSpacing: "0.1em",
+                    color: "rgba(255, 255, 255, 0.5)",
+                  }}
+                >
+                  {label}
+                </span>
+              </li>
+            ))}
+          </motion.ul>
+        </div>
+      </div>
+
+      {/* Section numbers bottom-left */}
       <div
-        className="absolute bottom-0 inset-x-0 h-24 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(180deg, transparent 0%, rgba(2, 50, 54, 0.02) 50%, rgba(2, 50, 54, 0.08) 100%)",
-        }}
+        className="absolute bottom-8 left-5 lg:left-6 flex items-center gap-6 z-10"
         aria-hidden="true"
-      />
+      >
+        {["01", "02", "03"].map((num, i) => (
+          <div key={num} className="relative">
+            <span
+              className="font-mono"
+              style={{
+                fontSize: "0.75rem",
+                color:
+                  i === 0
+                    ? "rgba(255, 255, 255, 0.9)"
+                    : "rgba(255, 255, 255, 0.3)",
+              }}
+            >
+              {num}.
+            </span>
+            {i === 0 && (
+              <span
+                className="absolute -bottom-1 left-0 w-full h-[1px]"
+                style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Bouton Découvrir bottom-right */}
+      <motion.button
+        type="button"
+        onClick={() => {
+          document.getElementById("section-offres")?.scrollIntoView({
+            behavior: "smooth",
+          });
+        }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+        className="absolute bottom-8 right-5 lg:right-6 flex flex-col items-center gap-3 z-10"
+        aria-label="Découvrir la suite"
+      >
+        <div
+          className="w-20 h-20 rounded-full flex items-center justify-center"
+          style={{
+            background: "linear-gradient(135deg, #034045 0%, #023236 100%)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            boxShadow: [
+              "inset 0 1px 0 rgba(255, 255, 255, 0.08)",
+              "0 10px 30px -5px rgba(0, 0, 0, 0.4)",
+            ].join(", "),
+          }}
+        >
+          <span
+            className="font-body font-medium"
+            style={{
+              fontSize: "0.8125rem",
+              color: "white",
+            }}
+          >
+            {fallback.discover}
+          </span>
+        </div>
+        <motion.div
+          animate={prefersReducedMotion ? {} : { y: [0, 6, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-8 h-8 rounded-full border flex items-center justify-center"
+          style={{
+            borderColor: "rgba(255, 255, 255, 0.2)",
+          }}
+        >
+          <ChevronDown
+            className="w-4 h-4"
+            style={{ color: "rgba(255, 255, 255, 0.6)" }}
+          />
+        </motion.div>
+      </motion.button>
     </section>
   );
 }

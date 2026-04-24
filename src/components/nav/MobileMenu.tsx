@@ -6,8 +6,6 @@ import { X, ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/brand/Logo";
-import { LangSwitch } from "./LangSwitch";
-import { ThemeSwitch } from "./ThemeSwitch";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -21,14 +19,13 @@ const NAV_ITEMS = [
 interface MobileMenuProps {
   onClose: () => void;
   activeHref: string;
-  locale: "fr" | "en";
 }
 
 type PlausibleWindow = Window & {
   plausible?: (event: string, options?: { props?: Record<string, unknown> }) => void;
 };
 
-export function MobileMenu({ onClose, activeHref, locale }: MobileMenuProps) {
+export function MobileMenu({ onClose, activeHref }: MobileMenuProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -96,7 +93,7 @@ export function MobileMenu({ onClose, activeHref, locale }: MobileMenuProps) {
         </nav>
 
         <motion.div
-          className="px-[var(--spacing-5)] py-[var(--spacing-5)] border-t border-[rgb(255_255_255/0.12)] flex flex-col gap-[var(--spacing-4)]"
+          className="px-[var(--spacing-5)] py-[var(--spacing-5)] border-t border-[rgb(255_255_255/0.12)]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -118,11 +115,6 @@ export function MobileMenu({ onClose, activeHref, locale }: MobileMenuProps) {
           >
             Un appel gratuit de 30 min
           </Button>
-
-          <div className="flex items-center justify-center gap-3">
-            <LangSwitch locale={locale} isDark={true} />
-            <ThemeSwitch isDarkSection={true} />
-          </div>
         </motion.div>
       </div>
     </motion.div>

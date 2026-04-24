@@ -6,15 +6,19 @@ import { ArrowRight, Menu } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/brand/Logo";
-import { Button } from "@/components/ui/Button";
-import { NavLinks } from "./NavLinks";
-import { LangSwitch } from "./LangSwitch";
-import { ThemeSwitch } from "./ThemeSwitch";
 import { MobileMenu } from "./MobileMenu";
 
 interface HeaderProps {
   locale: "fr" | "en";
 }
+
+const NAV_ITEMS = [
+  { label: "Agence", href: "/agence" },
+  { label: "Offres", href: "/offres" },
+  { label: "Réalisations", href: "/realisations" },
+  { label: "Journal", href: "/journal" },
+  { label: "Contact", href: "/contact" },
+] as const;
 
 type PlausibleWindow = Window & {
   plausible?: (event: string, options?: { props?: Record<string, unknown> }) => void;
@@ -24,13 +28,11 @@ export function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const activeHref = pathname || "/";
 
-  const [scrollState, setScrollState] = useState({ isScrolled: false, isVisible: true });
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [currentTheme, setCurrentTheme] = useState<"light" | "dark">("light");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useLayoutEffect(() => {
-    // Lire le thème de la première section visible en top du viewport
     const sections = document.querySelectorAll("[data-section-theme]");
     for (const section of Array.from(sections)) {
       const rect = section.getBoundingClientRect();
@@ -40,7 +42,6 @@ export function Header({ locale }: HeaderProps) {
         return;
       }
     }
-    // Fallback : si aucune section n'est en top, prendre la première
     const firstSection = sections[0];
     if (firstSection) {
       const theme = firstSection.getAttribute("data-section-theme") as "light" | "dark";
@@ -50,44 +51,17 @@ export function Header({ locale }: HeaderProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const isMobile = window.innerWidth < 1024;
-      const isScrolled = currentScrollY > 80;
-
-      if (!isMobile) {
-        setScrollState({ isScrolled, isVisible: true });
-        setLastScrollY(currentScrollY);
-        return;
-      }
-
-      const isScrollingDown = currentScrollY > lastScrollY;
-      const shouldHide = isScrollingDown && currentScrollY > 200;
-      setScrollState({ isScrolled, isVisible: !shouldHide });
-      setLastScrollY(currentScrollY);
+      setIsScrolled(window.scrollY > 80);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     const sections = document.querySelectorAll("[data-section-theme]");
     if (sections.length === 0) return;
 
-    // Sync initial theme from the first section in the viewport before the
-    // observer kicks in — avoids a flash of the wrong theme on first paint.
-    const firstVisible = Array.from(sections).find((section) => {
-      const rect = section.getBoundingClientRect();
-      return rect.top < window.innerHeight * 0.25 && rect.bottom > 80;
-    });
-    const firstTheme = firstVisible?.getAttribute("data-section-theme");
-    if (firstTheme === "light" || firstTheme === "dark") {
-      setCurrentTheme(firstTheme);
-    }
-
-    // Thin detection band just below the header. threshold: 0 fires as soon
-    // as a section enters the band, regardless of section height.
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -113,90 +87,119 @@ export function Header({ locale }: HeaderProps) {
   }, [isMobileMenuOpen]);
 
   const isDarkSection = currentTheme === "dark";
+  void locale;
 
   return (
     <>
       <motion.header
         initial={false}
-        animate={{
-          backgroundColor: scrollState.isScrolled
-            ? isDarkSection
-              ? "rgba(20, 34, 46, 0.64)"
-              : "rgba(255, 255, 255, 0.72)"
-            : "rgba(0, 0, 0, 0)",
-          borderBottomColor: scrollState.isScrolled
-            ? isDarkSection
-              ? "rgba(255, 255, 255, 0.16)"
-              : "rgba(0, 49, 53, 0.12)"
-            : "rgba(0, 0, 0, 0)",
-          y: scrollState.isVisible ? 0 : "-100%",
-        }}
-        transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
-        className="fixed top-0 inset-x-0 z-40 h-16 lg:h-[72px] border-b border-transparent"
-        style={{
-          backdropFilter: scrollState.isScrolled ? "blur(24px) saturate(180%)" : "none",
-          WebkitBackdropFilter: scrollState.isScrolled
-            ? "blur(24px) saturate(180%)"
-            : "none",
-        }}
+        animate={{ y: isScrolled ? -4 : 0 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 inset-x-0 z-40 pt-5 lg:pt-6"
       >
-        <div className="max-w-[var(--container-site)] mx-auto h-full px-[var(--spacing-5)] lg:px-[var(--spacing-6)] flex items-center justify-between gap-4">
+        <div className="max-w-[calc(var(--container-site)_-_80px)] mx-auto px-5 lg:px-6 flex items-center justify-between gap-4">
+          {/* Logo gauche */}
           <Link
             href="/"
             aria-label="Paradeyes, retour à l'accueil"
-            className="transition-opacity duration-base ease-out-quart hover:opacity-70"
+            className="transition-opacity duration-300 ease-out hover:opacity-70"
           >
             <Logo
               className={cn(
-                "h-7 lg:h-8 w-auto",
-                isDarkSection
-                  ? "text-[var(--color-text-inverse)]"
-                  : "text-[var(--color-text-primary)]",
+                "h-8 w-auto",
+                isDarkSection ? "text-white" : "text-[#023236]",
               )}
             />
           </Link>
 
-          <div className="hidden lg:flex items-center gap-3 flex-1 justify-end">
-            <NavLinks activeHref={activeHref} isDark={isDarkSection} />
-
-            <div className="flex items-center gap-2">
-              <LangSwitch locale={locale} isDark={isDarkSection} />
-              <ThemeSwitch isDarkSection={isDarkSection} />
-            </div>
-
-            <Button
-              variant={isDarkSection ? "primary-light" : "primary-dark"}
-              size="md"
-              suffixIcon={<ArrowRight className="w-4 h-4" />}
-              animatedArrow
-              className="group"
-              onClick={() => {
-                const plausible = (window as PlausibleWindow).plausible;
-                if (typeof plausible === "function") {
-                  plausible("cta_header_clicked");
-                }
-                window.location.href = "/contact#appel";
+          {/* Nav pill centrale */}
+          <nav className="hidden lg:block">
+            <ul
+              className="flex items-center gap-1 p-1.5 rounded-full"
+              style={{
+                background: "rgba(255, 255, 255, 0.95)",
+                backdropFilter: "blur(24px) saturate(180%)",
+                WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                boxShadow: [
+                  "inset 0 1px 0 rgba(255, 255, 255, 1)",
+                  "0 4px 20px rgba(0, 0, 0, 0.08)",
+                  "0 1px 2px rgba(0, 0, 0, 0.04)",
+                ].join(", "),
               }}
             >
-              Un appel gratuit de 30 min
-            </Button>
-          </div>
+              {NAV_ITEMS.map((item) => {
+                const isActive = activeHref.startsWith(item.href);
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "inline-flex items-center px-4 py-2 rounded-full",
+                        "font-body text-body-sm font-medium",
+                        "transition-all duration-300 ease-out",
+                        isActive
+                          ? "bg-[#023236] text-white"
+                          : "text-[#023236] hover:bg-[rgba(2,50,54,0.06)]",
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
 
+          {/* CTA droite desktop */}
+          <Link
+            href="/contact#appel"
+            onClick={() => {
+              const plausible = (window as PlausibleWindow).plausible;
+              if (typeof plausible === "function") {
+                plausible("cta_header_clicked");
+              }
+            }}
+            className="hidden lg:inline-flex items-center gap-2 px-5 py-3 rounded-full font-body text-body-sm font-medium transition-all duration-300 ease-out"
+            style={{
+              border: "1px solid rgba(87, 238, 161, 0.5)",
+              color: "#57eea1",
+              background: "rgba(87, 238, 161, 0.05)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(87, 238, 161, 0.15)";
+              e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.8)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(87, 238, 161, 0.05)";
+              e.currentTarget.style.borderColor = "rgba(87, 238, 161, 0.5)";
+            }}
+          >
+            Un appel gratuit de 30 min
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+
+          {/* Burger mobile dans pill blanche */}
           <button
             type="button"
             onClick={() => setIsMobileMenuOpen(true)}
-            className={cn(
-              "lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-[var(--radius-md)]",
-              "transition-colors duration-base ease-out-quart",
-              "focus-visible:outline-2 focus-visible:outline-offset-2",
-              isDarkSection
-                ? "text-[var(--color-text-inverse)] hover:bg-[rgb(255_255_255/0.08)] focus-visible:outline-[var(--color-accent-on-dark)]"
-                : "text-[var(--color-text-primary)] hover:bg-[rgb(0_49_53/0.06)] focus-visible:outline-[var(--color-focus-on-light)]",
-            )}
+            className="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-full transition-transform duration-300 ease-out hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#023236]"
+            style={{
+              background: "rgba(255, 255, 255, 0.95)",
+              backdropFilter: "blur(24px) saturate(180%)",
+              WebkitBackdropFilter: "blur(24px) saturate(180%)",
+              boxShadow: [
+                "inset 0 1px 0 rgba(255, 255, 255, 1)",
+                "0 4px 20px rgba(0, 0, 0, 0.08)",
+                "0 1px 2px rgba(0, 0, 0, 0.04)",
+              ].join(", "),
+              color: "#023236",
+            }}
             aria-label="Ouvrir le menu"
             aria-expanded={isMobileMenuOpen}
           >
-            <Menu className="w-6 h-6" aria-hidden="true" />
+            <Menu className="w-5 h-5" aria-hidden="true" />
           </button>
         </div>
       </motion.header>
@@ -206,7 +209,6 @@ export function Header({ locale }: HeaderProps) {
           <MobileMenu
             onClose={() => setIsMobileMenuOpen(false)}
             activeHref={activeHref}
-            locale={locale}
           />
         )}
       </AnimatePresence>
