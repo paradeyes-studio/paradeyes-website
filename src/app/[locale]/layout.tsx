@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { DM_Sans } from "next/font/google";
+import { DM_Sans, DM_Mono } from "next/font/google";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -23,6 +23,13 @@ const satoshi = localFont({
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
   subsets: ["latin"],
+  display: "swap",
+});
+
+const dmMono = DM_Mono({
+  variable: "--font-dm-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -77,8 +84,20 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={`${satoshi.variable} ${dmSans.variable}`}>
+    <html
+      lang={locale}
+      className={`${satoshi.variable} ${dmSans.variable} ${dmMono.variable}`}
+    >
       <head>
+        <link
+          rel="preconnect"
+          href="https://api.fontshare.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://api.fontshare.com/v2/css?f[]=gambarino@400i&display=swap"
+          rel="stylesheet"
+        />
         <script
           dangerouslySetInnerHTML={{ __html: ANTI_FLASH_SCRIPT }}
         />

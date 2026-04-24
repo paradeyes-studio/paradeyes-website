@@ -1,28 +1,72 @@
 @import "tailwindcss";
 
 @theme {
-  /* Brand colors */
-  --color-dark-green: #023236;
-  --color-electric-green: #57eea1;
-  --color-white: #ffffff;
-  --color-black: #000000;
+  /*
+   * Primitive palette (source : reference/paradeyes-home-v5.1.html :root)
+   * Notion Design System Paradeyes.
+   */
+  --color-green-deep: #003135;
+  --color-green-electric: #57EEA1;
+  --color-dark-bluish: #14222E;
+  --color-violet-spark: #6549F6;
+  --color-white-warm: #FAFAF7;
+  --color-orange-flame: #FF611D;
+  --color-blue-steel: #4A6CFF;
+  --color-red-danger: #E63946;
 
-  /* Semantic colors */
-  --color-bg-canvas: #ffffff;
-  --color-bg-inverse: #023236;
-  --color-text-primary: #023236;
-  --color-text-secondary: rgb(2 50 54 / 0.7);
+  /* Grays */
+  --color-gray-50: #F5F6F7;
+  --color-gray-100: #E9ECEF;
+  --color-gray-200: #DEE2E6;
+  --color-gray-300: #CED4DA;
+  --color-gray-400: #6C757D;
+  --color-gray-500: #495057;
+  --color-gray-600: #343A40;
+  --color-gray-700: #212529;
+
+  /* Alpha green-deep */
+  --color-gd-04: rgba(0, 49, 53, 0.04);
+  --color-gd-06: rgba(0, 49, 53, 0.06);
+  --color-gd-08: rgba(0, 49, 53, 0.08);
+  --color-gd-12: rgba(0, 49, 53, 0.12);
+  --color-gd-24: rgba(0, 49, 53, 0.24);
+  --color-gd-60: rgba(0, 49, 53, 0.60);
+
+  /* Alpha green-electric */
+  --color-ge-20: rgba(87, 238, 161, 0.20);
+  --color-ge-40: rgba(87, 238, 161, 0.40);
+
+  /* Alpha white */
+  --color-w-08: rgba(255, 255, 255, 0.08);
+  --color-w-12: rgba(255, 255, 255, 0.12);
+  --color-w-16: rgba(255, 255, 255, 0.16);
+  --color-w-24: rgba(255, 255, 255, 0.24);
+  --color-w-40: rgba(255, 255, 255, 0.40);
+  --color-w-60: rgba(255, 255, 255, 0.60);
+  --color-w-72: rgba(255, 255, 255, 0.72);
+
+  /* Semantic (light mode) */
+  --color-bg-canvas: var(--color-white-warm);
+  --color-bg-elevated: #ffffff;
+  --color-bg-inverse: var(--color-green-deep);
+  --color-bg-inverse-subtle: var(--color-dark-bluish);
+  --color-text-primary: var(--color-green-deep);
+  --color-text-secondary: var(--color-gray-500);
+  --color-text-muted: var(--color-gray-400);
   --color-text-inverse: #ffffff;
-  --color-accent-primary: #023236;
-  --color-accent-on-dark: #57eea1;
-  --color-accent-special: #57eea1;
-  --color-border-default: rgb(0 49 53 / 0.12);
-  --color-border-subtle: rgb(0 49 53 / 0.08);
-  --color-focus-on-light: #023236;
+  --color-text-ghost: var(--color-gd-08);
+  --color-border-subtle: var(--color-gd-06);
+  --color-border-default: var(--color-gd-12);
+  --color-border-strong: var(--color-gd-24);
+  --color-border-inverse: var(--color-w-16);
+  --color-accent-primary: var(--color-green-deep);
+  --color-accent-on-dark: var(--color-green-electric);
+  --color-accent-special: var(--color-green-electric);
+  --color-focus-on-light: var(--color-green-deep);
 
-  /* Header glass */
-  --color-bg-header-light: rgb(255 255 255 / 0.72);
-  --color-bg-header-dark: rgb(20 34 46 / 0.64);
+  /* Header glass (legacy aliases, still consumed by Header.tsx) */
+  --color-bg-header-light: var(--color-w-72);
+  --color-bg-header-dark: rgba(20, 34, 46, 0.64);
   --blur-header: 24px;
 
   /* Typography scale */
@@ -37,14 +81,16 @@
   --text-display-xl: 6rem;
   --text-caption: 0.75rem;
 
-  /* Leading */
+  /* Leading & tracking */
   --leading-heading-1: 1.1;
   --leading-body-lg: 1.6;
-
-  /* Tracking */
   --tracking-tight: -0.02em;
 
-  /* Spacing (named tokens, used via var()) */
+  /*
+   * Spacing scale — v5.1 canonical naming (s1..s12)
+   * Legacy aliases (--spacing-N) preserved for backward compat.
+   */
+  --spacing-1: 4px;
   --spacing-2: 8px;
   --spacing-3: 12px;
   --spacing-4: 16px;
@@ -55,36 +101,96 @@
   --spacing-9: 96px;
   --spacing-10: 128px;
   --spacing-11: 160px;
-  --spacing-12: 192px;
+  --spacing-12: 200px;
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+  --s9: 96px;
+  --s10: 128px;
+  --s11: 160px;
+  --s12: 200px;
 
   /* Containers */
   --container-site: 1440px;
   --container-4xl: 1120px;
+  --container-hero: 1200px;
+  --container-body: 1280px;
 
-  /* Radius */
-  --radius-md: 8px;
+  /* Radius (v5.1 canonical + legacy aliases) */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-4xl: 48px;
+  --radius-pill: 999px;
   --radius-section: 60px;
   --radius-section-mobile: 32px;
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-xl: 20px;
+  --r-2xl: 24px;
+  --r-3xl: 32px;
+  --r-4xl: 48px;
+  --r-pill: 999px;
+
+  /* Shadows (teintées green-deep) */
+  --shadow-sm: 0 2px 8px rgba(0, 49, 53, 0.06);
+  --shadow-md: 0 8px 24px rgba(0, 49, 53, 0.08);
+  --shadow-lg: 0 16px 40px rgba(0, 49, 53, 0.12);
+  --shadow-xl: 0 24px 64px rgba(0, 49, 53, 0.16);
+  --shadow-on-dark-md: 0 8px 24px rgba(0, 0, 0, 0.32);
+  --shadow-on-dark-lg: 0 24px 64px rgba(0, 49, 53, 0.40);
 
   /* Z-index */
   --z-header: 40;
   --z-modal: 50;
 
-  /* Duration & easing */
+  /* Motion — durations */
+  --d-instant: 80ms;
+  --d-fast: 120ms;
+  --d-base: 240ms;
+  --d-slow: 480ms;
+  --d-cinema: 800ms;
+  --d-hero: 1200ms;
+  --d-epic: 1800ms;
   --duration-base: 240ms;
   --duration-breathing: 8s;
+
+  /* Motion — easings */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-io-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-io-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-breathing: cubic-bezier(0.4, 0, 0.6, 1);
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Gradients signature */
+  --gradient-dark: linear-gradient(180deg, #003135 0%, #14222E 100%);
+  --gradient-light: linear-gradient(135deg, #003135 0%, #57EEA1 100%);
+  --gradient-plus: linear-gradient(135deg, #FF611D 0%, #4A6CFF 100%);
 }
 
 /* Font tokens reference next/font CSS variables, kept inline so they stay dynamic */
 @theme inline {
   --font-satoshi: var(--font-satoshi);
   --font-dm-sans: var(--font-dm-sans);
+  --font-dm-mono: var(--font-dm-mono);
   --font-display: var(--font-satoshi), system-ui, sans-serif;
-  --font-body: var(--font-dm-sans), var(--font-satoshi), system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --font-mono: var(--font-dm-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-italic-accent: "Gambarino", "Playfair Display", serif;
 }
 
 /*
@@ -92,30 +198,30 @@
  * light surfaces. Reserve it strictly for dark-green backgrounds.
  */
 
-/* Dark theme is default (site opens in dark mode) */
+/* Dark theme default (site opens in dark mode) */
 :root {
-  --bg-primary: #023236;
-  --bg-secondary: #011a1d;
-  --text-primary: #ffffff;
+  --bg-primary: #003135;
+  --bg-secondary: #14222E;
+  --text-primary: #FAFAF7;
   --text-secondary: rgba(255, 255, 255, 0.6);
-  --accent: #57eea1;
+  --accent: #57EEA1;
 }
 
 /* Explicit theme overrides via data-theme (set by ThemeSwitch + anti-flash) */
 :root[data-theme="light"] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f6f8f8;
-  --text-primary: #023236;
-  --text-secondary: rgba(2, 50, 54, 0.7);
-  --accent: #023236;
+  --bg-primary: #FAFAF7;
+  --bg-secondary: #F5F6F7;
+  --text-primary: #003135;
+  --text-secondary: rgba(0, 49, 53, 0.7);
+  --accent: #003135;
 }
 
 :root[data-theme="dark"] {
-  --bg-primary: #023236;
-  --bg-secondary: #011a1d;
-  --text-primary: #ffffff;
+  --bg-primary: #003135;
+  --bg-secondary: #14222E;
+  --text-primary: #FAFAF7;
   --text-secondary: rgba(255, 255, 255, 0.6);
-  --accent: #57eea1;
+  --accent: #57EEA1;
 }
 
 html,
@@ -126,9 +232,23 @@ body {
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.font-italic-accent {
+  font-family: "Gambarino", "Playfair Display", serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 ::selection {
