@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { Header } from "@/components/nav/Header";
 import { Footer } from "@/components/nav/Footer";
+import { HeroSection } from "@/components/sections/HeroSection";
 import { sanityClient } from "@/lib/sanity";
 import { homePageQuery, type HomePageData } from "@/lib/sanity.queries";
 import { cn } from "@/lib/utils";
@@ -21,12 +22,6 @@ type HomeSection = {
 };
 
 const FALLBACK = {
-  hero: {
-    eyebrow: "PARADEYES AGENCY",
-    title: "Agence créative au service de votre croissance.",
-    description:
-      "On comprend. On conçoit. On construit. Stratégie, identité, design, développement. Une équipe, une vision, des résultats mesurables.",
-  },
   proof: {
     eyebrow: "ILS NOUS FONT CONFIANCE",
     title: "60+ marques accompagnées depuis 2019.",
@@ -74,6 +69,39 @@ async function getHomeData(): Promise<HomePageData | null> {
   }
 }
 
+function resolveLocalized(field: unknown, locale: string): string | undefined {
+  if (typeof field === "string") return field;
+  if (Array.isArray(field)) {
+    const match = field.find(
+      (entry) =>
+        entry &&
+        typeof entry === "object" &&
+        "language" in entry &&
+        (entry as { language?: string }).language === locale,
+    ) as { value?: unknown } | undefined;
+    if (match && typeof match.value === "string") return match.value;
+    const first = field[0] as { value?: unknown } | undefined;
+    if (first && typeof first.value === "string") return first.value;
+  }
+  return undefined;
+}
+
+function resolveLocalizedBadges(
+  field: unknown,
+  locale: string,
+): Array<{ label: string }> | undefined {
+  if (!Array.isArray(field)) return undefined;
+  const labels = field
+    .map((entry) => {
+      if (!entry || typeof entry !== "object") return undefined;
+      const raw = (entry as { label?: unknown }).label;
+      return resolveLocalized(raw, locale);
+    })
+    .filter((v): v is string => typeof v === "string" && v.length > 0)
+    .map((label) => ({ label }));
+  return labels.length > 0 ? labels : undefined;
+}
+
 function mergeSection<K extends keyof typeof FALLBACK>(
   key: K,
   sanityField:
@@ -101,7 +129,6 @@ export default async function Home({ params }: Props) {
   const homeData = await getHomeData();
 
   const sections: HomeSection[] = [
-    { id: "hero", theme: "dark", ...mergeSection("hero", homeData?.hero) },
     { id: "proof", theme: "light", ...mergeSection("proof", homeData?.proof) },
     {
       id: "offers",
@@ -127,6 +154,25 @@ export default async function Home({ params }: Props) {
       <Header locale={typedLocale} />
 
       <main id="main">
+        <HeroSection
+          data={{
+            heroBadgePositionnement: resolveLocalized(
+              homeData?.heroBadgePositionnement,
+              typedLocale,
+            ),
+            heroPhraseAccroche: resolveLocalized(
+              homeData?.heroPhraseAccroche,
+              typedLocale,
+            ),
+            heroSubtitle: resolveLocalized(homeData?.heroSubtitle, typedLocale),
+            heroPlaceholderIris: resolveLocalized(
+              homeData?.heroPlaceholderIris,
+              typedLocale,
+            ),
+            heroBadges: resolveLocalizedBadges(homeData?.heroBadges, typedLocale),
+          }}
+        />
+
         {sections.map((section) => (
           <section
             key={section.id}

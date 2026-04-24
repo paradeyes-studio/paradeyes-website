@@ -14,5 +14,19 @@
     "legal": "Mentions légales",
     "terms": "CGV",
     "privacy": "Confidentialité"
+  },
+  "home": {
+    "hero": {
+      "badge": "AGENCE DE COMMUNICATION PREMIUM",
+      "tagline": "On identifie ce qui bloque votre croissance. On construit ce qui performe.",
+      "subtitle": "Une agence qui comprend votre business avant de proposer. Communication stratégique, design, vidéo, site web. Construits sur-mesure, pensés pour convertir.",
+      "irisPlaceholder": "Décrivez votre projet. IRIS vous oriente en 2 minutes.",
+      "trust": {
+        "badge1": "Une seule agence, un seul interlocuteur",
+        "badge2": "Approche sur-mesure, jamais de template",
+        "badge3": "ROI mesurable sur chaque projet"
+      },
+      "ctaSecondary": "Prendre rendez-vous directement pour un appel gratuit de 30 minutes"
+    }
   }
 }

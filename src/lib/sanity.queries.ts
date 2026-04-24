@@ -91,6 +91,11 @@ export type SiteSettingsData = {
  * Home page content. Hero, proof, offers, method, projects highlight, journal highlight, IRIS.
  */
 export const homePageQuery = groq`*[_type == "homePage"][0]{
+  heroBadgePositionnement,
+  heroPhraseAccroche,
+  heroSubtitle,
+  heroPlaceholderIris,
+  heroBadges[]{label},
   hero{
     eyebrow,
     title,
@@ -147,6 +152,14 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
 }`;
 
 export type HomePageData = {
+  // Localized fields may arrive as plain strings or as
+  // internationalized-array entries ({_key, language, value}[]).
+  // Resolution happens at the page level via resolveLocalized().
+  heroBadgePositionnement?: unknown;
+  heroPhraseAccroche?: unknown;
+  heroSubtitle?: unknown;
+  heroPlaceholderIris?: unknown;
+  heroBadges?: unknown;
   hero?: {
     eyebrow: string;
     title: string;

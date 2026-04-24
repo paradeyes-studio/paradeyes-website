@@ -14,5 +14,19 @@
     "legal": "Legal notice",
     "terms": "Terms",
     "privacy": "Privacy"
+  },
+  "home": {
+    "hero": {
+      "badge": "PREMIUM COMMUNICATION AGENCY",
+      "tagline": "We identify what blocks your growth. We build what performs.",
+      "subtitle": "An agency that understands your business before proposing. Strategic communication, design, video, web. Custom-built, engineered to convert.",
+      "irisPlaceholder": "Describe your project. IRIS guides you in 2 minutes.",
+      "trust": {
+        "badge1": "One agency, one single point of contact",
+        "badge2": "Bespoke approach, never a template",
+        "badge3": "Measurable ROI on every project"
+      },
+      "ctaSecondary": "Book a free 30-minute call directly"
+    }
   }
 }
