@@ -328,7 +328,11 @@ body {
 }
 
 body {
-  background: var(--bg-primary);
+  /* Page background is intentionally a notch deeper than any section bg.
+     This guarantees visible "lift" wedges at every rounded corner —
+     light sections reveal a dark wedge, dark sections reveal a deeper-dark wedge.
+     Without this contrast, dark-on-dark sections would appear flat. */
+  background: #001a1c;
   color: var(--text-primary);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -337,6 +341,12 @@ body {
   /* Satoshi stylistic sets + common ligatures (activated globally,
      ignored by fonts that do not expose these features). */
   font-feature-settings: "ss01", "ss02", "liga";
+}
+
+/* Light theme: page bg slightly darker than cream sections so rounded tops
+   on light sections still reveal a visible "lift" wedge. */
+:root[data-theme="light"] body {
+  background: #EDEAE2;
 }
 
 /* DM Mono: tabular nums + contextual alternates for clean figure alignment. */
@@ -861,16 +871,9 @@ h1, h2, h3, h4 {
    reads as a card snapping into the lighter sections below. Mirrors
    the footer's rounded top. Header stays rectangular.
 ================================================================ */
-.pdy-hero{
-  border-bottom-left-radius:60px;
-  border-bottom-right-radius:60px;
-}
-@media (max-width:767px){
-  .pdy-hero{
-    border-bottom-left-radius:32px;
-    border-bottom-right-radius:32px;
-  }
-}
+/* Hero ends flat at its bottom — the next section (Offres) rises with its
+   own rounded top via pdy-section-stacked. Removing the previous rounded
+   bottom prevents a double-curve "pinch" at the Hero/Offres junction. */
 
 .pdy-hero-bottom{
   flex:0 0 auto;
