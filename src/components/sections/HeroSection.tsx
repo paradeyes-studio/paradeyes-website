@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Check, ArrowRight, Paperclip } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -112,6 +112,35 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
   const prefersReducedMotion = useReducedMotion();
   const submitRef = useMagnetic<HTMLButtonElement>({ strength: 6, radius: 120 });
 
+  // Scroll-driven parallax on the 3 halos: each layer translates at a different speed
+  // creating depth as the user scrolls past the hero.
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero) return;
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let raf = 0;
+    const update = () => {
+      const scrollY = window.scrollY;
+      hero.style.setProperty("--halo-1-y", `${scrollY * 0.35}px`);
+      hero.style.setProperty("--halo-2-y", `${scrollY * 0.5}px`);
+      hero.style.setProperty("--halo-3-y", `${scrollY * 0.7}px`);
+      hero.style.setProperty("--hero-content-y", `${scrollY * 0.15}px`);
+      raf = 0;
+    };
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      if (raf) window.cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   // Fallback strategy: always use FR when Sanity/i18n is empty, to avoid
   // FR/EN mix on /en when only some fields are translated.
   void locale;
@@ -158,6 +187,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 0.2 }}
         aria-hidden="true"
+        style={{ transform: "translate3d(0, var(--halo-1-y, 0), 0)", willChange: "transform" }}
       >
         <div
           className="absolute"
@@ -200,6 +230,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 0.4 }}
         aria-hidden="true"
+        style={{ transform: "translate3d(0, var(--halo-2-y, 0), 0)", willChange: "transform" }}
       >
         <div
           className="absolute"
@@ -242,6 +273,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 0.6 }}
         aria-hidden="true"
+        style={{ transform: "translate3d(0, var(--halo-3-y, 0), 0)", willChange: "transform" }}
       >
         <div
           className="absolute"
