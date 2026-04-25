@@ -145,3 +145,37 @@ export type Spacing = (typeof spacing)[keyof typeof spacing];
 export type Radius = (typeof radii)[keyof typeof radii];
 export type Easing = (typeof easings)[keyof typeof easings];
 export type Duration = (typeof durations)[keyof typeof durations];
+
+/**
+ * === Cinema design tokens (added 2026-04-25, design upgrade Awwwards) ===
+ * Easings, durations, staggers tuned for cinema-grade reveals and timeline scrubs.
+ */
+export const cinemaEasings = {
+  outExpo: [0.16, 1, 0.3, 1] as const,
+  inQuart: [0.7, 0, 0.84, 0] as const,
+  outBack: [0.34, 1.56, 0.64, 1] as const,
+  inOutCircle: [0.85, 0, 0.15, 1] as const,
+  smoothBlur: [0.25, 0.46, 0.45, 0.94] as const,
+} as const;
+
+export const cinemaDurations = {
+  micro: 200,
+  fast: 320,
+  base: 480,
+  slow: 720,
+  cinema: 1100,
+  hero: 1600,
+  epic: 2400,
+} as const;
+
+export const cinemaStagger = {
+  tight: 40,
+  normal: 80,
+  wide: 120,
+  cinema: 200,
+  epic: 320,
+} as const;
+
+export type CinemaEasing = (typeof cinemaEasings)[keyof typeof cinemaEasings];
+export type CinemaDuration = (typeof cinemaDurations)[keyof typeof cinemaDurations];
+export type CinemaStagger = (typeof cinemaStagger)[keyof typeof cinemaStagger];
