@@ -1,11 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { StarRating } from "@/components/ui/StarRating";
-import { VerifiedBadge } from "@/components/ui/VerifiedBadge";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { homeTestimonials } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+import { TestimonialCard } from "./testimonials/TestimonialCard";
 
 export function Testimonials() {
   const reveal = useSectionReveal<HTMLElement>(0.15);
@@ -30,26 +28,13 @@ export function Testimonials() {
 
       <ul className="pdy-testimonials-grid">
         {homeTestimonials.items.map((item, idx) => (
-          <motion.li
+          <TestimonialCard
             key={item.author}
-            className="pdy-testimonial-card"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="pdy-testimonial-card-top">
-              <StarRating rating={5} label="5 sur 5 étoiles" />
-              <VerifiedBadge />
-            </div>
-            <blockquote className="pdy-testimonial-card-quote">
-              {item.quote}
-            </blockquote>
-            <footer className="pdy-testimonial-card-author">
-              <div className="pdy-testimonial-card-name">{item.author}</div>
-              <div className="pdy-testimonial-card-role">{item.role}</div>
-            </footer>
-          </motion.li>
+            quote={item.quote}
+            author={item.author}
+            role={item.role}
+            index={idx}
+          />
         ))}
       </ul>
     </section>

@@ -8,6 +8,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { CinemaCursor } from "@/components/ui/CinemaCursor";
 
 const satoshi = localFont({
   src: [
@@ -107,6 +108,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider>
           <LenisProvider>
             <ScrollProgress />
+            <CinemaCursor />
             {children}
           </LenisProvider>
         </NextIntlClientProvider>

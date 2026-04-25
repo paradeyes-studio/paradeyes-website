@@ -3,6 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { Link } from "@/i18n/navigation";
+import { useTilt } from "@/hooks/useTilt";
 
 interface OffreCardData {
   number: string;
@@ -35,45 +36,52 @@ export function OffreCard({ data, size = "md" }: OffreCardProps) {
   const titleParts = data.title.split(data.titleItalic);
   const before = titleParts[0] ?? "";
   const after = titleParts[1] ?? "";
+  const tiltRef = useTilt<HTMLDivElement>({ max: 4, perspective: 1200 });
 
   return (
-    <motion.div variants={cardVariants} className={`pdy-offre-card pdy-offre-card-${size}`}>
-      <span className="pdy-offre-ghost" aria-hidden="true">
-        {data.number}
-      </span>
-
-      <div className="pdy-offre-head">
-        <span className="pdy-offre-tag">
-          <span className="pdy-offre-tag-dot" aria-hidden="true" />
-          {data.tag}
+    <motion.div variants={cardVariants} style={{ height: "100%" }}>
+      <div
+        ref={tiltRef}
+        className={`pdy-offre-card pdy-offre-card-${size}`}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        <span className="pdy-offre-ghost" aria-hidden="true">
+          {data.number}
         </span>
-        <span className="pdy-offre-glyph" aria-hidden="true">
-          {data.glyph}
-        </span>
-      </div>
 
-      <h3 className="pdy-offre-title">
-        {before}
-        <em className="pdy-italic-accent">{data.titleItalic}</em>
-        {after}
-      </h3>
+        <div className="pdy-offre-head">
+          <span className="pdy-offre-tag">
+            <span className="pdy-offre-tag-dot" aria-hidden="true" />
+            {data.tag}
+          </span>
+          <span className="pdy-offre-glyph" aria-hidden="true">
+            {data.glyph}
+          </span>
+        </div>
 
-      <p className="pdy-offre-promise">{data.promise}</p>
+        <h3 className="pdy-offre-title">
+          {before}
+          <em className="pdy-italic-accent">{data.titleItalic}</em>
+          {after}
+        </h3>
 
-      <ul className="pdy-offre-livrables">
-        {data.livrables.map((l) => (
-          <li key={l}>
-            <span className="pdy-offre-bullet" aria-hidden="true" />
-            {l}
-          </li>
-        ))}
-      </ul>
+        <p className="pdy-offre-promise">{data.promise}</p>
 
-      <div className="pdy-offre-footer">
-        <span className="pdy-offre-duration">{data.duration}</span>
-        <Link href={data.href} className="pdy-offre-cta" aria-label={`En savoir plus sur ${data.title}`}>
-          <ArrowRight aria-hidden="true" />
-        </Link>
+        <ul className="pdy-offre-livrables">
+          {data.livrables.map((l) => (
+            <li key={l}>
+              <span className="pdy-offre-bullet" aria-hidden="true" />
+              {l}
+            </li>
+          ))}
+        </ul>
+
+        <div className="pdy-offre-footer">
+          <span className="pdy-offre-duration">{data.duration}</span>
+          <Link href={data.href} className="pdy-offre-cta" aria-label={`En savoir plus sur ${data.title}`}>
+            <ArrowRight aria-hidden="true" />
+          </Link>
+        </div>
       </div>
     </motion.div>
   );
