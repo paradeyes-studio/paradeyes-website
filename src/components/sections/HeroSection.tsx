@@ -329,7 +329,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
           >
             {taglineLead}{" "}
             <em
-              className="italic font-medium"
+              className="italic font-medium pdy-headline-emphasis"
               style={{
                 fontFamily: "var(--font-italic-accent)",
                 color: "#57EEA1",

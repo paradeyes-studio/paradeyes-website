@@ -525,6 +525,40 @@ h1, h2, h3, h4 {
 }
 
 /* ================================================================
+   H-P3 polish: drawn underline on the H1 emphasized word.
+   The Gambarino italic word ("performe.") stays a typographic seal,
+   the underline draws itself left→right after the H1 has settled.
+================================================================ */
+.pdy-headline-emphasis{
+  position:relative;
+  display:inline-block;
+  white-space:nowrap;
+}
+.pdy-headline-emphasis::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0.04em;
+  height:2px;
+  background:var(--color-green-electric);
+  border-radius:2px;
+  transform-origin:left;
+  clip-path:inset(0 100% 0 0);
+  animation:pdy-emphasis-draw 900ms var(--ease-expo) forwards 1100ms;
+  pointer-events:none;
+}
+@keyframes pdy-emphasis-draw{
+  to{clip-path:inset(0 0 0 0)}
+}
+@media (prefers-reduced-motion:reduce){
+  .pdy-headline-emphasis::after{
+    animation:none;
+    clip-path:inset(0 0 0 0);
+  }
+}
+
+/* ================================================================
    HERO SCROLL INDICATOR (centered bottom, label + bouncing chevron)
 ================================================================ */
 .pdy-scroll-indicator{
