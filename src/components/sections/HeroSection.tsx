@@ -2,8 +2,9 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { Check, ArrowRight, Paperclip, ChevronDown } from "lucide-react";
+import { Check, ArrowRight, Paperclip } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { HeroScrollIndicator } from "./HeroScrollIndicator";
 
 export interface HeroData {
   heroBadgePositionnement?: string;
@@ -45,6 +46,7 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "Contenus",
       "Déploiement",
       "Acquisition",
+      "Événement",
     ],
     trustBadges: [
       "Une seule agence, un seul interlocuteur",
@@ -67,6 +69,7 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "Content",
       "Deployment",
       "Acquisition",
+      "Event",
     ],
     trustBadges: [
       "One agency, one single point of contact",
@@ -139,10 +142,11 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
     <section
       ref={heroRef}
       data-section-theme="dark"
-      className="relative overflow-hidden flex items-center justify-center min-h-screen pt-24 lg:pt-32 pb-16 lg:pb-24"
+      data-hero-root
+      className="relative overflow-hidden flex items-center justify-center min-h-screen pt-[88px] lg:pt-[88px] pb-14 lg:pb-14"
       style={{
-        backgroundColor: "#023236",
-        minHeight: "max(100vh, 800px)",
+        backgroundColor: "#003135",
+        height: "100svh",
       }}
     >
       {/* Halo - Couche 1 ambient, centered */}
@@ -314,17 +318,25 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             variants={variant(0.15, 24)}
             initial="hidden"
             animate="visible"
-            className="font-display font-medium mb-6"
+            className="font-display font-medium mb-5"
             style={{
-              fontSize: "clamp(2rem, 3.5vw, 3.25rem)",
-              lineHeight: "1.1",
+              fontSize: "clamp(2.25rem, 4.2vw, 3.5rem)",
+              lineHeight: "1.04",
               letterSpacing: "-0.035em",
               color: "white",
-              maxWidth: "20ch",
+              maxWidth: "22ch",
             }}
           >
             {taglineLead}{" "}
-            <em className="italic text-[#57eea1] font-medium">{taglineLast}</em>
+            <em
+              className="italic font-medium"
+              style={{
+                fontFamily: "var(--font-italic-accent)",
+                color: "#57EEA1",
+              }}
+            >
+              {taglineLast}
+            </em>
           </motion.h1>
 
           {/* Subtitle */}
@@ -332,24 +344,25 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             variants={variant(0.4)}
             initial="hidden"
             animate="visible"
-            className="font-body text-body-lg mb-14 max-w-[56ch]"
+            className="font-body mb-9 max-w-[56ch]"
             style={{
-              color: "rgba(255, 255, 255, 0.65)",
-              lineHeight: "1.6",
+              fontSize: "0.9375rem",
+              color: "rgba(255, 255, 255, 0.7)",
+              lineHeight: "1.55",
             }}
           >
             {subtitle}
           </motion.p>
 
-          {/* Carte IRIS — matière premium crème */}
+          {/* Carte IRIS — matière premium crème, élargie 1080px */}
           <motion.div
             variants={variant(0.65, 16)}
             initial="hidden"
             animate="visible"
-            className="w-full max-w-xl"
+            className="w-full max-w-[1080px]"
           >
             <div
-              className="relative rounded-3xl p-5 lg:p-6"
+              className="relative rounded-3xl px-5 py-4 lg:px-6 lg:py-5"
               style={{
                 background:
                   "linear-gradient(180deg, #FAFAF7 0%, #F5F5F0 100%)",
@@ -366,10 +379,10 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             >
               {/* Header card avec IRIS en gras */}
               <p
-                className="text-center font-body mb-5"
+                className="text-center font-body mb-3"
                 style={{
                   fontSize: "0.875rem",
-                  color: "rgba(2, 50, 54, 0.7)",
+                  color: "rgba(0, 49, 53, 0.7)",
                   lineHeight: "1.5",
                 }}
               >
@@ -385,10 +398,10 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
 
               {/* Input row */}
               <div
-                className="relative flex items-center gap-2 rounded-full p-1.5 pl-4 mb-4"
+                className="relative flex items-center gap-2 rounded-full p-1.5 pl-4 mb-3"
                 style={{
-                  background: "rgba(2, 50, 54, 0.04)",
-                  border: "1px solid rgba(2, 50, 54, 0.08)",
+                  background: "rgba(0, 49, 53, 0.04)",
+                  border: "1px solid rgba(0, 49, 53, 0.08)",
                 }}
               >
                 <Paperclip
@@ -409,13 +422,13 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 />
                 <button
                   type="button"
-                  className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-105"
+                  className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-105"
                   style={{
                     background:
-                      "linear-gradient(135deg, #023236 0%, #013235 100%)",
+                      "linear-gradient(135deg, #003135 0%, #14222E 100%)",
                     boxShadow: [
                       "inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                      "0 4px 10px -2px rgba(2, 50, 54, 0.3)",
+                      "0 4px 10px -2px rgba(0, 49, 53, 0.3)",
                     ].join(", "),
                   }}
                   aria-label="Envoyer"
@@ -424,27 +437,27 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 </button>
               </div>
 
-              {/* Pills suggestions */}
-              <div className="flex flex-wrap items-center justify-center gap-2.5">
+              {/* Pills suggestions — 6 chips, nowrap desktop, scroll horizontal mobile */}
+              <div className="flex items-center justify-center gap-2 overflow-x-auto md:overflow-visible md:flex-wrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {fallback.suggestions.map((suggestion, i) => (
                   <button
                     key={suggestion}
                     type="button"
                     className={cn(
-                      "px-5 py-2 rounded-full",
+                      "px-4 py-2 rounded-full whitespace-nowrap shrink-0",
                       "font-body text-body-sm font-medium",
                       "transition-all duration-200 ease-out",
                     )}
                     style={
                       i === 0
                         ? {
-                            background: "#023236",
+                            background: "#003135",
                             color: "white",
                           }
                         : {
                             background: "transparent",
-                            color: "rgba(2, 50, 54, 0.8)",
-                            border: "1px solid rgba(2, 50, 54, 0.2)",
+                            color: "rgba(0, 49, 53, 0.8)",
+                            border: "1px solid rgba(0, 49, 53, 0.2)",
                           }
                     }
                   >
@@ -455,27 +468,27 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             </div>
           </motion.div>
 
-          {/* Trust badges — une seule ligne horizontale */}
+          {/* Trust badges — une seule ligne horizontale, lisibles */}
           <motion.ul
             variants={variant(0.85)}
             initial="hidden"
             animate="visible"
-            className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-3 md:gap-8 mt-10"
+            className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-3 md:gap-8 mt-6"
           >
             {trustBadges.map((label, i) => (
               <li key={`${label}-${i}`} className="inline-flex items-center gap-2">
                 <Check
-                  className="w-3 h-3 shrink-0"
-                  style={{ color: "#57eea1" }}
+                  className="w-3.5 h-3.5 shrink-0"
+                  style={{ color: "#57EEA1" }}
                   strokeWidth={2.5}
                   aria-hidden="true"
                 />
                 <span
                   className="font-mono uppercase"
                   style={{
-                    fontSize: "0.6875rem",
-                    letterSpacing: "0.1em",
-                    color: "rgba(255, 255, 255, 0.55)",
+                    fontSize: "0.75rem",
+                    letterSpacing: "0.14em",
+                    color: "rgba(255, 255, 255, 0.82)",
                   }}
                 >
                   {label}
@@ -486,93 +499,13 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Section numbers bottom-left, vertical stack */}
+      {/* Scroll indicator centré bas, libellé + chevron animé */}
       <div
-        className="absolute bottom-12 left-6 lg:left-10 flex flex-col gap-3 z-10"
-        aria-hidden="true"
+        className="pdy-hero-scroll-zone absolute bottom-7 left-1/2 z-10"
+        style={{ transform: "translateX(-50%)" }}
       >
-        <div className="inline-flex items-center gap-4">
-          <span
-            className="font-mono"
-            style={{
-              fontSize: "0.8125rem",
-              color: "rgba(255, 255, 255, 0.9)",
-            }}
-          >
-            01.
-          </span>
-          <span
-            className="w-8 h-[1px]"
-            style={{ backgroundColor: "rgba(255, 255, 255, 0.9)" }}
-          />
-        </div>
-        <span
-          className="font-mono"
-          style={{
-            fontSize: "0.8125rem",
-            color: "rgba(255, 255, 255, 0.3)",
-          }}
-        >
-          02.
-        </span>
-        <span
-          className="font-mono"
-          style={{
-            fontSize: "0.8125rem",
-            color: "rgba(255, 255, 255, 0.3)",
-          }}
-        >
-          03.
-        </span>
+        <HeroScrollIndicator label="Faites défiler" />
       </div>
-
-      {/* Bouton Découvrir bottom-right, 2 éléments séparés */}
-      <motion.button
-        type="button"
-        onClick={() => {
-          document.getElementById("section-offres")?.scrollIntoView({
-            behavior: "smooth",
-          });
-        }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
-        className="absolute bottom-12 right-6 lg:right-10 flex flex-col items-center gap-3 z-10"
-        aria-label="Découvrir la suite"
-      >
-        <div
-          className="w-[70px] h-[70px] rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-105"
-          style={{
-            background: "linear-gradient(135deg, #034045 0%, #023236 100%)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            boxShadow: [
-              "inset 0 1px 0 rgba(255, 255, 255, 0.08)",
-              "0 10px 30px -5px rgba(0, 0, 0, 0.4)",
-            ].join(", "),
-          }}
-        >
-          <span
-            className="font-body font-medium"
-            style={{
-              fontSize: "0.8125rem",
-              color: "white",
-            }}
-          >
-            {fallback.discover}
-          </span>
-        </div>
-        <motion.div
-          animate={prefersReducedMotion ? {} : { y: [0, 4, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-8 h-8 rounded-full border flex items-center justify-center"
-          style={{ borderColor: "rgba(255, 255, 255, 0.2)" }}
-        >
-          <ChevronDown
-            className="w-4 h-4"
-            style={{ color: "rgba(255, 255, 255, 0.6)" }}
-          />
-        </motion.div>
-      </motion.button>
     </section>
   );
 }

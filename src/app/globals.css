@@ -336,19 +336,19 @@ h1, h2, h3, h4 {
   content:"";
   position:absolute;
   inset:0;
-  bottom:-32px; /* extend beyond the header so the mask fade happens outside */
+  bottom:-16px; /* softer extension below the header for a subtler dissolve */
   pointer-events:none;
   z-index:-1;
   opacity:0;
   transition:opacity 300ms var(--ease-quart),background var(--d-base) var(--ease-quart);
 
   background:rgba(20, 34, 46, 0.64);
-  backdrop-filter:blur(24px) saturate(180%);
-  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
 
-  /* Dissolve the blur progressively toward the bottom (no hard line). */
-  mask-image:linear-gradient(180deg, black 0%, black 75%, transparent 100%);
-  -webkit-mask-image:linear-gradient(180deg, black 0%, black 75%, transparent 100%);
+  /* Subtler dissolve: only the last 10% fades out (no visible "wave"). */
+  mask-image:linear-gradient(180deg, black 0%, black 90%, transparent 100%);
+  -webkit-mask-image:linear-gradient(180deg, black 0%, black 90%, transparent 100%);
 }
 .pdy-header.scrolled::before{opacity:1}
 .pdy-header.light::before{background:rgba(255, 255, 255, 0.72)}
@@ -491,10 +491,10 @@ h1, h2, h3, h4 {
   .pdy-header-cta > .pdy-cta-label{display:none}
   .pdy-header-cta{padding:10px 12px}
   .pdy-header::before{
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-    mask-image:linear-gradient(180deg, black 0%, black 85%, transparent 100%);
-    -webkit-mask-image:linear-gradient(180deg, black 0%, black 85%, transparent 100%);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    mask-image:linear-gradient(180deg, black 0%, black 92%, transparent 100%);
+    -webkit-mask-image:linear-gradient(180deg, black 0%, black 92%, transparent 100%);
   }
 }
 
@@ -514,6 +514,71 @@ h1, h2, h3, h4 {
 .pdy-header.light .pdy-header-burger:focus-visible,
 .pdy-header.light .pdy-header-cta:focus-visible{
   outline-color:var(--color-green-deep);
+}
+
+/* ================================================================
+   HERO SCROLL INDICATOR (centered bottom, label + bouncing chevron)
+================================================================ */
+.pdy-scroll-indicator{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  padding:8px 12px;
+  background:transparent;
+  border:0;
+  cursor:pointer;
+  font-family:var(--font-dm-mono),ui-monospace,monospace;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:rgba(255, 255, 255, 0.85);
+  transition:color var(--d-base) var(--ease-quart),
+             transform var(--d-base) var(--ease-quart);
+}
+.pdy-scroll-indicator:hover{
+  color:var(--color-green-electric);
+  transform:translateY(2px);
+}
+.pdy-scroll-indicator-label{white-space:nowrap}
+.pdy-scroll-indicator-arrow{
+  display:grid;
+  place-items:center;
+  width:32px;height:32px;
+  border-radius:50%;
+  border:1.5px solid rgba(87, 238, 161, 0.5);
+  color:var(--color-green-electric);
+  animation:pdy-scroll-chevron-bounce 1.8s ease-in-out infinite;
+}
+.pdy-scroll-indicator-arrow svg{width:16px;height:16px;stroke-width:2}
+@keyframes pdy-scroll-chevron-bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(6px)}
+}
+.pdy-scroll-indicator:focus-visible{
+  outline:2px solid var(--color-green-electric);
+  outline-offset:4px;
+  border-radius:8px;
+}
+@media (prefers-reduced-motion:reduce){
+  .pdy-scroll-indicator-arrow{animation:none}
+}
+@media (max-width:767px){
+  .pdy-scroll-indicator{font-size:10px;letter-spacing:0.18em}
+  .pdy-scroll-indicator-arrow{width:28px;height:28px}
+}
+
+.pdy-hero-scroll-zone{
+  opacity:0;
+  animation:pdy-hero-fade-up 600ms var(--ease-quart) forwards 1600ms;
+}
+@keyframes pdy-hero-fade-up{
+  from{opacity:0;transform:translate(-50%, 12px)}
+  to{opacity:1;transform:translate(-50%, 0)}
+}
+@media (prefers-reduced-motion:reduce){
+  .pdy-hero-scroll-zone{animation:none;opacity:1}
 }
 
 /* ================================================================
@@ -623,21 +688,20 @@ h1, h2, h3, h4 {
 }
 
 .pdy-foot-logo{
-  display:inline-flex;align-items:center;gap:12px;
-  color:var(--color-white-warm);width:fit-content;
-  transition:opacity 240ms var(--ease-quart);
+  display:inline-block;
+  color:var(--color-white-warm);
+  width:fit-content;
+  transition:opacity var(--d-base) var(--ease-quart);
 }
 .pdy-foot-logo:hover{opacity:.8}
-.pdy-foot-logo-mark{display:block;width:44px;height:26px;flex-shrink:0}
-.pdy-foot-logo-mark svg{width:100%;height:100%;display:block}
-.pdy-foot-logo-word{
-  font-family:var(--font-satoshi),system-ui,sans-serif;
-  font-weight:500;font-size:22px;letter-spacing:-0.015em;
-  color:var(--color-white-warm);line-height:1;
+.pdy-foot-logo-svg{
+  height:28px;
+  width:auto;
+  display:block;
+  color:currentColor;
 }
 @media (max-width:767px){
-  .pdy-foot-logo-mark{width:36px;height:22px}
-  .pdy-foot-logo-word{font-size:19px}
+  .pdy-foot-logo-svg{height:24px}
 }
 
 .pdy-foot-baseline{

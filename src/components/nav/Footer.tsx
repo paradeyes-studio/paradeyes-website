@@ -2,6 +2,7 @@
 
 import { ArrowRight, Mail, ExternalLink } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { Logo } from "@/components/brand/Logo";
 import { PreFooterCTA } from "./PreFooterCTA";
 
 interface FooterProps {
@@ -44,23 +45,6 @@ function InstagramIcon() {
   );
 }
 
-function BehanceIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={brandIconSize}>
-      <path d="M7.8 11.4H4.4v-3h3.2c1.1 0 1.7.5 1.7 1.5s-.5 1.5-1.5 1.5zm-3.4 1.8h3.6c1.2 0 1.9.6 1.9 1.7s-.7 1.7-1.9 1.7H4.4v-3.4zM1 18.8h7c2.4 0 4.6-1.2 4.6-3.9 0-1.6-.8-2.8-2.5-3.2 1.2-.6 1.9-1.5 1.9-3 0-2.4-1.8-3.2-4.1-3.2H1v13.3zm16.4-9.8c-2.7 0-4.7 2-4.7 4.9s2 4.9 4.7 4.9c2.1 0 3.6-1 4.3-2.9h-2.3c-.3.7-.9 1-1.9 1-1.3 0-2.1-.8-2.2-2.1h6.6c.2-2.9-1.5-5.8-4.5-5.8zm-2 3.8c.2-1.1 1-1.8 2-1.8 1.1 0 1.8.6 2 1.8H15.4zm6.2-6.8h-5.5v-1.3h5.5V6z" />
-    </svg>
-  );
-}
-
-function FootLogoMark() {
-  return (
-    <svg viewBox="0 0 185 106" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M42.4446 13.0044L56.5687 27.6319C56.5687 27.6319 37.941 46.0813 38.5858 53.7144C39.2307 61.3475 56.5687 78.5194 56.5687 78.5194L41.7997 95.0527C41.7997 95.0527 -1.86231 63.2532 0.0617747 54.039C1.98586 44.8143 26.3964 18.7319 42.4446 13.0044Z" fill="#57EEA1" />
-      <path d="M78.4103 2.19861C78.4103 2.19861 150.342 -7.97889 184.373 54.039C184.373 54.039 155.469 113.512 78.4103 103.974C78.4103 103.974 123.362 94.8432 148.418 53.2955C148.418 53.2955 130.435 17.4649 78.4103 2.19861Z" fill="#57EEA1" />
-      <path d="M119.472 53.2854C98.4018 56.6674 95.6108 59.4316 92.1961 80.2997C88.7814 59.4316 85.9904 56.6674 64.9205 53.2854C85.9904 49.9033 88.7814 47.1391 92.1961 26.271C95.6108 47.1391 98.4018 49.9033 119.472 53.2854Z" fill="#57EEA1" />
-    </svg>
-  );
-}
 
 const MARQUEE_ITEMS = [
   "On comprend.",
@@ -121,10 +105,7 @@ export function Footer({
               aria-label="Paradeyes, retour à l'accueil"
               className="pdy-foot-logo"
             >
-              <span className="pdy-foot-logo-mark" aria-hidden="true">
-                <FootLogoMark />
-              </span>
-              <span className="pdy-foot-logo-word">paradeyes</span>
+              <Logo className="pdy-foot-logo-svg" />
             </Link>
             <p className="pdy-foot-baseline">
               Le cinéma rencontre le tableau de bord.
@@ -164,7 +145,7 @@ export function Footer({
               <Mail aria-hidden="true" />
               hello@paradeyesagency.com
             </a>
-            <p className="pdy-foot-address">Cannes, France</p>
+            <p className="pdy-foot-address">PARIS - CANNES</p>
             <p className="pdy-foot-hours">Du lundi au vendredi, 9h à 19h</p>
           </div>
 
@@ -189,16 +170,6 @@ export function Footer({
               >
                 <InstagramIcon />
                 Instagram
-                <ExternalLink className={`${extIconSize} pdy-ext`} aria-hidden="true" />
-              </a>
-              <a
-                href="https://behance.net/paradeyesagency"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Behance (lien externe)"
-              >
-                <BehanceIcon />
-                Behance
                 <ExternalLink className={`${extIconSize} pdy-ext`} aria-hidden="true" />
               </a>
             </nav>
