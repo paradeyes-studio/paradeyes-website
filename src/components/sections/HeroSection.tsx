@@ -447,28 +447,15 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               </div>
 
               {/* Pills suggestions : 6 chips, nowrap desktop, scroll horizontal mobile */}
-              <div className="flex items-center justify-center gap-2 overflow-x-auto md:overflow-visible md:flex-wrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              <div className="pdy-iris-chips-row">
                 {fallback.suggestions.map((suggestion, i) => (
                   <button
                     key={suggestion}
                     type="button"
                     className={cn(
-                      "px-4 py-2 rounded-full whitespace-nowrap shrink-0",
-                      "font-body text-body-sm font-medium",
-                      "transition-all duration-200 ease-out",
+                      "pdy-iris-chip",
+                      i === 0 && "pdy-iris-chip--active",
                     )}
-                    style={
-                      i === 0
-                        ? {
-                            background: "#003135",
-                            color: "white",
-                          }
-                        : {
-                            background: "transparent",
-                            color: "rgba(0, 49, 53, 0.8)",
-                            border: "1px solid rgba(0, 49, 53, 0.2)",
-                          }
-                    }
                   >
                     {suggestion}
                   </button>
