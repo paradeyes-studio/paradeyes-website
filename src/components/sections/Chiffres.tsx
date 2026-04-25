@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeChiffres } from "@/content/home-fallback";
 import { useCountUp } from "@/hooks/useCountUp";
+import { ClientsMarquee } from "./chiffres/ClientsMarquee";
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -98,19 +99,10 @@ export function Chiffres() {
           ))}
         </div>
 
-        <div className="pdy-chiffres-clients">
-          <p className="pdy-chiffres-clients-label">{homeChiffres.clientsLabel}</p>
-          <ul className="pdy-clients-grid">
-            {homeChiffres.clients.map((client, i) => (
-              <li key={client} className="pdy-client-card">
-                <span className="pdy-client-num">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="pdy-client-name">{client}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ClientsMarquee
+          clients={homeChiffres.clients}
+          label={homeChiffres.clientsLabel}
+        />
       </div>
     </section>
   );
