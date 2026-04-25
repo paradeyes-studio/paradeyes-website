@@ -44,7 +44,7 @@ export function JournalPreview() {
   return (
     <section
       ref={reveal}
-      className="pdy-journal pdy-section-stacked pdy-section-reveal"
+      className="pdy-journal pdy-section-stacked pdy-section-stacked--z7 pdy-section-reveal"
       data-section-theme="light"
     >
       <div className="pdy-journal-inner">

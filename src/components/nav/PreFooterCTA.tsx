@@ -89,7 +89,7 @@ export function PreFooterCTA({
 
   return (
     <section
-      className="pdy-prefooter pdy-bloc-dark pdy-bloc-dark--pre-footer pdy-section-stacked"
+      className="pdy-prefooter pdy-bloc-dark pdy-bloc-dark--pre-footer pdy-section-stacked pdy-section-stacked--z9"
       data-section-theme="dark"
       aria-labelledby="prefooter-title"
     >

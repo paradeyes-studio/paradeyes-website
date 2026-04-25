@@ -39,7 +39,7 @@ export function Offres() {
   return (
     <section
       ref={reveal}
-      className="pdy-offres pdy-section-stacked pdy-section-reveal"
+      className="pdy-offres pdy-section-stacked pdy-section-stacked--z1 pdy-section-reveal"
       data-section-theme="light"
       id="section-offres"
     >

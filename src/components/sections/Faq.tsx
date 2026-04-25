@@ -33,7 +33,7 @@ export function Faq() {
   return (
     <section
       ref={reveal}
-      className="pdy-faq pdy-bloc-dark pdy-section-stacked pdy-section-reveal"
+      className="pdy-faq pdy-bloc-dark pdy-section-stacked pdy-section-stacked--z8 pdy-section-reveal"
       data-section-theme="dark"
     >
       <div className="pdy-faq-halo" aria-hidden="true" />

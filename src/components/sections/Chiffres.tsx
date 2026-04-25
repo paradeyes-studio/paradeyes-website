@@ -64,7 +64,7 @@ export function Chiffres() {
   return (
     <section
       ref={reveal}
-      className="pdy-chiffres pdy-section-stacked pdy-section-reveal"
+      className="pdy-chiffres pdy-section-stacked pdy-section-stacked--z3 pdy-section-reveal"
       data-section-theme="light"
     >
       <div className="pdy-chiffres-inner">

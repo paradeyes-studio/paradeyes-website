@@ -63,7 +63,7 @@ export function Cases() {
   return (
     <section
       ref={reveal}
-      className="pdy-cases pdy-section-stacked pdy-section-reveal"
+      className="pdy-cases pdy-section-stacked pdy-section-stacked--z5 pdy-section-reveal"
       data-section-theme="light"
     >
       <div className="pdy-cases-inner">

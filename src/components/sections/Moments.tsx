@@ -45,7 +45,7 @@ export function Moments() {
   return (
     <section
       ref={reveal}
-      className="pdy-moments pdy-bloc-dark pdy-section-stacked pdy-section-reveal"
+      className="pdy-moments pdy-bloc-dark pdy-section-stacked pdy-section-stacked--z2 pdy-section-reveal"
       data-section-theme="dark"
     >
       <div className="pdy-moments-halo" aria-hidden="true" />
