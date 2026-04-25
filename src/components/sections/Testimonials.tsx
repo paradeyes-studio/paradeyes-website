@@ -4,11 +4,15 @@ import { motion } from "framer-motion";
 import { StarRating } from "@/components/ui/StarRating";
 import { VerifiedBadge } from "@/components/ui/VerifiedBadge";
 import { homeTestimonials } from "@/content/home-fallback";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 export function Testimonials() {
+  const reveal = useSectionReveal<HTMLElement>(0.15);
+
   return (
     <section
-      className="pdy-testimonials pdy-bloc-dark pdy-bloc-dark--tertiary pdy-section-stacked"
+      ref={reveal}
+      className="pdy-testimonials pdy-bloc-dark pdy-bloc-dark--tertiary pdy-section-stacked pdy-section-reveal"
       data-section-theme="dark"
       aria-labelledby="testimonials-title"
     >

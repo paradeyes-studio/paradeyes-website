@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeOffres } from "@/content/home-fallback";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { OffreCard } from "./offres/OffreCard";
 
 const fadeUp = (delay: number): Variants => ({
@@ -32,9 +33,15 @@ export function Offres() {
 
   // First two cards are large (col-span-6), the next three are medium (col-span-4).
   const [large1, large2, ...mediums] = homeOffres.cards;
+  const reveal = useSectionReveal<HTMLElement>(0.15);
 
   return (
-    <section className="pdy-offres pdy-section-stacked" data-section-theme="light" id="section-offres">
+    <section
+      ref={reveal}
+      className="pdy-offres pdy-section-stacked pdy-section-reveal"
+      data-section-theme="light"
+      id="section-offres"
+    >
       <div className="pdy-offres-inner">
         <header className="pdy-offres-head">
           <motion.p

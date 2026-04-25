@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { homeFaq } from "@/content/home-fallback";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -25,9 +26,14 @@ export function Faq() {
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const idBase = useId();
+  const reveal = useSectionReveal<HTMLElement>(0.15);
 
   return (
-    <section className="pdy-faq pdy-bloc-dark pdy-section-stacked" data-section-theme="dark">
+    <section
+      ref={reveal}
+      className="pdy-faq pdy-bloc-dark pdy-section-stacked pdy-section-reveal"
+      data-section-theme="dark"
+    >
       <div className="pdy-faq-halo" aria-hidden="true" />
       <div className="pdy-faq-inner">
         <div className="pdy-faq-head">

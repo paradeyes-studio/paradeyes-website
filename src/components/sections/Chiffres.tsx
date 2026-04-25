@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeChiffres } from "@/content/home-fallback";
 import { useCountUp } from "@/hooks/useCountUp";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { ClientsMarquee } from "./chiffres/ClientsMarquee";
 
 const fadeUp = (delay: number): Variants => ({
@@ -57,9 +58,14 @@ function StatItem({ data }: StatItemProps) {
 export function Chiffres() {
   const reduced = useReducedMotion();
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
+  const reveal = useSectionReveal<HTMLElement>(0.15);
 
   return (
-    <section className="pdy-chiffres pdy-section-stacked" data-section-theme="light">
+    <section
+      ref={reveal}
+      className="pdy-chiffres pdy-section-stacked pdy-section-reveal"
+      data-section-theme="light"
+    >
       <div className="pdy-chiffres-inner">
         <header className="pdy-chiffres-head">
           <motion.p

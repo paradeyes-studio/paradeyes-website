@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { homeCases } from "@/content/home-fallback";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { CaseCard } from "./cases/CaseCard";
 
 const fadeUp = (delay: number): Variants => ({
@@ -56,9 +57,14 @@ export function Cases() {
   };
 
   const currentNumber = String(currentIndex + 1).padStart(2, "0");
+  const reveal = useSectionReveal<HTMLElement>(0.15);
 
   return (
-    <section className="pdy-cases pdy-section-stacked" data-section-theme="light">
+    <section
+      ref={reveal}
+      className="pdy-cases pdy-section-stacked pdy-section-reveal"
+      data-section-theme="light"
+    >
       <div className="pdy-cases-inner">
         <header className="pdy-cases-head">
           <motion.p

@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { homeJournal } from "@/content/home-fallback";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -37,9 +38,14 @@ const item: Variants = {
 export function JournalPreview() {
   const reduced = useReducedMotion();
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
+  const reveal = useSectionReveal<HTMLElement>(0.15);
 
   return (
-    <section className="pdy-journal pdy-section-stacked" data-section-theme="light">
+    <section
+      ref={reveal}
+      className="pdy-journal pdy-section-stacked pdy-section-reveal"
+      data-section-theme="light"
+    >
       <div className="pdy-journal-inner">
         <header className="pdy-journal-head">
           <div className="pdy-journal-head-text">

@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeMoments } from "@/content/home-fallback";
+import { useSectionReveal } from "@/hooks/useSectionReveal";
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -37,9 +38,14 @@ const item: Variants = {
 export function Moments() {
   const reduced = useReducedMotion();
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
+  const reveal = useSectionReveal<HTMLElement>(0.15);
 
   return (
-    <section className="pdy-moments pdy-bloc-dark pdy-section-stacked" data-section-theme="dark">
+    <section
+      ref={reveal}
+      className="pdy-moments pdy-bloc-dark pdy-section-stacked pdy-section-reveal"
+      data-section-theme="dark"
+    >
       <div className="pdy-moments-halo" aria-hidden="true" />
 
       <div className="pdy-moments-inner">
