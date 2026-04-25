@@ -7,6 +7,7 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { LenisProvider } from "@/components/providers/LenisProvider";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 const satoshi = localFont({
   src: [
@@ -104,7 +105,10 @@ export default async function LocaleLayout({ children, params }: Props) {
       </head>
       <body className="antialiased">
         <NextIntlClientProvider>
-          <LenisProvider>{children}</LenisProvider>
+          <LenisProvider>
+            <ScrollProgress />
+            {children}
+          </LenisProvider>
         </NextIntlClientProvider>
         <Script
           defer

@@ -2835,3 +2835,34 @@ h1, h2, h3, h4 {
   .pdy-prefooter-iris-submit:hover { transform: none; }
   .pdy-prefooter-appel-cta:hover { transform: none; }
 }
+
+/* ================================================================
+   SCROLL PROGRESS BAR — cinema 1px line at top of viewport
+================================================================ */
+.pdy-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 60;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.pdy-scroll-progress-bar {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(87, 238, 161, 0.4) 0%,
+    var(--color-green-electric) 50%,
+    rgba(87, 238, 161, 0.7) 100%
+  );
+  transform-origin: left center;
+  transform: scaleX(0);
+  box-shadow: 0 0 12px rgba(87, 238, 161, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdy-scroll-progress { display: none; }
+}
