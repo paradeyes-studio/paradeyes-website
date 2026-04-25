@@ -315,7 +315,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             </p>
           </motion.div>
 
-          {/* Titre H1 — italique vert sur le dernier mot */}
+          {/* Titre H1 : italique vert sur le dernier mot */}
           <motion.h1
             variants={variant(0.15, 24)}
             initial="hidden"
@@ -356,7 +356,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             {subtitle}
           </motion.p>
 
-          {/* Carte IRIS — proportions canoniques 800px max, submit 44px */}
+          {/* Carte IRIS : proportions canoniques 800px max, submit 44px */}
           <motion.div
             variants={variant(0.65, 16)}
             initial="hidden"
@@ -383,7 +383,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 {irisAfter}
               </p>
 
-              {/* Input pill — height 56px / submit 44px enforced via CSS */}
+              {/* Input pill : height 56px / submit 44px enforced via CSS */}
               <div className="pdy-iris-input-wrap">
                 <Paperclip
                   className="w-4 h-4 shrink-0"
@@ -407,7 +407,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 </button>
               </div>
 
-              {/* Pills suggestions — 6 chips, nowrap desktop, scroll horizontal mobile */}
+              {/* Pills suggestions : 6 chips, nowrap desktop, scroll horizontal mobile */}
               <div className="flex items-center justify-center gap-2 overflow-x-auto md:overflow-visible md:flex-wrap [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                 {fallback.suggestions.map((suggestion, i) => (
                   <button
