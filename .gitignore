@@ -41,3 +41,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .claude-backup/
+
+# nano-banana raw output (kept locally only, copies are placed under public/images/)
+/generated_imgs/
