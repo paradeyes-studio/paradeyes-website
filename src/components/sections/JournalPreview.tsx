@@ -39,7 +39,7 @@ export function JournalPreview() {
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
 
   return (
-    <section className="pdy-journal" data-section-theme="light">
+    <section className="pdy-journal pdy-section-stacked" data-section-theme="light">
       <div className="pdy-journal-inner">
         <header className="pdy-journal-head">
           <div className="pdy-journal-head-text">

@@ -34,7 +34,7 @@ export function Offres() {
   const [large1, large2, ...mediums] = homeOffres.cards;
 
   return (
-    <section className="pdy-offres" data-section-theme="light" id="section-offres">
+    <section className="pdy-offres pdy-section-stacked" data-section-theme="light" id="section-offres">
       <div className="pdy-offres-inner">
         <header className="pdy-offres-head">
           <motion.p

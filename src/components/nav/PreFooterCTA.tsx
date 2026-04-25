@@ -67,7 +67,7 @@ export function PreFooterCTA({
 
   return (
     <section
-      className="relative py-[var(--spacing-10)] lg:py-[var(--spacing-12)] overflow-hidden"
+      className="pdy-section-stacked relative py-[var(--spacing-10)] lg:py-[var(--spacing-12)] overflow-hidden"
       style={{ background: "var(--color-green-deep)" }}
       data-section-theme="dark"
     >

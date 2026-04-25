@@ -27,7 +27,7 @@ export function Faq() {
   const idBase = useId();
 
   return (
-    <section className="pdy-faq" data-section-theme="dark">
+    <section className="pdy-faq pdy-section-stacked" data-section-theme="dark">
       <div className="pdy-faq-halo" aria-hidden="true" />
       <div className="pdy-faq-inner">
         <div className="pdy-faq-head">

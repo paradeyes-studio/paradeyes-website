@@ -33,7 +33,7 @@ export function Testimonials() {
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
 
   return (
-    <section className="pdy-testis" data-section-theme="dark">
+    <section className="pdy-testis pdy-section-stacked" data-section-theme="dark">
       <div className="pdy-testis-halo" aria-hidden="true" />
       <div className="pdy-testis-inner">
         <header className="pdy-testis-head">

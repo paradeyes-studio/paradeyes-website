@@ -39,7 +39,7 @@ export function Moments() {
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
 
   return (
-    <section className="pdy-moments" data-section-theme="dark">
+    <section className="pdy-moments pdy-section-stacked" data-section-theme="dark">
       <div className="pdy-moments-halo" aria-hidden="true" />
 
       <div className="pdy-moments-inner">

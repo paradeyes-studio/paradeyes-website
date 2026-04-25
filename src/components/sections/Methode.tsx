@@ -37,7 +37,7 @@ export function Methode() {
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
 
   return (
-    <section className="pdy-methode" data-section-theme="dark">
+    <section className="pdy-methode pdy-section-stacked" data-section-theme="dark">
       <div className="pdy-methode-halo" aria-hidden="true" />
 
       <div className="pdy-methode-inner">

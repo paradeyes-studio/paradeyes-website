@@ -58,7 +58,7 @@ export function Cases() {
   const currentNumber = String(currentIndex + 1).padStart(2, "0");
 
   return (
-    <section className="pdy-cases" data-section-theme="light">
+    <section className="pdy-cases pdy-section-stacked" data-section-theme="light">
       <div className="pdy-cases-inner">
         <header className="pdy-cases-head">
           <motion.p

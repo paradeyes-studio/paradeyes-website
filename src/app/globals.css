@@ -1151,51 +1151,6 @@ h1, h2, h3, h4 {
 [data-section-theme="dark"] .pdy-italic-accent{color:var(--color-green-electric)}
 
 /* ================================================================
-   3.1.1 STRIP MARQUEE
-================================================================ */
-.pdy-strip{
-  position:relative;
-  height:100px;
-  background:var(--color-white-warm);
-  border-top:1px solid var(--color-gd-08);
-  border-bottom:1px solid var(--color-gd-08);
-  overflow:hidden;
-  display:flex;align-items:center;
-  mask-image:linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
-  -webkit-mask-image:linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
-}
-.pdy-strip-track{
-  display:flex;align-items:center;gap:48px;white-space:nowrap;
-  animation:pdy-marquee 60s linear infinite;
-  will-change:transform;
-}
-.pdy-strip:hover .pdy-strip-track{animation-duration:120s}
-.pdy-strip-item{
-  font-family:var(--font-satoshi),system-ui,sans-serif;
-  font-weight:500;
-  font-size:clamp(28px, 4vw, 48px);
-  letter-spacing:-0.01em;
-  color:var(--color-green-deep);
-  opacity:0.85;
-  transition:opacity var(--d-base) var(--ease-quart);
-}
-.pdy-strip-item:hover{opacity:1}
-.pdy-strip-sep{
-  font-family:var(--font-satoshi),system-ui,sans-serif;
-  font-weight:500;
-  font-size:clamp(28px, 4vw, 48px);
-  color:var(--color-gd-24);
-  flex-shrink:0;
-}
-@media (max-width:767px){
-  .pdy-strip{height:80px}
-  .pdy-strip-track{gap:32px}
-}
-@media (prefers-reduced-motion:reduce){
-  .pdy-strip-track{animation:none}
-}
-
-/* ================================================================
    3.1.3 OFFRES
 ================================================================ */
 .pdy-offres{

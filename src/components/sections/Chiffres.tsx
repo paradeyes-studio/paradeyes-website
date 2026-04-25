@@ -58,7 +58,7 @@ export function Chiffres() {
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
 
   return (
-    <section className="pdy-chiffres" data-section-theme="light">
+    <section className="pdy-chiffres pdy-section-stacked" data-section-theme="light">
       <div className="pdy-chiffres-inner">
         <header className="pdy-chiffres-head">
           <motion.p

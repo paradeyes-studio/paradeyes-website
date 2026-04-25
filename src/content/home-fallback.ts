@@ -19,20 +19,6 @@
  * - palette references stay symbolic (use tokens, not hex)
  */
 
-// TODO Notion sync : Strip items pending validation (8 pages "À valider par Basilide" Notion)
-export const homeStrip = {
-  items: [
-    "Branding",
-    "Sites web",
-    "Contenus",
-    "Déploiement",
-    "Acquisition",
-    "Conseil stratégique",
-    "Identité visuelle",
-    "Direction artistique",
-  ],
-} as const;
-
 export const homeOffres = {
   eyebrow: "Nos offres",
   headline: {
