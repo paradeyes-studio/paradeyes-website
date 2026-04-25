@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { StarRating } from "@/components/ui/StarRating";
 import { VerifiedBadge } from "@/components/ui/VerifiedBadge";
+import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { homeTestimonials } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 
@@ -18,11 +19,13 @@ export function Testimonials() {
     >
       <header className="pdy-testimonials-header">
         <p className="pdy-testimonials-eyebrow">{homeTestimonials.eyebrow}</p>
-        <h2 id="testimonials-title" className="pdy-testimonials-title">
-          {homeTestimonials.headline.before}
-          <em className="pdy-italic-accent">{homeTestimonials.headline.italic}</em>
-          {homeTestimonials.headline.after}
-        </h2>
+        <SectionHeadline
+          before={homeTestimonials.headline.before}
+          italic={homeTestimonials.headline.italic}
+          after={homeTestimonials.headline.after}
+          className="pdy-testimonials-title"
+          id="testimonials-title"
+        />
       </header>
 
       <ul className="pdy-testimonials-grid">

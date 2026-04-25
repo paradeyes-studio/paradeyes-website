@@ -5,6 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { homeJournal } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+import { SectionHeadline } from "@/components/ui/SectionHeadline";
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -58,17 +59,12 @@ export function JournalPreview() {
             >
               {homeJournal.eyebrow}
             </motion.p>
-            <motion.h2
-              variants={v(0.1)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+            <SectionHeadline
+              before={homeJournal.headline.before}
+              italic={homeJournal.headline.italic}
+              after={homeJournal.headline.after}
               className="pdy-section-h2"
-            >
-              {homeJournal.headline.before}
-              <em className="pdy-italic-accent">{homeJournal.headline.italic}</em>
-              {homeJournal.headline.after}
-            </motion.h2>
+            />
             <motion.p
               variants={v(0.2)}
               initial="hidden"

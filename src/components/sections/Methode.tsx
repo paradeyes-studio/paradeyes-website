@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
 import { homeMethode } from "@/content/home-fallback";
+import { SectionHeadline } from "@/components/ui/SectionHeadline";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -62,11 +63,13 @@ export function Methode() {
     >
       <header className="pdy-methode-header">
         <p className="pdy-methode-eyebrow">{homeMethode.eyebrow}</p>
-        <h2 id="methode-title" className="pdy-methode-title">
-          {homeMethode.headline.before}
-          <em className="pdy-italic-accent">{homeMethode.headline.italic}</em>
-          {homeMethode.headline.after}
-        </h2>
+        <SectionHeadline
+          before={homeMethode.headline.before}
+          italic={homeMethode.headline.italic}
+          after={homeMethode.headline.after}
+          className="pdy-methode-title"
+          id="methode-title"
+        />
         <p className="pdy-methode-sub">{homeMethode.sub}</p>
       </header>
 

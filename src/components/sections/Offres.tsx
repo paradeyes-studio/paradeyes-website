@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeOffres } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { OffreCard } from "./offres/OffreCard";
 
 const fadeUp = (delay: number): Variants => ({
@@ -53,17 +54,12 @@ export function Offres() {
           >
             {homeOffres.eyebrow}
           </motion.p>
-          <motion.h2
-            variants={v(0.1)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+          <SectionHeadline
+            before={homeOffres.headline.before}
+            italic={homeOffres.headline.italic}
+            after={homeOffres.headline.after}
             className="pdy-section-h2"
-          >
-            {homeOffres.headline.before}
-            <em className="pdy-italic-accent">{homeOffres.headline.italic}</em>
-            {homeOffres.headline.after}
-          </motion.h2>
+          />
           <motion.p
             variants={v(0.2)}
             initial="hidden"

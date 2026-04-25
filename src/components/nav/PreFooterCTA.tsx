@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Mail, Calendar, Sparkles } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { homePreFooter } from "@/content/home-fallback";
+import { SectionHeadline } from "@/components/ui/SectionHeadline";
 
 type PreFooterVariant = "default" | "offre" | "contact";
 
@@ -94,11 +95,13 @@ export function PreFooterCTA({
       <div className="pdy-prefooter-inner">
         <header className="pdy-prefooter-header">
           <p className="pdy-prefooter-eyebrow">{content.eyebrow}</p>
-          <h2 id="prefooter-title" className="pdy-prefooter-title">
-            {content.titleBefore}
-            <em className="pdy-italic-accent">{content.titleItalic}</em>
-            {content.titleAfter}
-          </h2>
+          <SectionHeadline
+            before={content.titleBefore}
+            italic={content.titleItalic}
+            after={content.titleAfter}
+            className="pdy-prefooter-title"
+            id="prefooter-title"
+          />
           <p className="pdy-prefooter-sub">{content.description}</p>
         </header>
 

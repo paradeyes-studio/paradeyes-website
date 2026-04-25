@@ -5,6 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { homeCases } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { CaseCard } from "./cases/CaseCard";
 
 const fadeUp = (delay: number): Variants => ({
@@ -76,17 +77,12 @@ export function Cases() {
           >
             {homeCases.eyebrow}
           </motion.p>
-          <motion.h2
-            variants={v(0.1)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+          <SectionHeadline
+            before={homeCases.headline.before}
+            italic={homeCases.headline.italic}
+            after={homeCases.headline.after}
             className="pdy-section-h2"
-          >
-            {homeCases.headline.before}
-            <em className="pdy-italic-accent">{homeCases.headline.italic}</em>
-            {homeCases.headline.after}
-          </motion.h2>
+          />
           <motion.p
             variants={v(0.2)}
             initial="hidden"

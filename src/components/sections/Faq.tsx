@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer
 import { ChevronDown } from "lucide-react";
 import { homeFaq } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+import { SectionHeadline } from "@/components/ui/SectionHeadline";
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -46,17 +47,12 @@ export function Faq() {
           >
             {homeFaq.eyebrow}
           </motion.p>
-          <motion.h2
-            variants={v(0.1)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+          <SectionHeadline
+            before={homeFaq.headline.before}
+            italic={homeFaq.headline.italic}
+            after={homeFaq.headline.after}
             className="pdy-section-h2"
-          >
-            {homeFaq.headline.before}
-            <em className="pdy-italic-accent">{homeFaq.headline.italic}</em>
-            {homeFaq.headline.after}
-          </motion.h2>
+          />
           <motion.p
             variants={v(0.2)}
             initial="hidden"

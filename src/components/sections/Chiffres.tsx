@@ -4,6 +4,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeChiffres } from "@/content/home-fallback";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { ClientsMarquee } from "./chiffres/ClientsMarquee";
 
 const fadeUp = (delay: number): Variants => ({
@@ -77,17 +78,12 @@ export function Chiffres() {
           >
             {homeChiffres.eyebrow}
           </motion.p>
-          <motion.h2
-            variants={v(0.1)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+          <SectionHeadline
+            before={homeChiffres.headline.before}
+            italic={homeChiffres.headline.italic}
+            after={homeChiffres.headline.after}
             className="pdy-section-h2"
-          >
-            {homeChiffres.headline.before}
-            <em className="pdy-italic-accent">{homeChiffres.headline.italic}</em>
-            {homeChiffres.headline.after}
-          </motion.h2>
+          />
           <motion.p
             variants={v(0.2)}
             initial="hidden"
