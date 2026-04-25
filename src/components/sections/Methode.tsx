@@ -1,138 +1,111 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReducedMotion } from "framer-motion";
 import { homeMethode } from "@/content/home-fallback";
 
-const fadeUp = (delay: number): Variants => ({
-  hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-  },
-});
-
-const fadeOnly = (delay: number): Variants => ({
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.4, delay } },
-});
-
-const stepGroup: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.2, delayChildren: 0.1 } },
-};
-
-const stepItem: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export function Methode() {
   const reduced = useReducedMotion();
-  const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const progressRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    const progress = progressRef.current;
+    if (!section || !track || !progress) return;
+
+    if (reduced) {
+      track.style.transform = "translateX(0)";
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const trackWidth = track.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      const distance = Math.max(0, trackWidth - viewportWidth);
+
+      gsap.to(track, {
+        x: -distance,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${distance + window.innerHeight * 0.2}`,
+          scrub: 1.2,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            progress.style.transform = `scaleX(${self.progress})`;
+          },
+        },
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, [reduced]);
 
   return (
-    <section className="pdy-methode pdy-section-stacked" data-section-theme="dark">
-      <div className="pdy-methode-halo" aria-hidden="true" />
+    <section
+      ref={sectionRef}
+      className="pdy-methode pdy-bloc-dark pdy-bloc-dark--secondary pdy-section-stacked"
+      data-section-theme="dark"
+      aria-labelledby="methode-title"
+    >
+      <header className="pdy-methode-header">
+        <p className="pdy-methode-eyebrow">{homeMethode.eyebrow}</p>
+        <h2 id="methode-title" className="pdy-methode-title">
+          {homeMethode.headline.before}
+          <em className="pdy-italic-accent">{homeMethode.headline.italic}</em>
+          {homeMethode.headline.after}
+        </h2>
+        <p className="pdy-methode-sub">{homeMethode.sub}</p>
+      </header>
 
-      <div className="pdy-methode-inner">
-        <header className="pdy-methode-head">
-          <motion.p
-            variants={v(0)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="pdy-eyebrow"
-          >
-            {homeMethode.eyebrow}
-          </motion.p>
-          <motion.h2
-            variants={v(0.1)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="pdy-section-h2"
-          >
-            {homeMethode.headline.before}
-            <em className="pdy-italic-accent">{homeMethode.headline.italic}</em>
-            {homeMethode.headline.after}
-          </motion.h2>
-          <motion.p
-            variants={v(0.2)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="pdy-section-sub"
-          >
-            {homeMethode.sub}
-          </motion.p>
-        </header>
-
-        {/* Timeline visuelle 4 segments */}
-        <motion.div
-          variants={v(0.3)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="pdy-methode-timeline"
-        >
-          <p className="pdy-methode-timeline-label">{homeMethode.timelineLabel}</p>
-          <div className="pdy-methode-timeline-track">
-            {homeMethode.timeline.map((seg, i) => (
-              <div
-                key={seg.label}
-                className={`pdy-methode-segment ${i === 0 ? "pdy-methode-segment-active" : ""}`}
-                style={{ flex: seg.flex }}
-              >
-                <span className="pdy-methode-seg-label">{seg.label}</span>
-                <span className="pdy-methode-seg-duration">{seg.duration}</span>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* 4 étapes detail */}
-        <motion.ol
-          variants={stepGroup}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-          className="pdy-methode-steps"
-        >
+      <div className="pdy-methode-track-wrapper">
+        <div ref={trackRef} className="pdy-methode-track">
           {homeMethode.steps.map((step) => (
-            <motion.li key={step.number} variants={stepItem} className="pdy-methode-step">
-              <span className="pdy-methode-step-ghost" aria-hidden="true">
+            <article key={step.number} className="pdy-methode-panel">
+              <div className="pdy-methode-panel-num" aria-hidden="true">
                 {step.number}
-              </span>
-              <div className="pdy-methode-step-body">
-                <span className="pdy-methode-step-tag">
-                  <span className="pdy-methode-step-dot" aria-hidden="true" />
-                  {step.tag} ·{" "}
-                  <em className="pdy-italic-accent">{step.titleItalic}</em>
+              </div>
+              <div className="pdy-methode-panel-content">
+                <span className="pdy-methode-panel-tag">
+                  <span className="pdy-methode-panel-tag-dot" aria-hidden="true" />
+                  {step.tag}
                 </span>
-                <h3 className="pdy-methode-step-title">
+                <h3 className="pdy-methode-panel-title">
                   {step.headline.before}
                   <em className="pdy-italic-accent">{step.headline.italic}</em>
                   {step.headline.after}
                 </h3>
-                <p className="pdy-methode-step-desc">{step.description}</p>
-                <ul className="pdy-methode-step-livrables">
-                  {step.livrables.map((l) => (
-                    <li key={l.label}>
-                      <span className="pdy-methode-step-livrable-label">{l.label}</span>
-                      <span className="pdy-methode-step-livrable-duration">{l.duration}</span>
+                <p className="pdy-methode-panel-description">{step.description}</p>
+                <ul className="pdy-methode-panel-livrables">
+                  {step.livrables.map((liv) => (
+                    <li key={liv.label}>
+                      <span>{liv.label}</span>
+                      <span className="pdy-methode-panel-livrable-duration">
+                        {liv.duration}
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </motion.li>
+            </article>
           ))}
-        </motion.ol>
+        </div>
+      </div>
+
+      <div className="pdy-methode-progress-wrapper" aria-hidden="true">
+        <div ref={progressRef} className="pdy-methode-progress" />
       </div>
     </section>
   );
