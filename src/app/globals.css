@@ -1053,7 +1053,19 @@ h1, h2, h3, h4 {
   gap:24px;
 }
 @media (max-width:767px){
-  .pdy-hero-bottom{gap:18px}
+  .pdy-hero-bottom{gap:14px}
+}
+
+/* === Mobile Hero tightening — ensure scroll indicator stays in view ===
+   On narrow viewports the IRIS card + chips can push the scroll indicator
+   below the fold. Tightening the inter-block margins keeps the entire
+   intent → action → scroll cue chain visible at minimum 100svh. */
+@media (max-width:767px){
+  .pdy-hero .mb-6 { margin-bottom:16px; }
+  .pdy-hero .mb-4 { margin-bottom:12px; }
+  .pdy-hero .mb-7 { margin-bottom:20px; }
+  .pdy-iris-card { padding:14px !important; }
+  .pdy-iris-input-wrap { margin-bottom:12px !important; }
 }
 
 /* ================================================================
@@ -1127,6 +1139,18 @@ h1, h2, h3, h4 {
   height:36px;
   background:rgba(255, 255, 255, 0.16);
   overflow:hidden;
+}
+@media (max-width:767px){
+  .pdy-scroll-indicator{
+    color:rgba(255, 255, 255, 1);
+    font-size:10.5px;
+    letter-spacing:0.2em;
+  }
+  .pdy-scroll-indicator-track{
+    width:2px;
+    height:32px;
+    background:rgba(255, 255, 255, 0.22);
+  }
 }
 .pdy-scroll-indicator-fill{
   position:absolute;

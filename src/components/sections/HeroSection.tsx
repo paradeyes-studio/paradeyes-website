@@ -175,10 +175,10 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
       ref={heroRef}
       data-section-theme="dark"
       data-hero-root
-      className="pdy-hero relative overflow-hidden flex flex-col min-h-screen pt-[96px] lg:pt-[112px]"
+      className="pdy-hero relative overflow-hidden flex flex-col pt-[80px] md:pt-[96px] lg:pt-[112px]"
       style={{
         backgroundColor: "#003135",
-        height: "100svh",
+        minHeight: "100svh",
       }}
     >
       {/* Grid texture overlay (matches dark sections) */}
@@ -472,7 +472,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
       {/* Hero bottom band: trust row + scroll indicator. Anchored to the natural
           bottom of the section so the main content above can center cleanly in
           the available height without being pulled up by the bottom weight. */}
-      <div className="relative w-full px-5 lg:px-6 pb-6 lg:pb-8">
+      <div className="relative w-full px-5 lg:px-6 pb-5 lg:pb-8 pt-2 md:pt-0">
         <div className="pdy-hero-bottom max-w-4xl mx-auto">
           <motion.ul
             variants={variant(0.85)}
