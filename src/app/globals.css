@@ -247,8 +247,8 @@
   --gradient-dark-tertiary: radial-gradient(ellipse 80% 100% at 100% 50%, #0a3d42 0%, #003135 50%, #002428 100%);
   --gradient-dark-pre-footer: linear-gradient(180deg, #14222E 0%, #003135 50%, #001a1c 100%);
 
-  --texture-grid-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><path d='M0 20h40M20 0v40' stroke='%2357EEA1' stroke-width='0.6' opacity='0.085' fill='none'/></svg>");
-  --texture-grid-svg-dense: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><path d='M0 14h28M14 0v28' stroke='%2357EEA1' stroke-width='0.6' opacity='0.10' fill='none'/></svg>");
+  --texture-grid-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><path d='M0 22h44M22 0v44' stroke='%2357EEA1' stroke-width='0.5' opacity='0.05' fill='none'/></svg>");
+  --texture-grid-svg-dense: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><path d='M0 14h28M14 0v28' stroke='%2357EEA1' stroke-width='0.5' opacity='0.06' fill='none'/></svg>");
 
   --section-radius: 60px;
   --section-radius-mobile: 32px;
@@ -268,11 +268,11 @@
   inset: 0;
   background-image: var(--texture-grid-svg);
   background-repeat: repeat;
-  -webkit-mask-image: radial-gradient(ellipse 110% 90% at 50% 50%, black 0%, black 50%, transparent 95%);
-          mask-image: radial-gradient(ellipse 110% 90% at 50% 50%, black 0%, black 50%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 0%, black 30%, transparent 85%);
+          mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 0%, black 30%, transparent 85%);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.85;
+  opacity: 0.5;
 }
 
 .pdy-bloc-dark > * {
@@ -290,11 +290,11 @@
   inset: 0;
   background-image: var(--texture-grid-svg);
   background-repeat: repeat;
-  -webkit-mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 0%, black 50%, transparent 95%);
-          mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 0%, black 50%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 0%, black 30%, transparent 85%);
+          mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 0%, black 30%, transparent 85%);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.85;
+  opacity: 0.5;
 }
 
 /* === Floating particles (very subtle ambient) === */
