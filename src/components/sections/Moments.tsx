@@ -96,6 +96,16 @@ export function Moments() {
             </motion.article>
           ))}
         </motion.div>
+
+        <motion.p
+          variants={v(0.4)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          className="pdy-moments-outro"
+        >
+          {homeMoments.outroCta}
+        </motion.p>
       </div>
     </section>
   );

@@ -57,6 +57,15 @@ export function Faq() {
             <em className="pdy-italic-accent">{homeFaq.headline.italic}</em>
             {homeFaq.headline.after}
           </motion.h2>
+          <motion.p
+            variants={v(0.2)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="pdy-section-sub"
+          >
+            {homeFaq.sub}
+          </motion.p>
         </div>
 
         <motion.ul

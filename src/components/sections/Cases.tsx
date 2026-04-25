@@ -87,6 +87,15 @@ export function Cases() {
             <em className="pdy-italic-accent">{homeCases.headline.italic}</em>
             {homeCases.headline.after}
           </motion.h2>
+          <motion.p
+            variants={v(0.2)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="pdy-section-sub"
+          >
+            {homeCases.sub}
+          </motion.p>
         </header>
 
         <div className="pdy-cases-controls">
