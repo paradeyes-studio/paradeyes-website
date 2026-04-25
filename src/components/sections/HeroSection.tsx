@@ -145,7 +145,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
       ref={heroRef}
       data-section-theme="dark"
       data-hero-root
-      className="relative overflow-hidden flex items-center justify-center min-h-screen pt-[88px] lg:pt-[88px] pb-14 lg:pb-14"
+      className="pdy-hero relative overflow-hidden flex items-center justify-center min-h-screen pt-[88px] lg:pt-[88px] pb-14 lg:pb-14"
       style={{
         backgroundColor: "#003135",
         height: "100svh",
@@ -356,29 +356,14 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             {subtitle}
           </motion.p>
 
-          {/* Carte IRIS — matière premium crème, élargie 1080px */}
+          {/* Carte IRIS — proportions canoniques 800px max, submit 44px */}
           <motion.div
             variants={variant(0.65, 16)}
             initial="hidden"
             animate="visible"
-            className="w-full max-w-[1080px]"
+            className="w-full"
           >
-            <div
-              className="relative rounded-3xl px-5 py-4 lg:px-6 lg:py-5"
-              style={{
-                background:
-                  "linear-gradient(180deg, #FAFAF7 0%, #F5F5F0 100%)",
-                backdropFilter: "blur(24px) saturate(180%)",
-                WebkitBackdropFilter: "blur(24px) saturate(180%)",
-                boxShadow: [
-                  "inset 0 1px 0 rgba(255, 255, 255, 1)",
-                  "inset 0 -1px 0 rgba(2, 50, 54, 0.05)",
-                  "0 1px 2px rgba(0, 0, 0, 0.04)",
-                  "0 20px 50px -10px rgba(0, 0, 0, 0.25)",
-                  "0 40px 80px -20px rgba(87, 238, 161, 0.2)",
-                ].join(", "),
-              }}
-            >
+            <div className="pdy-iris-card">
               {/* Header card avec IRIS en gras */}
               <p
                 className="text-center font-body mb-3"
@@ -398,28 +383,18 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 {irisAfter}
               </p>
 
-              {/* Input row */}
-              <div
-                className="relative flex items-center gap-2 rounded-full p-1.5 pl-4 mb-3"
-                style={{
-                  background: "rgba(0, 49, 53, 0.04)",
-                  border: "1px solid rgba(0, 49, 53, 0.08)",
-                }}
-              >
+              {/* Input pill — height 56px / submit 44px enforced via CSS */}
+              <div className="pdy-iris-input-wrap">
                 <Paperclip
                   className="w-4 h-4 shrink-0"
-                  style={{ color: "rgba(2, 50, 54, 0.4)" }}
+                  style={{ color: "rgba(0, 49, 53, 0.4)" }}
                   aria-hidden="true"
                 />
                 <input
                   type="text"
                   disabled
                   placeholder={irisPlaceholder}
-                  className="flex-1 bg-transparent outline-none font-body"
-                  style={{
-                    fontSize: "0.9375rem",
-                    color: "#023236",
-                  }}
+                  className="pdy-iris-input"
                   aria-label="IRIS diagnostic"
                 />
                 <button
@@ -463,43 +438,41 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             </div>
           </motion.div>
 
-          {/* Trust badges — une seule ligne horizontale, lisibles */}
-          <motion.ul
-            variants={variant(0.85)}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-3 md:gap-8 mt-6"
-          >
-            {trustBadges.map((label, i) => (
-              <li key={`${label}-${i}`} className="inline-flex items-center gap-2">
-                <Check
-                  className="w-3.5 h-3.5 shrink-0"
-                  style={{ color: "#57EEA1" }}
-                  strokeWidth={2.5}
-                  aria-hidden="true"
-                />
-                <span
-                  className="font-mono uppercase"
-                  style={{
-                    fontSize: "0.75rem",
-                    letterSpacing: "0.14em",
-                    color: "rgba(255, 255, 255, 0.82)",
-                  }}
-                >
-                  {label}
-                </span>
-              </li>
-            ))}
-          </motion.ul>
-        </div>
-      </div>
+          {/* Hero bottom band: trust row + scroll indicator stacked
+              vertically with gap controlled by .pdy-hero-bottom. The
+              scroll indicator is no longer absolute, so no overlap risk. */}
+          <div className="pdy-hero-bottom mt-7">
+            <motion.ul
+              variants={variant(0.85)}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-3 md:gap-8"
+            >
+              {trustBadges.map((label, i) => (
+                <li key={`${label}-${i}`} className="inline-flex items-center gap-2">
+                  <Check
+                    className="w-3.5 h-3.5 shrink-0"
+                    style={{ color: "#57EEA1" }}
+                    strokeWidth={2.5}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="font-mono uppercase"
+                    style={{
+                      fontSize: "0.75rem",
+                      letterSpacing: "0.14em",
+                      color: "rgba(255, 255, 255, 0.82)",
+                    }}
+                  >
+                    {label}
+                  </span>
+                </li>
+              ))}
+            </motion.ul>
 
-      {/* Scroll indicator centré bas, libellé + chevron animé */}
-      <div
-        className="pdy-hero-scroll-zone absolute bottom-7 left-1/2 z-10"
-        style={{ transform: "translateX(-50%)" }}
-      >
-        <HeroScrollIndicator label="Faites défiler" />
+            <HeroScrollIndicator label="Faites défiler" />
+          </div>
+        </div>
       </div>
     </section>
   );

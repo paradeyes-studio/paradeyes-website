@@ -346,11 +346,9 @@ h1, h2, h3, h4 {
   backdrop-filter:blur(20px) saturate(160%);
   -webkit-backdrop-filter:blur(20px) saturate(160%);
 
-  /* Cinematic framing: header glass rounded at the bottom, mirroring the
-     footer rounded at the top (60px / 32px). The frame only carries on the
-     ::before glass, leaving header children (logo, nav, CTA) unclipped. */
-  border-bottom-left-radius:60px;
-  border-bottom-right-radius:60px;
+  /* Header stays rectangular (no border-radius). The cinematic framing is
+     carried by the Hero (rounded bottom) and the Footer (rounded top)
+     instead — the header just blurs subtly without a hard edge. */
 
   /* Subtler dissolve: only the last 10% fades out (no visible "wave"). */
   mask-image:linear-gradient(180deg, black 0%, black 90%, transparent 100%);
@@ -499,8 +497,6 @@ h1, h2, h3, h4 {
   .pdy-header::before{
     backdrop-filter:blur(14px);
     -webkit-backdrop-filter:blur(14px);
-    border-bottom-left-radius:32px;
-    border-bottom-right-radius:32px;
     mask-image:linear-gradient(180deg, black 0%, black 92%, transparent 100%);
     -webkit-mask-image:linear-gradient(180deg, black 0%, black 92%, transparent 100%);
   }
@@ -525,22 +521,74 @@ h1, h2, h3, h4 {
 }
 
 /* ================================================================
-   H-P2 polish: magnetic IRIS submit button with proximity glow.
-   The base transform is owned by the magnetic hook; the box-shadow
-   reads `--mag-proximity` (0 → 1) to grow a green halo as the
-   pointer approaches. Hover :scale stacks via a wrapper transform.
+   IRIS card + input pill + submit (proportions canoniques).
+   The pill height/submit size are forced via !important to defeat any
+   stale Tailwind utility from earlier polish iterations.
 ================================================================ */
+.pdy-iris-card{
+  position:relative;
+  width:100%;
+  max-width:800px;
+  margin:0 auto;
+  padding:24px 28px;
+  background:var(--color-white-warm);
+  border-radius:24px;
+  box-shadow:
+    0 32px 64px -16px rgba(0, 0, 0, 0.5),
+    0 0 80px -20px rgba(87, 238, 161, 0.3);
+  isolation:isolate;
+}
+@media (max-width:1023px){
+  .pdy-iris-card{max-width:100%;padding:20px 22px}
+}
+@media (max-width:767px){
+  .pdy-iris-card{padding:16px;border-radius:20px}
+}
+
+.pdy-iris-input-wrap{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:6px 6px 6px 20px;
+  height:56px !important;
+  background:var(--color-gray-50);
+  border:1px solid var(--color-gd-06);
+  border-radius:999px;
+  margin-bottom:16px;
+  transition:border-color var(--d-base) var(--ease-quart),
+             background var(--d-base) var(--ease-quart);
+}
+.pdy-iris-input-wrap:focus-within{
+  border-color:var(--color-green-deep);
+  background:#ffffff;
+}
+.pdy-iris-input{
+  min-width:0;
+  flex:1;
+  background:transparent;
+  border:0;
+  outline:none;
+  font-family:var(--font-dm-sans),system-ui,sans-serif;
+  font-size:15px;
+  color:var(--color-green-deep);
+}
+.pdy-iris-input::placeholder{color:rgba(0, 49, 53, 0.5)}
+
+/* H-P2 polish: magnetic IRIS submit button with proximity glow.
+   The base transform is owned by the magnetic hook; the box-shadow
+   reads `--mag-proximity` (0 → 1) to grow a green halo as the pointer
+   approaches. width/height forced to 44px via !important. */
 .pdy-iris-submit{
   --mag-proximity:0;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  display:grid;
+  place-items:center;
   flex-shrink:0;
-  width:40px;
-  height:40px;
-  border-radius:9999px;
-  background:linear-gradient(135deg, #003135 0%, #14222E 100%);
-  color:#fff;
+  width:44px !important;
+  height:44px !important;
+  border-radius:50%;
+  aspect-ratio:1 / 1;
+  background:var(--color-green-deep);
+  color:var(--color-white-warm);
   cursor:pointer;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -548,10 +596,6 @@ h1, h2, h3, h4 {
     0 0 calc(8px + var(--mag-proximity) * 20px) calc(var(--mag-proximity) * 4px) rgba(87, 238, 161, calc(var(--mag-proximity) * 0.55));
   transition:box-shadow var(--d-base) var(--ease-quart);
   will-change:transform;
-}
-.pdy-iris-submit:hover{
-  /* Composes with the magnetic translate3d via a wrapper if needed.
-     Kept simple here: the scale lives in the inner svg lift below. */
 }
 .pdy-iris-submit:active{
   filter:brightness(0.95);
@@ -561,6 +605,47 @@ h1, h2, h3, h4 {
   transition:transform var(--d-base) var(--ease-quart);
 }
 .pdy-iris-submit:hover svg{transform:translateX(2px)}
+
+@media (max-width:767px){
+  .pdy-iris-input-wrap{
+    height:52px !important;
+    padding:5px 5px 5px 16px;
+    margin-bottom:14px;
+  }
+  .pdy-iris-input{font-size:14px}
+  .pdy-iris-submit{
+    width:42px !important;
+    height:42px !important;
+  }
+}
+
+/* ================================================================
+   HERO frame — rounded bottom corners (60px / 32px) so the section
+   reads as a card snapping into the lighter sections below. Mirrors
+   the footer's rounded top. Header stays rectangular.
+================================================================ */
+.pdy-hero{
+  border-bottom-left-radius:60px;
+  border-bottom-right-radius:60px;
+}
+@media (max-width:767px){
+  .pdy-hero{
+    border-bottom-left-radius:32px;
+    border-bottom-right-radius:32px;
+  }
+}
+
+.pdy-hero-bottom{
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+  padding-bottom:32px;
+}
+@media (max-width:767px){
+  .pdy-hero-bottom{gap:20px;padding-bottom:24px}
+}
 
 /* ================================================================
    H-P3 polish: drawn underline on the H1 emphasized word.
@@ -616,6 +701,12 @@ h1, h2, h3, h4 {
   color:rgba(255, 255, 255, 0.85);
   transition:color var(--d-base) var(--ease-quart),
              transform var(--d-base) var(--ease-quart);
+  opacity:0;
+  animation:pdy-hero-fade-up-inline 600ms var(--ease-quart) forwards 1600ms;
+}
+@keyframes pdy-hero-fade-up-inline{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
 }
 .pdy-scroll-indicator:hover{
   color:var(--color-green-electric);
@@ -649,16 +740,8 @@ h1, h2, h3, h4 {
   .pdy-scroll-indicator-arrow{width:28px;height:28px}
 }
 
-.pdy-hero-scroll-zone{
-  opacity:0;
-  animation:pdy-hero-fade-up 600ms var(--ease-quart) forwards 1600ms;
-}
-@keyframes pdy-hero-fade-up{
-  from{opacity:0;transform:translate(-50%, 12px)}
-  to{opacity:1;transform:translate(-50%, 0)}
-}
 @media (prefers-reduced-motion:reduce){
-  .pdy-hero-scroll-zone{animation:none;opacity:1}
+  .pdy-scroll-indicator{opacity:1;animation:none}
 }
 
 /* ================================================================
