@@ -428,7 +428,7 @@ h1, h2, h3, h4 {
   left: 50%;
   transform: translateX(-50%);
   z-index: 50;
-  width: clamp(900px, 90vw, 1280px);
+  width: min(1280px, calc(100vw - 32px));
   height: 56px;
   padding: 8px 8px 8px 20px;
   background: rgba(20, 34, 46, 0.4);
@@ -990,7 +990,7 @@ h1, h2, h3, h4 {
 ================================================================ */
 .pdy-footer{
   position:relative;
-  background:var(--gradient-dark-primary);
+  background:var(--gradient-dark-tertiary);
   color:var(--color-white-warm);
   border-top-left-radius:60px;
   border-top-right-radius:60px;
@@ -1260,7 +1260,7 @@ h1, h2, h3, h4 {
   font-size:11px;font-weight:500;
   text-transform:uppercase;letter-spacing:0.22em;
   color:var(--color-violet-spark);
-  margin:0 0 16px;
+  margin:0 0 12px;
 }
 [data-section-theme="dark"] .pdy-eyebrow{color:var(--color-green-electric)}
 .pdy-section-h2{
@@ -1647,7 +1647,6 @@ h1, h2, h3, h4 {
 .pdy-clients-marquee-row {
   display: flex;
   align-items: center;
-  gap: 64px;
   width: max-content;
   animation: pdy-clients-marquee-scroll 80s linear infinite;
 }
@@ -1664,6 +1663,7 @@ h1, h2, h3, h4 {
   color: var(--color-gd-60);
   white-space: nowrap;
   flex-shrink: 0;
+  margin-right: 64px;
   transition: color 320ms var(--ease-cinema-out);
 }
 
@@ -1681,7 +1681,10 @@ h1, h2, h3, h4 {
     animation: none;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 32px;
+  }
+  .pdy-clients-marquee-item {
+    margin-right: 32px;
+    margin-bottom: 16px;
   }
 }
 
@@ -1743,7 +1746,7 @@ h1, h2, h3, h4 {
   inset: 0;
   display: flex;
   align-items: center;
-  padding: 200px 0 100px;
+  padding: 280px 0 100px;
 }
 
 .pdy-methode-track {
@@ -1870,7 +1873,7 @@ h1, h2, h3, h4 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pdy-methode { height: auto; min-height: 0; padding: 80px 5vw; }
+  .pdy-methode { height: auto; min-height: 0; padding: 96px 24px; }
   .pdy-methode-header { position: relative; padding: 0 0 40px; }
   .pdy-methode-track-wrapper { position: relative; inset: auto; padding: 0; }
   .pdy-methode-track { flex-direction: column; gap: 60px; padding: 0; }
@@ -1879,7 +1882,7 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 1023px) {
-  .pdy-methode { height: auto; min-height: 0; padding: 80px 5vw; }
+  .pdy-methode { height: auto; min-height: 0; padding: 96px 24px; }
   .pdy-methode-header { position: relative; padding: 0 0 40px; }
   .pdy-methode-track-wrapper { position: relative; inset: auto; padding: 0; }
   .pdy-methode-track { flex-direction: column; gap: 80px; padding: 0; }
@@ -1896,6 +1899,10 @@ h1, h2, h3, h4 {
   .pdy-methode-progress-wrapper { display: none; }
 }
 
+@media (max-width: 767px) {
+  .pdy-methode { padding: 80px 20px; }
+}
+
 /* ================================================================
    3.3.1 CASES (carousel scroll-snap horizontal)
 ================================================================ */
@@ -1909,7 +1916,7 @@ h1, h2, h3, h4 {
 .pdy-cases-head{
   text-align:center;
   max-width:820px;
-  margin:0 auto 48px;
+  margin:0 auto 80px;
   padding:0 32px;
 }
 .pdy-cases-controls{
@@ -2125,13 +2132,18 @@ h1, h2, h3, h4 {
    3.3.2 TESTIMONIALS — premium G2/Vercel-like cards (no photos)
 ================================================================ */
 .pdy-testimonials {
-  padding: 120px 5vw;
+  padding: 128px 32px;
   color: var(--color-white-warm);
 }
+@media (max-width: 1023px){.pdy-testimonials{padding:96px 24px}}
+@media (max-width: 767px){.pdy-testimonials{padding:80px 20px}}
 
 .pdy-testimonials-header {
   text-align: center;
   margin-bottom: 80px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pdy-testimonials-eyebrow {
@@ -2507,9 +2519,11 @@ h1, h2, h3, h4 {
    3.4 PREFOOTER CTA — Awwwards tabs (IRIS / Réservez un appel)
 ================================================================ */
 .pdy-prefooter {
-  padding: 140px 5vw 120px;
+  padding: 128px 32px;
   color: var(--color-white-warm);
 }
+@media (max-width: 1023px){.pdy-prefooter{padding:96px 24px}}
+@media (max-width: 767px){.pdy-prefooter{padding:80px 20px}}
 
 .pdy-prefooter-inner {
   max-width: 1024px;
@@ -2559,7 +2573,7 @@ h1, h2, h3, h4 {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   padding: 6px;
-  gap: 4px;
+  gap: 0;
 }
 
 .pdy-prefooter-tab {
@@ -2600,7 +2614,7 @@ h1, h2, h3, h4 {
   top: 6px;
   bottom: 6px;
   left: 6px;
-  width: calc(50% - 4px);
+  width: calc(50% - 6px);
   background: var(--color-green-electric);
   border-radius: 999px;
   transition: transform 480ms var(--ease-cinema-out);
@@ -2611,7 +2625,7 @@ h1, h2, h3, h4 {
 }
 
 .pdy-prefooter-tab-indicator[data-active="appel"] {
-  transform: translateX(calc(100% + 4px));
+  transform: translateX(100%);
 }
 
 .pdy-prefooter-panels {
@@ -2796,7 +2810,6 @@ h1, h2, h3, h4 {
 }
 
 @media (max-width: 767px) {
-  .pdy-prefooter { padding: 80px 5vw; }
   .pdy-prefooter-tabs { width: 100%; }
   .pdy-prefooter-tab { flex: 1; padding: 10px 16px; font-size: 13px; }
   .pdy-prefooter-tab span { white-space: nowrap; }
