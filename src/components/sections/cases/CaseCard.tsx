@@ -23,6 +23,7 @@ interface CaseCardProps {
 
 export function CaseCard({ data }: CaseCardProps) {
   const tiltRef = useTilt<HTMLElement>({ max: 4, perspective: 1200 });
+  const slug = data.href.replace("/realisations/", "");
 
   return (
     <article
@@ -32,6 +33,16 @@ export function CaseCard({ data }: CaseCardProps) {
       style={{ transformStyle: "preserve-3d" }}
     >
       <div className="pdy-case-pattern" aria-hidden="true" />
+      <div className="pdy-case-card-cover" aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/images/projets/${slug}-cover.png`}
+          alt=""
+          loading="lazy"
+          width={1600}
+          height={900}
+        />
+      </div>
       <header className="pdy-case-head">
         <span className="pdy-case-tag">
           <span className="pdy-case-tag-dot" aria-hidden="true" />
