@@ -75,6 +75,7 @@ export function Footer({
 
         <div className="pdy-footer-halo-1" aria-hidden="true" />
         <div className="pdy-footer-halo-2" aria-hidden="true" />
+        <div className="pdy-footer-halo-3" aria-hidden="true" />
         <div className="pdy-footer-grain" aria-hidden="true" />
 
         <div className="pdy-footer-marquee" aria-hidden="true">
