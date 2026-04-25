@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface ParticlesProps {
   /** How many particles. Default 22. */
@@ -15,11 +15,27 @@ interface ParticlesProps {
  * Lightweight floating particles for dark backgrounds.
  * Pure CSS animations, deterministic positions (no hydration mismatch).
  * Each particle gets its own size, position, opacity, animation duration and delay.
+ * Mobile (≤767px): count is auto-halved for performance.
  * Honors prefers-reduced-motion via CSS.
  */
 export function Particles({ count = 22, variant = "green", className }: ParticlesProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(max-width: 767px)");
+    // Legitimate external-to-React sync (matchMedia is an external system).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsMobile(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  const effectiveCount = isMobile ? Math.max(6, Math.round(count * 0.45)) : count;
+
   const particles = useMemo(() => {
-    return Array.from({ length: count }).map((_, i) => {
+    return Array.from({ length: effectiveCount }).map((_, i) => {
       // Deterministic pseudo-random via prime-number multipliers + golden-angle distribution
       const x = (i * 37.508) % 100;
       const y = (i * 71.343) % 100;
@@ -31,7 +47,7 @@ export function Particles({ count = 22, variant = "green", className }: Particle
 
       return { i, x, y, size, driftIdx, duration, delay, opacity };
     });
-  }, [count]);
+  }, [effectiveCount]);
 
   return (
     <div

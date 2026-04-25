@@ -361,11 +361,12 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             animate="visible"
             className="font-display font-medium mb-5"
             style={{
-              fontSize: "clamp(2.25rem, 4.2vw, 3.5rem)",
+              fontSize: "clamp(2rem, 7vw, 3.5rem)",
               lineHeight: "1.04",
               letterSpacing: "-0.035em",
               color: "white",
-              maxWidth: "22ch",
+              maxWidth: "min(22ch, 100%)",
+              textWrap: "balance",
             }}
           >
             {taglineLead}{" "}
@@ -385,9 +386,9 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             variants={variant(0.4)}
             initial="hidden"
             animate="visible"
-            className="font-body mb-9 max-w-[56ch]"
+            className="font-body mb-9 max-w-[min(56ch,100%)]"
             style={{
-              fontSize: "0.9375rem",
+              fontSize: "clamp(0.875rem, 2.4vw, 0.9375rem)",
               color: "rgba(255, 255, 255, 0.7)",
               lineHeight: "1.55",
             }}
