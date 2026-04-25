@@ -175,7 +175,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
       ref={heroRef}
       data-section-theme="dark"
       data-hero-root
-      className="pdy-hero relative overflow-hidden flex items-center justify-center min-h-screen pt-[88px] lg:pt-[104px] pb-14 lg:pb-14"
+      className="pdy-hero relative overflow-hidden flex flex-col min-h-screen pt-[96px] lg:pt-[112px]"
       style={{
         backgroundColor: "#003135",
         height: "100svh",
@@ -328,14 +328,15 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         aria-hidden="true"
       />
 
-      <div className="relative w-full max-w-[var(--container-site)] mx-auto px-5 lg:px-6">
+      <div className="relative flex-1 flex items-center w-full">
+        <div className="w-full max-w-[var(--container-site)] mx-auto px-5 lg:px-6">
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
           {/* Badge positionnement */}
           <motion.div
             variants={variant(0)}
             initial="hidden"
             animate="visible"
-            className="inline-flex items-center gap-2 mb-8"
+            className="inline-flex items-center gap-2 mb-6"
           >
             <span
               className="inline-block w-1.5 h-1.5 rounded-full pulse-green-dot"
@@ -359,7 +360,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             variants={variant(0.15, 24)}
             initial="hidden"
             animate="visible"
-            className="font-display font-medium mb-5"
+            className="font-display font-medium mb-4"
             style={{
               fontSize: "clamp(2rem, 7vw, 3.5rem)",
               lineHeight: "1.04",
@@ -386,7 +387,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             variants={variant(0.4)}
             initial="hidden"
             animate="visible"
-            className="font-body mb-9 max-w-[min(56ch,100%)]"
+            className="font-body mb-7 max-w-[min(56ch,100%)]"
             style={{
               fontSize: "clamp(0.875rem, 2.4vw, 0.9375rem)",
               color: "rgba(255, 255, 255, 0.7)",
@@ -464,37 +465,40 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               </div>
             </div>
           </motion.div>
+        </div>
+        </div>
+      </div>
 
-          {/* Hero bottom band: trust row + scroll indicator stacked
-              vertically with gap controlled by .pdy-hero-bottom. The
-              scroll indicator is no longer absolute, so no overlap risk. */}
-          <div className="pdy-hero-bottom mt-7">
-            <motion.ul
-              variants={variant(0.85)}
-              initial="hidden"
-              animate="visible"
-              className="pdy-trust-row"
-            >
-              {trustBadges.map((label, i) => (
-                <li
-                  key={`${label}-${i}`}
-                  className="pdy-trust-item inline-flex items-center gap-2"
-                >
-                  <Check
-                    className="w-3.5 h-3.5 shrink-0"
-                    style={{ color: "#57EEA1" }}
-                    strokeWidth={2.5}
-                    aria-hidden="true"
-                  />
-                  <span className="font-mono uppercase pdy-trust-label">
-                    {label}
-                  </span>
-                </li>
-              ))}
-            </motion.ul>
+      {/* Hero bottom band: trust row + scroll indicator. Anchored to the natural
+          bottom of the section so the main content above can center cleanly in
+          the available height without being pulled up by the bottom weight. */}
+      <div className="relative w-full px-5 lg:px-6 pb-6 lg:pb-8">
+        <div className="pdy-hero-bottom max-w-4xl mx-auto">
+          <motion.ul
+            variants={variant(0.85)}
+            initial="hidden"
+            animate="visible"
+            className="pdy-trust-row"
+          >
+            {trustBadges.map((label, i) => (
+              <li
+                key={`${label}-${i}`}
+                className="pdy-trust-item inline-flex items-center gap-2"
+              >
+                <Check
+                  className="w-3.5 h-3.5 shrink-0"
+                  style={{ color: "#57EEA1" }}
+                  strokeWidth={2.5}
+                  aria-hidden="true"
+                />
+                <span className="font-mono uppercase pdy-trust-label">
+                  {label}
+                </span>
+              </li>
+            ))}
+          </motion.ul>
 
-            <HeroScrollIndicator label="Faites défiler" />
-          </div>
+          <HeroScrollIndicator label="Faites défiler" />
         </div>
       </div>
     </section>

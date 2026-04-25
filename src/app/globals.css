@@ -1047,15 +1047,13 @@ h1, h2, h3, h4 {
    bottom prevents a double-curve "pinch" at the Hero/Offres junction. */
 
 .pdy-hero-bottom{
-  flex:0 0 auto;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:28px;
-  padding-bottom:32px;
+  gap:24px;
 }
 @media (max-width:767px){
-  .pdy-hero-bottom{gap:20px;padding-bottom:24px}
+  .pdy-hero-bottom{gap:18px}
 }
 
 /* ================================================================
