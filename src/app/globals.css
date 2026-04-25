@@ -990,7 +990,7 @@ h1, h2, h3, h4 {
 ================================================================ */
 .pdy-footer{
   position:relative;
-  background:var(--color-green-deep);
+  background:var(--gradient-dark-primary);
   color:var(--color-white-warm);
   border-top-left-radius:60px;
   border-top-right-radius:60px;
@@ -1450,10 +1450,8 @@ h1, h2, h3, h4 {
 ================================================================ */
 .pdy-moments{
   position:relative;
-  background:var(--color-green-deep);
   color:var(--color-white-warm);
   padding:128px 32px;
-  overflow:hidden;
   isolation:isolate;
 }
 @media (max-width:1023px){.pdy-moments{padding:96px 24px}}
@@ -2345,10 +2343,8 @@ h1, h2, h3, h4 {
 ================================================================ */
 .pdy-faq{
   position:relative;
-  background:var(--color-green-deep);
   color:var(--color-white-warm);
   padding:128px 32px;
-  overflow:hidden;
   isolation:isolate;
 }
 @media (max-width:1023px){.pdy-faq{padding:96px 24px}}
