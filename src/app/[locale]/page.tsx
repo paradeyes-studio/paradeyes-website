@@ -5,6 +5,9 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { Strip } from "@/components/sections/Strip";
 import { Manifesto } from "@/components/sections/Manifesto";
 import { Offres } from "@/components/sections/Offres";
+import { Moments } from "@/components/sections/Moments";
+import { Chiffres } from "@/components/sections/Chiffres";
+import { Methode } from "@/components/sections/Methode";
 import { sanityClient } from "@/lib/sanity";
 import { homePageQuery, type HomePageData } from "@/lib/sanity.queries";
 
@@ -89,6 +92,9 @@ export default async function Home({ params }: Props) {
         <Strip />
         <Manifesto />
         <Offres />
+        <Moments />
+        <Chiffres />
+        <Methode />
       </main>
 
       <Footer locale={typedLocale} showPreFooter preFooterVariant="default" />
