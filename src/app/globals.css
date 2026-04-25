@@ -525,6 +525,44 @@ h1, h2, h3, h4 {
 }
 
 /* ================================================================
+   H-P2 polish: magnetic IRIS submit button with proximity glow.
+   The base transform is owned by the magnetic hook; the box-shadow
+   reads `--mag-proximity` (0 → 1) to grow a green halo as the
+   pointer approaches. Hover :scale stacks via a wrapper transform.
+================================================================ */
+.pdy-iris-submit{
+  --mag-proximity:0;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  width:40px;
+  height:40px;
+  border-radius:9999px;
+  background:linear-gradient(135deg, #003135 0%, #14222E 100%);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 10px -2px rgba(0, 49, 53, 0.3),
+    0 0 calc(8px + var(--mag-proximity) * 20px) calc(var(--mag-proximity) * 4px) rgba(87, 238, 161, calc(var(--mag-proximity) * 0.55));
+  transition:box-shadow var(--d-base) var(--ease-quart);
+  will-change:transform;
+}
+.pdy-iris-submit:hover{
+  /* Composes with the magnetic translate3d via a wrapper if needed.
+     Kept simple here: the scale lives in the inner svg lift below. */
+}
+.pdy-iris-submit:active{
+  filter:brightness(0.95);
+}
+.pdy-iris-submit svg{
+  width:16px;height:16px;
+  transition:transform var(--d-base) var(--ease-quart);
+}
+.pdy-iris-submit:hover svg{transform:translateX(2px)}
+
+/* ================================================================
    H-P3 polish: drawn underline on the H1 emphasized word.
    The Gambarino italic word ("performe.") stays a typographic seal,
    the underline draws itself left→right after the H1 has settled.

@@ -3,6 +3,7 @@
 import { ArrowRight, Mail, ExternalLink } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/brand/Logo";
+import { useMagnetic } from "@/hooks/useMagnetic";
 import { PreFooterCTA } from "./PreFooterCTA";
 
 interface FooterProps {
@@ -58,6 +59,7 @@ export function Footer({
   preFooterVariant = "default",
 }: FooterProps) {
   const year = new Date().getFullYear();
+  const logoRef = useMagnetic<HTMLAnchorElement>({ strength: 3, radius: 80 });
   void locale;
 
   return (
@@ -102,6 +104,7 @@ export function Footer({
         <div className="pdy-footer-main">
           <div className="pdy-foot-col-id">
             <Link
+              ref={logoRef}
               href="/"
               aria-label="Paradeyes, retour à l'accueil"
               className="pdy-foot-logo"

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Check, ArrowRight, Paperclip } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useMagnetic } from "@/hooks/useMagnetic";
 import { HeroScrollIndicator } from "./HeroScrollIndicator";
 
 export interface HeroData {
@@ -109,6 +110,7 @@ const fadeSlideUpReduced = (delay: number): Variants => ({
 export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
   const heroRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const submitRef = useMagnetic<HTMLButtonElement>({ strength: 6, radius: 120 });
 
   // Fallback strategy: always use FR when Sanity/i18n is empty, to avoid
   // FR/EN mix on /en when only some fields are translated.
@@ -421,19 +423,12 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                   aria-label="IRIS diagnostic"
                 />
                 <button
+                  ref={submitRef}
                   type="button"
-                  className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-300 hover:scale-105"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #003135 0%, #14222E 100%)",
-                    boxShadow: [
-                      "inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                      "0 4px 10px -2px rgba(0, 49, 53, 0.3)",
-                    ].join(", "),
-                  }}
+                  className="pdy-iris-submit"
                   aria-label="Envoyer"
                 >
-                  <ArrowRight className="w-4 h-4 text-white" />
+                  <ArrowRight aria-hidden="true" />
                 </button>
               </div>
 
