@@ -67,14 +67,15 @@ export function PreFooterCTA({
 
   return (
     <section
-      className="relative bg-[var(--color-bg-canvas)] py-[var(--spacing-10)] lg:py-[var(--spacing-12)] overflow-hidden"
-      data-section-theme="light"
+      className="relative py-[var(--spacing-10)] lg:py-[var(--spacing-12)] overflow-hidden"
+      style={{ background: "var(--color-green-deep)" }}
+      data-section-theme="dark"
     >
       <div
-        className="absolute inset-0 pointer-events-none opacity-40"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 100%, rgba(87, 238, 161, 0.3) 0%, transparent 50%)",
+            "radial-gradient(ellipse at 50% 100%, rgba(87, 238, 161, 0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 0%, rgba(101, 73, 246, 0.10) 0%, transparent 55%)",
         }}
         aria-hidden="true"
       />
@@ -85,7 +86,8 @@ export function PreFooterCTA({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "0px 0px -10% 0px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="font-mono text-mono-md uppercase tracking-[0.08em] font-medium text-[var(--color-accent-special)] mb-[var(--spacing-5)]"
+          className="font-mono text-mono-md uppercase tracking-[0.08em] font-medium mb-[var(--spacing-5)]"
+          style={{ color: "var(--color-green-electric)" }}
         >
           {content.eyebrow}
         </motion.p>
@@ -95,10 +97,11 @@ export function PreFooterCTA({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "0px 0px -10% 0px" }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-display-md lg:text-display-lg leading-[var(--leading-heading-1)] tracking-[var(--tracking-tight)] font-medium text-[var(--color-text-primary)] mb-[var(--spacing-5)] max-w-[24ch] mx-auto"
+          className="font-display text-display-md lg:text-display-lg leading-[var(--leading-heading-1)] tracking-[var(--tracking-tight)] font-medium mb-[var(--spacing-5)] max-w-[24ch] mx-auto"
+          style={{ color: "var(--color-white-warm)" }}
         >
           {content.titleBefore}
-          <em className="pdy-italic-accent" style={{ color: "var(--color-green-deep)" }}>
+          <em className="pdy-italic-accent" style={{ color: "var(--color-green-electric)" }}>
             {content.titleItalic}
           </em>
           {content.titleAfter}
@@ -109,7 +112,8 @@ export function PreFooterCTA({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "0px 0px -10% 0px" }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-body text-body-lg leading-[var(--leading-body-lg)] text-[var(--color-text-secondary)] max-w-[56ch] mx-auto mb-[var(--spacing-7)]"
+          className="font-body text-body-lg leading-[var(--leading-body-lg)] max-w-[56ch] mx-auto mb-[var(--spacing-7)]"
+          style={{ color: "rgba(255, 255, 255, 0.7)" }}
         >
           {content.description}
         </motion.p>
@@ -122,7 +126,7 @@ export function PreFooterCTA({
           className="flex flex-col sm:flex-row items-center justify-center gap-3"
         >
           <Button
-            variant="primary-dark"
+            variant="primary-light"
             size="lg"
             suffixIcon={<ArrowRight className="w-4 h-4" />}
             animatedArrow

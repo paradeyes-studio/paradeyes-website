@@ -2,7 +2,7 @@
  * Authoritative fallback wordings for the home page.
  * These values are used when Sanity returns nothing.
  * All strings are validated by Basilide and ARE the source of truth
- * for the home body — do not edit without explicit approval.
+ * for the home body. Do not edit without explicit approval.
  *
  * Rules:
  * - vouvoiement only
@@ -342,7 +342,7 @@ export const homeCases = {
       number: "02",
       total: "04",
       tag: "Campagne · Activation",
-      title: "Permobil — Salon 2025",
+      title: "Permobil, Salon 2025",
       sub: "Campagne 360 pour l'activation salon international. Stand, film, retombées presse.",
       metrics: [
         { value: "+62%", label: "leads" },

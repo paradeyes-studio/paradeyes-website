@@ -682,14 +682,16 @@ h1, h2, h3, h4 {
 }
 
 /* ================================================================
-   HERO SCROLL INDICATOR (centered bottom, label + bouncing chevron)
+   HERO SCROLL INDICATOR (signature : vertical track + descending fill).
+   Trait vertical 36px contenant un fill green-electric qui descend en boucle
+   depuis le top puis se réinitialise depuis le bottom — signature cinéma.
 ================================================================ */
 .pdy-scroll-indicator{
   display:inline-flex;
   flex-direction:column;
   align-items:center;
-  gap:8px;
-  padding:8px 12px;
+  gap:12px;
+  padding:8px;
   background:transparent;
   border:0;
   cursor:pointer;
@@ -698,50 +700,52 @@ h1, h2, h3, h4 {
   font-size:11px;
   letter-spacing:0.22em;
   text-transform:uppercase;
-  color:rgba(255, 255, 255, 0.85);
-  transition:color var(--d-base) var(--ease-quart),
-             transform var(--d-base) var(--ease-quart);
+  color:rgba(255, 255, 255, 0.95);
+  transition:color 240ms var(--ease-quart);
   opacity:0;
-  animation:pdy-hero-fade-up-inline 600ms var(--ease-quart) forwards 1600ms;
+  animation:heroFadeUpInline 600ms var(--ease-quart) forwards 1600ms;
 }
-@keyframes pdy-hero-fade-up-inline{
+@keyframes heroFadeUpInline{
   from{opacity:0;transform:translateY(12px)}
   to{opacity:1;transform:translateY(0)}
 }
 .pdy-scroll-indicator:hover{
   color:var(--color-green-electric);
-  transform:translateY(2px);
+}
+.pdy-scroll-indicator-track{
+  position:relative;
+  width:1px;
+  height:36px;
+  background:rgba(255, 255, 255, 0.16);
+  overflow:hidden;
+}
+.pdy-scroll-indicator-fill{
+  position:absolute;
+  inset:0;
+  background:var(--color-green-electric);
+  transform:scaleY(0);
+  transform-origin:top;
+  animation:scrollTrackPulse 2.4s ease-in-out infinite;
+}
+@keyframes scrollTrackPulse{
+  0%   {transform:scaleY(0);transform-origin:top}
+  50%  {transform:scaleY(1);transform-origin:top}
+  50.01%{transform-origin:bottom}
+  100% {transform:scaleY(0);transform-origin:bottom}
 }
 .pdy-scroll-indicator-label{white-space:nowrap}
-.pdy-scroll-indicator-arrow{
-  display:grid;
-  place-items:center;
-  width:32px;height:32px;
-  border-radius:50%;
-  border:1.5px solid rgba(87, 238, 161, 0.5);
-  color:var(--color-green-electric);
-  animation:pdy-scroll-chevron-bounce 1.8s ease-in-out infinite;
-}
-.pdy-scroll-indicator-arrow svg{width:16px;height:16px;stroke-width:2}
-@keyframes pdy-scroll-chevron-bounce{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(6px)}
-}
 .pdy-scroll-indicator:focus-visible{
   outline:2px solid var(--color-green-electric);
-  outline-offset:4px;
-  border-radius:8px;
+  outline-offset:6px;
+  border-radius:4px;
 }
 @media (prefers-reduced-motion:reduce){
-  .pdy-scroll-indicator-arrow{animation:none}
+  .pdy-scroll-indicator{opacity:1;animation:none}
+  .pdy-scroll-indicator-fill{animation:none;transform:scaleY(0.5)}
 }
 @media (max-width:767px){
   .pdy-scroll-indicator{font-size:10px;letter-spacing:0.18em}
-  .pdy-scroll-indicator-arrow{width:28px;height:28px}
-}
-
-@media (prefers-reduced-motion:reduce){
-  .pdy-scroll-indicator{opacity:1;animation:none}
+  .pdy-scroll-indicator-track{height:28px}
 }
 
 /* ================================================================
@@ -1082,7 +1086,7 @@ h1, h2, h3, h4 {
   font-family:var(--font-satoshi),system-ui,sans-serif;
   font-weight:500;
   font-size:clamp(28px, 4vw, 48px);
-  color:var(--color-green-electric);
+  color:var(--color-gd-24);
   flex-shrink:0;
 }
 @media (max-width:767px){
@@ -1225,9 +1229,9 @@ h1, h2, h3, h4 {
 }
 .pdy-offre-card:hover{
   border-color:var(--color-green-deep);
-  box-shadow:0 24px 60px -16px rgba(0,49,53,0.16),
-             0 0 80px -30px rgba(87,238,161,0.4);
-  transform:translateY(-4px);
+  box-shadow:0 24px 48px -16px rgba(87,238,161,0.24),
+             0 0 0 1px rgba(87,238,161,0.08);
+  transform:scale(1.02);
 }
 .pdy-offre-ghost{
   position:absolute;
@@ -1253,7 +1257,7 @@ h1, h2, h3, h4 {
 }
 .pdy-offre-tag-dot{
   width:6px;height:6px;border-radius:50%;
-  background:var(--color-green-electric);
+  background:var(--color-green-deep);
 }
 .pdy-offre-glyph{
   font-family:var(--font-satoshi),system-ui,sans-serif;
@@ -1302,7 +1306,7 @@ h1, h2, h3, h4 {
 .pdy-offre-bullet{
   flex-shrink:0;
   width:6px;height:6px;border-radius:50%;
-  background:var(--color-green-electric);
+  background:var(--color-green-deep);
   margin-top:7px;
 }
 .pdy-offre-footer{
@@ -1463,7 +1467,7 @@ h1, h2, h3, h4 {
   letter-spacing:0.22em;text-transform:uppercase;
   color:var(--color-green-deep);
 }
-.pdy-stat-label-num{color:var(--color-green-electric);margin-right:4px}
+.pdy-stat-label-num{color:var(--color-green-deep);margin-right:4px;font-weight:500}
 .pdy-stat-label-name{color:rgba(0,49,53,0.8)}
 .pdy-stat-trend{
   display:inline-flex;align-items:center;gap:6px;
@@ -1480,8 +1484,9 @@ h1, h2, h3, h4 {
 .pdy-stat-value{
   font-family:var(--font-satoshi),system-ui,sans-serif;
   font-weight:500;
-  font-size:clamp(56px, 8vw, 96px);
-  letter-spacing:-0.03em;
+  font-size:clamp(64px, 9vw, 120px);
+  line-height:0.95;
+  letter-spacing:-0.04em;
   color:var(--color-green-deep);
   font-variant-numeric:tabular-nums;
 }
@@ -1534,7 +1539,7 @@ h1, h2, h3, h4 {
   font-family:var(--font-dm-mono),ui-monospace,monospace;
   font-size:11px;font-weight:500;
   letter-spacing:0.08em;
-  color:var(--color-green-electric);
+  color:var(--color-gd-60);
   flex-shrink:0;
 }
 .pdy-client-name{
@@ -1571,21 +1576,6 @@ h1, h2, h3, h4 {
   animation:pdy-halo-soft 26s ease-in-out infinite 5s;
 }
 @media (prefers-reduced-motion:reduce){.pdy-methode-halo{animation:none}}
-.pdy-methode-ghosts{
-  position:absolute;inset:0;pointer-events:none;z-index:0;
-}
-.pdy-methode-ghost{
-  position:absolute;
-  font-family:var(--font-satoshi),system-ui,sans-serif;
-  font-weight:500;
-  font-size:clamp(140px, 16vw, 220px);
-  line-height:1;letter-spacing:-0.03em;
-  color:rgba(87,238,161,0.04);
-}
-.pdy-methode-ghost-1{top:8%;left:-2%}
-.pdy-methode-ghost-2{top:32%;right:-2%}
-.pdy-methode-ghost-3{top:56%;left:-2%}
-.pdy-methode-ghost-4{top:80%;right:-2%}
 .pdy-methode-inner{
   position:relative;z-index:1;
   max-width:1200px;margin:0 auto;
@@ -2212,4 +2202,59 @@ h1, h2, h3, h4 {
   color:rgba(255,255,255,0.82);
   margin:0 0 24px;
   max-width:60ch;
+}
+
+/* ================================================================
+   HERO TRUST ROW (one-line desktop, stack mobile)
+================================================================ */
+.pdy-trust-row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:nowrap;
+  max-width:100%;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.pdy-trust-item{
+  white-space:nowrap;
+}
+.pdy-trust-label{
+  font-size:0.75rem;
+  letter-spacing:0.14em;
+  color:rgba(255, 255, 255, 0.82);
+}
+@media (max-width:1023px){
+  .pdy-trust-row{
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .pdy-trust-label{
+    font-size:0.6875rem;
+    letter-spacing:0.12em;
+  }
+}
+@media (max-width:767px){
+  .pdy-trust-row{
+    flex-direction:column;
+    gap:8px;
+  }
+  .pdy-trust-sep{display:none}
+}
+
+/* ================================================================
+   JOURNAL CARD — sliding underline on title at hover
+================================================================ */
+.pdy-journal-title{
+  background-image:linear-gradient(currentColor, currentColor);
+  background-size:0% 1px;
+  background-position:0 100%;
+  background-repeat:no-repeat;
+  transition:background-size 480ms var(--ease-quart);
+  padding-bottom:2px;
+}
+.pdy-journal-card:hover .pdy-journal-title{
+  background-size:100% 1px;
 }

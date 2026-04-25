@@ -1,7 +1,6 @@
 "use client";
 
 import { useReducedMotion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
 
 interface HeroScrollIndicatorProps {
   label?: string;
@@ -13,7 +12,7 @@ export function HeroScrollIndicator({
   const reduced = useReducedMotion();
 
   const handleClick = () => {
-    const hero = document.querySelector("[data-hero-root]");
+    const hero = document.querySelector(".pdy-hero");
     const next = hero?.nextElementSibling;
     if (next instanceof HTMLElement) {
       next.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
@@ -32,10 +31,10 @@ export function HeroScrollIndicator({
       onClick={handleClick}
       aria-label="Faire défiler vers la section suivante"
     >
-      <span className="pdy-scroll-indicator-label">{label}</span>
-      <span className="pdy-scroll-indicator-arrow" aria-hidden="true">
-        <ChevronDown />
+      <span className="pdy-scroll-indicator-track" aria-hidden="true">
+        <span className="pdy-scroll-indicator-fill" />
       </span>
+      <span className="pdy-scroll-indicator-label">{label}</span>
     </button>
   );
 }

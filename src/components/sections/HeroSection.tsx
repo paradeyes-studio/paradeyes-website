@@ -145,7 +145,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
       ref={heroRef}
       data-section-theme="dark"
       data-hero-root
-      className="pdy-hero relative overflow-hidden flex items-center justify-center min-h-screen pt-[88px] lg:pt-[88px] pb-14 lg:pb-14"
+      className="pdy-hero relative overflow-hidden flex items-center justify-center min-h-screen pt-[88px] lg:pt-[104px] pb-14 lg:pb-14"
       style={{
         backgroundColor: "#003135",
         height: "100svh",
@@ -446,24 +446,20 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               variants={variant(0.85)}
               initial="hidden"
               animate="visible"
-              className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-3 md:gap-8"
+              className="pdy-trust-row"
             >
               {trustBadges.map((label, i) => (
-                <li key={`${label}-${i}`} className="inline-flex items-center gap-2">
+                <li
+                  key={`${label}-${i}`}
+                  className="pdy-trust-item inline-flex items-center gap-2"
+                >
                   <Check
                     className="w-3.5 h-3.5 shrink-0"
                     style={{ color: "#57EEA1" }}
                     strokeWidth={2.5}
                     aria-hidden="true"
                   />
-                  <span
-                    className="font-mono uppercase"
-                    style={{
-                      fontSize: "0.75rem",
-                      letterSpacing: "0.14em",
-                      color: "rgba(255, 255, 255, 0.82)",
-                    }}
-                  >
+                  <span className="font-mono uppercase pdy-trust-label">
                     {label}
                   </span>
                 </li>

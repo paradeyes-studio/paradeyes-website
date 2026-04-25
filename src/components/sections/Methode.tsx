@@ -38,13 +38,6 @@ export function Methode() {
 
   return (
     <section className="pdy-methode" data-section-theme="dark">
-      {/* Ghost numbers in background */}
-      <div className="pdy-methode-ghosts" aria-hidden="true">
-        <span className="pdy-methode-ghost pdy-methode-ghost-1">01</span>
-        <span className="pdy-methode-ghost pdy-methode-ghost-2">02</span>
-        <span className="pdy-methode-ghost pdy-methode-ghost-3">03</span>
-        <span className="pdy-methode-ghost pdy-methode-ghost-4">04</span>
-      </div>
       <div className="pdy-methode-halo" aria-hidden="true" />
 
       <div className="pdy-methode-inner">
