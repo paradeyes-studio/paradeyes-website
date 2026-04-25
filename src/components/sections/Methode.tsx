@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
 import { homeMethode } from "@/content/home-fallback";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
+import { Particles } from "@/components/ui/Particles";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -61,6 +62,7 @@ export function Methode() {
       data-section-theme="dark"
       aria-labelledby="methode-title"
     >
+      <Particles count={18} variant="green" />
       <header className="pdy-methode-header">
         <p className="pdy-methode-eyebrow">{homeMethode.eyebrow}</p>
         <SectionHeadline

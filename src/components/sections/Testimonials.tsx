@@ -1,6 +1,7 @@
 "use client";
 
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
+import { Particles } from "@/components/ui/Particles";
 import { homeTestimonials } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { TestimonialCard } from "./testimonials/TestimonialCard";
@@ -15,6 +16,7 @@ export function Testimonials() {
       data-section-theme="dark"
       aria-labelledby="testimonials-title"
     >
+      <Particles count={20} variant="green" />
       <header className="pdy-testimonials-header">
         <p className="pdy-testimonials-eyebrow">{homeTestimonials.eyebrow}</p>
         <SectionHeadline

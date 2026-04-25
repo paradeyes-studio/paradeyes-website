@@ -5,6 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Check, ArrowRight, Paperclip } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMagnetic } from "@/hooks/useMagnetic";
+import { Particles } from "@/components/ui/Particles";
 import { HeroScrollIndicator } from "./HeroScrollIndicator";
 
 export interface HeroData {
@@ -180,6 +181,12 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
         height: "100svh",
       }}
     >
+      {/* Grid texture overlay (matches dark sections) */}
+      <div className="pdy-hero-grid" aria-hidden="true" />
+
+      {/* Floating particles — very subtle ambient depth */}
+      <Particles count={28} variant="green" />
+
       {/* Halo - Couche 1 ambient, centered */}
       <motion.div
         className="absolute inset-0 pointer-events-none"

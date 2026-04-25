@@ -6,6 +6,7 @@ import { ArrowRight, Mail, Calendar, Sparkles } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { homePreFooter } from "@/content/home-fallback";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
+import { Particles } from "@/components/ui/Particles";
 
 type PreFooterVariant = "default" | "offre" | "contact";
 
@@ -92,6 +93,7 @@ export function PreFooterCTA({
       data-section-theme="dark"
       aria-labelledby="prefooter-title"
     >
+      <Particles count={22} variant="green" />
       <div className="pdy-prefooter-inner">
         <header className="pdy-prefooter-header">
           <p className="pdy-prefooter-eyebrow">{content.eyebrow}</p>

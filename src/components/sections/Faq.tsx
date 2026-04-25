@@ -6,6 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { homeFaq } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
+import { Particles } from "@/components/ui/Particles";
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -36,6 +37,7 @@ export function Faq() {
       data-section-theme="dark"
     >
       <div className="pdy-faq-halo" aria-hidden="true" />
+      <Particles count={18} variant="green" />
       <div className="pdy-faq-inner">
         <div className="pdy-faq-head">
           <motion.p

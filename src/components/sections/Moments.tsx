@@ -4,6 +4,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeMoments } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
+import { Particles } from "@/components/ui/Particles";
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -48,6 +49,7 @@ export function Moments() {
       data-section-theme="dark"
     >
       <div className="pdy-moments-halo" aria-hidden="true" />
+      <Particles count={20} variant="green" />
 
       <div className="pdy-moments-inner">
         <header className="pdy-moments-head">

@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/brand/Logo";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { homeFooter } from "@/content/home-fallback";
+import { Particles } from "@/components/ui/Particles";
 import { PreFooterCTA } from "./PreFooterCTA";
 
 interface FooterProps {
@@ -80,6 +81,7 @@ export function Footer({
         <div className="pdy-footer-halo-2" aria-hidden="true" />
         <div className="pdy-footer-halo-3" aria-hidden="true" />
         <div className="pdy-footer-grain" aria-hidden="true" />
+        <Particles count={20} variant="green" />
 
         <div className="pdy-footer-marquee" aria-hidden="true">
           <div className="pdy-footer-marquee-track">

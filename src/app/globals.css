@@ -247,8 +247,8 @@
   --gradient-dark-tertiary: radial-gradient(ellipse 80% 100% at 100% 50%, #0a3d42 0%, #003135 50%, #002428 100%);
   --gradient-dark-pre-footer: linear-gradient(180deg, #14222E 0%, #003135 50%, #001a1c 100%);
 
-  --texture-grid-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M0 16h32M16 0v32' stroke='%2357EEA1' stroke-width='0.5' opacity='0.04' fill='none'/></svg>");
-  --texture-grid-svg-dense: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M0 12h24M12 0v24' stroke='%2357EEA1' stroke-width='0.5' opacity='0.05' fill='none'/></svg>");
+  --texture-grid-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'><path d='M0 20h40M20 0v40' stroke='%2357EEA1' stroke-width='0.6' opacity='0.085' fill='none'/></svg>");
+  --texture-grid-svg-dense: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'><path d='M0 14h28M14 0v28' stroke='%2357EEA1' stroke-width='0.6' opacity='0.10' fill='none'/></svg>");
 
   --section-radius: 60px;
   --section-radius-mobile: 32px;
@@ -268,11 +268,11 @@
   inset: 0;
   background-image: var(--texture-grid-svg);
   background-repeat: repeat;
-  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 0%, transparent 90%);
-          mask-image: radial-gradient(ellipse 100% 80% at 50% 50%, black 0%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 110% 90% at 50% 50%, black 0%, black 50%, transparent 95%);
+          mask-image: radial-gradient(ellipse 110% 90% at 50% 50%, black 0%, black 50%, transparent 95%);
   pointer-events: none;
   z-index: 0;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 .pdy-bloc-dark > * {
@@ -283,6 +283,86 @@
 .pdy-bloc-dark--secondary { background: var(--gradient-dark-secondary); }
 .pdy-bloc-dark--tertiary { background: var(--gradient-dark-tertiary); }
 .pdy-bloc-dark--pre-footer { background: var(--gradient-dark-pre-footer); }
+
+/* === Hero grid texture (same fine grid as dark sections) === */
+.pdy-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: var(--texture-grid-svg);
+  background-repeat: repeat;
+  -webkit-mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 0%, black 50%, transparent 95%);
+          mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 0%, black 50%, transparent 95%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+/* === Floating particles (very subtle ambient) === */
+.pdy-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.pdy-particle {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.pdy-particles--green .pdy-particle {
+  background: var(--color-green-electric);
+  box-shadow: 0 0 6px rgba(87, 238, 161, 0.55);
+}
+
+.pdy-particles--violet .pdy-particle {
+  background: var(--color-violet-spark);
+  box-shadow: 0 0 6px rgba(101, 73, 246, 0.55);
+}
+
+.pdy-particle--drift-1 {
+  animation: pdy-drift-1 infinite ease-in-out;
+}
+.pdy-particle--drift-2 {
+  animation: pdy-drift-2 infinite ease-in-out;
+}
+.pdy-particle--drift-3 {
+  animation: pdy-drift-3 infinite ease-in-out;
+}
+
+@keyframes pdy-drift-1 {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(18px, -28px); }
+  50%  { transform: translate(-12px, -55px); }
+  75%  { transform: translate(-28px, -25px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes pdy-drift-2 {
+  0%   { transform: translate(0, 0); }
+  33%  { transform: translate(-22px, -34px); }
+  66%  { transform: translate(26px, -18px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes pdy-drift-3 {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(14px, 22px); }
+  40%  { transform: translate(-20px, 8px); }
+  60%  { transform: translate(-8px, -30px); }
+  80%  { transform: translate(22px, -12px); }
+  100% { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdy-particle--drift-1,
+  .pdy-particle--drift-2,
+  .pdy-particle--drift-3 {
+    animation: none;
+  }
+}
 
 /* === Section stacking (cards empilées) === */
 .pdy-section-stacked {
