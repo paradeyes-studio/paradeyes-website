@@ -8,6 +8,7 @@ import { Logo } from "@/components/brand/Logo";
 import { LangSwitch } from "./LangSwitch";
 import { ThemeSwitch } from "./ThemeSwitch";
 import { MobileMenu } from "./MobileMenu";
+import { cn } from "@/lib/utils";
 
 interface HeaderProps {
   locale: "fr" | "en";
@@ -28,16 +29,13 @@ type PlausibleWindow = Window & {
 export function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const activeHref = pathname || "/";
-  void activeHref;
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLight, setIsLight] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navRef = useRef<HTMLElement>(null);
-  const underlineRef = useRef<HTMLSpanElement>(null);
+  const navRef = useRef<HTMLElement | null>(null);
+  const underlineRef = useRef<HTMLSpanElement | null>(null);
 
-  // Initial theme sync from the DOM (avoids flash-of-wrong-theme).
-  // Legitimate external-to-React read (DOM rects + data attribute).
   useLayoutEffect(() => {
     const sections = document.querySelectorAll("[data-section-theme]");
     let initial: boolean | null = null;
@@ -60,7 +58,6 @@ export function Header({ locale }: HeaderProps) {
     }
   }, []);
 
-  // Scroll state (transparent <= 80, scrolled > 80).
   useEffect(() => {
     const onScroll = () => {
       setIsScrolled(window.scrollY > 80);
@@ -70,7 +67,6 @@ export function Header({ locale }: HeaderProps) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Theme detection per section via IntersectionObserver (v5.1 logic).
   useEffect(() => {
     const sections = document.querySelectorAll("[data-section-theme]");
     if (sections.length === 0) return;
@@ -90,46 +86,47 @@ export function Header({ locale }: HeaderProps) {
     return () => observer.disconnect();
   }, []);
 
-  // Nav underline slide on hover (JS-driven, not layoutId).
   useEffect(() => {
     const nav = navRef.current;
     const underline = underlineRef.current;
     if (!nav || !underline) return;
 
-    const links = nav.querySelectorAll<HTMLAnchorElement>("a[data-nav]");
-    const move = (el: HTMLElement) => {
-      const r = el.getBoundingClientRect();
-      const nr = nav.getBoundingClientRect();
-      underline.style.left = `${r.left - nr.left}px`;
-      underline.style.width = `${r.width}px`;
-    };
-    const reset = () => {
-      underline.style.width = "0px";
+    const onMouseLeave = () => {
+      underline.style.opacity = "0";
     };
 
-    const enterHandlers: Array<[HTMLAnchorElement, () => void]> = [];
-    const focusHandlers: Array<[HTMLAnchorElement, () => void]> = [];
+    const onMouseOver = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("a[data-nav]");
+      if (!target || !nav.contains(target)) return;
+      const navRect = nav.getBoundingClientRect();
+      const linkRect = (target as HTMLElement).getBoundingClientRect();
+      underline.style.left = `${linkRect.left - navRect.left}px`;
+      underline.style.width = `${linkRect.width}px`;
+      underline.style.opacity = "1";
+    };
 
-    links.forEach((a) => {
-      const enter = () => move(a);
-      const focus = () => move(a);
-      a.addEventListener("mouseenter", enter);
-      a.addEventListener("focus", focus);
-      enterHandlers.push([a, enter]);
-      focusHandlers.push([a, focus]);
-    });
-    nav.addEventListener("mouseleave", reset);
-    nav.addEventListener("blur", reset, true);
+    const onFocusIn = (e: FocusEvent) => {
+      const target = (e.target as HTMLElement).closest("a[data-nav]");
+      if (!target || !nav.contains(target)) return;
+      const navRect = nav.getBoundingClientRect();
+      const linkRect = (target as HTMLElement).getBoundingClientRect();
+      underline.style.left = `${linkRect.left - navRect.left}px`;
+      underline.style.width = `${linkRect.width}px`;
+      underline.style.opacity = "1";
+    };
 
+    nav.addEventListener("mouseover", onMouseOver);
+    nav.addEventListener("mouseleave", onMouseLeave);
+    nav.addEventListener("focusin", onFocusIn);
+    nav.addEventListener("focusout", onMouseLeave);
     return () => {
-      enterHandlers.forEach(([a, h]) => a.removeEventListener("mouseenter", h));
-      focusHandlers.forEach(([a, h]) => a.removeEventListener("focus", h));
-      nav.removeEventListener("mouseleave", reset);
-      nav.removeEventListener("blur", reset, true);
+      nav.removeEventListener("mouseover", onMouseOver);
+      nav.removeEventListener("mouseleave", onMouseLeave);
+      nav.removeEventListener("focusin", onFocusIn);
+      nav.removeEventListener("focusout", onMouseLeave);
     };
   }, []);
 
-  // Body scroll lock while mobile menu is open.
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? "hidden" : "";
     return () => {
@@ -137,70 +134,77 @@ export function Header({ locale }: HeaderProps) {
     };
   }, [isMobileMenuOpen]);
 
-  const headerClass = [
-    "pdy-header",
-    isScrolled ? "scrolled" : "",
-    isLight ? "light" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <>
       <header
-        id="site-header"
-        className={headerClass}
+        className={cn(
+          "pdy-header-capsule",
+          isScrolled && "pdy-header-capsule--scrolled",
+          isLight && "pdy-header-capsule--light",
+        )}
+        data-scrolled={isScrolled}
         data-theme={isLight ? "light" : "dark"}
       >
-        <div className="pdy-header-inner">
+        <div className="pdy-header-capsule-inner">
           <Link
             href="/"
             aria-label="Paradeyes, retour à l'accueil"
-            className="pdy-header-logo"
+            className="pdy-header-capsule-logo"
           >
             <Logo />
           </Link>
 
-          <nav ref={navRef} className="pdy-header-nav" aria-label="Principale">
+          <nav
+            ref={navRef}
+            className="pdy-header-capsule-nav"
+            aria-label="Navigation principale"
+          >
             {NAV_ITEMS.map((item) => (
-              <Link key={item.href} href={item.href} data-nav>
+              <Link
+                key={item.href}
+                href={item.href}
+                data-nav
+                aria-current={activeHref.startsWith(item.href) ? "page" : undefined}
+              >
                 {item.label}
               </Link>
             ))}
             <span
               ref={underlineRef}
-              className="pdy-nav-underline"
+              className="pdy-header-capsule-underline"
               aria-hidden="true"
             />
           </nav>
 
-          <div className="pdy-header-tools">
+          <div className="pdy-header-capsule-utils">
             <LangSwitch locale={locale} />
             <ThemeSwitch />
-            <Link
-              href="/contact#appel"
-              className="pdy-header-cta"
-              onClick={() => {
-                const plausible = (window as PlausibleWindow).plausible;
-                if (typeof plausible === "function") {
-                  plausible("cta_header_clicked");
-                }
-              }}
-            >
-              <span className="pdy-cta-dot" aria-hidden="true" />
-              <span className="pdy-cta-label">Un appel gratuit de 30 min</span>
-              <ArrowRight aria-hidden="true" />
-            </Link>
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="pdy-header-burger"
-              aria-label="Ouvrir le menu"
-              aria-expanded={isMobileMenuOpen}
-            >
-              <Menu aria-hidden="true" />
-            </button>
           </div>
+
+          <Link
+            href="/contact#appel"
+            className="pdy-header-capsule-cta"
+            onClick={() => {
+              const plausible = (window as PlausibleWindow).plausible;
+              if (typeof plausible === "function") {
+                plausible("cta_header_clicked");
+              }
+            }}
+          >
+            <span className="pdy-header-capsule-cta-dot" aria-hidden="true" />
+            <span>Un appel gratuit de 30 min</span>
+            <ArrowRight aria-hidden="true" />
+          </Link>
+
+          <button
+            type="button"
+            className="pdy-header-capsule-burger"
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Ouvrir le menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <Menu aria-hidden="true" />
+          </button>
         </div>
       </header>
 
