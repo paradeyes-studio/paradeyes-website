@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { AnimatePresence } from "framer-motion";
 import { ArrowRight, Menu } from "lucide-react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Logo } from "@/components/brand/Logo";
@@ -208,15 +207,11 @@ export function Header({ locale }: HeaderProps) {
         </div>
       </header>
 
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <MobileMenu
-            onClose={() => setIsMobileMenuOpen(false)}
-            activeHref={activeHref}
-            locale={locale}
-          />
-        )}
-      </AnimatePresence>
+      <MobileMenu
+        open={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        locale={locale}
+      />
     </>
   );
 }
