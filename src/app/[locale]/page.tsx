@@ -8,6 +8,10 @@ import { Offres } from "@/components/sections/Offres";
 import { Moments } from "@/components/sections/Moments";
 import { Chiffres } from "@/components/sections/Chiffres";
 import { Methode } from "@/components/sections/Methode";
+import { Cases } from "@/components/sections/Cases";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { JournalPreview } from "@/components/sections/JournalPreview";
+import { Faq } from "@/components/sections/Faq";
 import { sanityClient } from "@/lib/sanity";
 import { homePageQuery, type HomePageData } from "@/lib/sanity.queries";
 
@@ -95,6 +99,10 @@ export default async function Home({ params }: Props) {
         <Moments />
         <Chiffres />
         <Methode />
+        <Cases />
+        <Testimonials />
+        <JournalPreview />
+        <Faq />
       </main>
 
       <Footer locale={typedLocale} showPreFooter preFooterVariant="default" />

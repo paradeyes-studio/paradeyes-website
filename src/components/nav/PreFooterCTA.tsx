@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { homePreFooter } from "@/content/home-fallback";
 
 type PreFooterVariant = "default" | "offre" | "contact";
 
@@ -15,38 +16,44 @@ type PlausibleWindow = Window & {
   plausible?: (event: string, options?: { props?: Record<string, unknown> }) => void;
 };
 
-const CONTENT: Record<
-  PreFooterVariant,
-  {
-    eyebrow: string;
-    title: string;
-    description: string;
-    primaryLabel: string;
-    secondaryLabel: string;
-  }
-> = {
+interface PreFooterContent {
+  eyebrow: string;
+  titleBefore: string;
+  titleItalic: string;
+  titleAfter: string;
+  description: string;
+  primaryLabel: string;
+  secondaryLabel: string;
+}
+
+const CONTENT: Record<PreFooterVariant, PreFooterContent> = {
   default: {
-    eyebrow: "PRÊT À COMMENCER",
-    title: "On parle de votre projet ?",
-    description:
-      "Un appel de 30 minutes pour comprendre vos enjeux, partager notre vision, et voir si on est faits pour travailler ensemble.",
-    primaryLabel: "Un appel gratuit de 30 min",
+    eyebrow: homePreFooter.eyebrow,
+    titleBefore: homePreFooter.headline.before,
+    titleItalic: homePreFooter.headline.italic,
+    titleAfter: homePreFooter.headline.after,
+    description: homePreFooter.sub,
+    primaryLabel: homePreFooter.cta,
     secondaryLabel: "Écrire un message",
   },
   offre: {
-    eyebrow: "PASSONS À L'ÉTAPE SUIVANTE",
-    title: "Ce que vous venez de lire vous parle ?",
+    eyebrow: "Passons à l'étape suivante",
+    titleBefore: "Ce que vous venez de lire vous ",
+    titleItalic: "parle",
+    titleAfter: " ?",
     description:
       "Dites nous en plus sur votre contexte en 30 minutes. On repart avec une idée claire de ce qu'on peut construire ensemble.",
-    primaryLabel: "Réserver un appel",
+    primaryLabel: "Un appel gratuit de 30 min",
     secondaryLabel: "Voir nos autres offres",
   },
   contact: {
-    eyebrow: "DERNIÈRE CHANCE",
-    title: "Vous hésitez encore ?",
+    eyebrow: "Dernière chance",
+    titleBefore: "Vous ",
+    titleItalic: "hésitez",
+    titleAfter: " encore ?",
     description:
       "Un dernier moyen rapide. Appel de 30 minutes, sans engagement. On écoute, on conseille, on avance si ça colle.",
-    primaryLabel: "Réserver maintenant",
+    primaryLabel: "Un appel gratuit de 30 min",
     secondaryLabel: "Revenir plus tard",
   },
 };
@@ -55,6 +62,7 @@ export function PreFooterCTA({
   variant = "default",
   locale: _locale,
 }: PreFooterCTAProps) {
+  void _locale;
   const content = CONTENT[variant];
 
   return (
@@ -89,7 +97,11 @@ export function PreFooterCTA({
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           className="font-display text-display-md lg:text-display-lg leading-[var(--leading-heading-1)] tracking-[var(--tracking-tight)] font-medium text-[var(--color-text-primary)] mb-[var(--spacing-5)] max-w-[24ch] mx-auto"
         >
-          {content.title}
+          {content.titleBefore}
+          <em className="pdy-italic-accent" style={{ color: "var(--color-green-deep)" }}>
+            {content.titleItalic}
+          </em>
+          {content.titleAfter}
         </motion.h2>
 
         <motion.p

@@ -1,0 +1,114 @@
+"use client";
+
+import { ArrowRight } from "lucide-react";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { Link } from "@/i18n/navigation";
+import { homeJournal } from "@/content/home-fallback";
+
+const fadeUp = (delay: number): Variants => ({
+  hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
+  },
+});
+
+const fadeOnly = (delay: number): Variants => ({
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.4, delay } },
+});
+
+const grid: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+export function JournalPreview() {
+  const reduced = useReducedMotion();
+  const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
+
+  return (
+    <section className="pdy-journal" data-section-theme="light">
+      <div className="pdy-journal-inner">
+        <header className="pdy-journal-head">
+          <div className="pdy-journal-head-text">
+            <motion.p
+              variants={v(0)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="pdy-eyebrow"
+            >
+              {homeJournal.eyebrow}
+            </motion.p>
+            <motion.h2
+              variants={v(0.1)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="pdy-section-h2"
+            >
+              {homeJournal.headline.before}
+              <em className="pdy-italic-accent">{homeJournal.headline.italic}</em>
+              {homeJournal.headline.after}
+            </motion.h2>
+            <motion.p
+              variants={v(0.2)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              className="pdy-section-sub"
+            >
+              {homeJournal.sub}
+            </motion.p>
+          </div>
+          <motion.div
+            variants={v(0.25)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="pdy-journal-cta-wrap"
+          >
+            <Link href={homeJournal.ctaHref} className="pdy-journal-cta">
+              {homeJournal.cta}
+              <ArrowRight aria-hidden="true" />
+            </Link>
+          </motion.div>
+        </header>
+
+        <motion.div
+          variants={grid}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="pdy-journal-grid"
+        >
+          {homeJournal.articles.map((article) => (
+            <motion.article key={article.href} variants={item} className="pdy-journal-card">
+              <Link href={article.href} className="pdy-journal-card-link">
+                <span className="pdy-journal-category">{article.category}</span>
+                <h3 className="pdy-journal-title">{article.title}</h3>
+                <p className="pdy-journal-excerpt">{article.excerpt}</p>
+                <footer className="pdy-journal-card-footer">
+                  <span className="pdy-journal-readtime">{article.readTime}</span>
+                  <span className="pdy-journal-date">{article.date}</span>
+                </footer>
+              </Link>
+            </motion.article>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
