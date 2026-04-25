@@ -3,7 +3,6 @@ import { Header } from "@/components/nav/Header";
 import { Footer } from "@/components/nav/Footer";
 import { HeroSection } from "@/components/sections/HeroSection";
 import { Strip } from "@/components/sections/Strip";
-import { Manifesto } from "@/components/sections/Manifesto";
 import { Offres } from "@/components/sections/Offres";
 import { Moments } from "@/components/sections/Moments";
 import { Chiffres } from "@/components/sections/Chiffres";
@@ -94,7 +93,6 @@ export default async function Home({ params }: Props) {
         />
 
         <Strip />
-        <Manifesto />
         <Offres />
         <Moments />
         <Chiffres />

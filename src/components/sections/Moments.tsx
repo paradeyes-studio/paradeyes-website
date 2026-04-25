@@ -87,7 +87,6 @@ export function Moments() {
               <span className="pdy-moment-number">{m.number}</span>
               <h3 className="pdy-moment-title">{m.title}</h3>
               <p className="pdy-moment-desc">{m.description}</p>
-              <span className="pdy-moment-tag">{m.tag}</span>
             </motion.article>
           ))}
         </motion.div>

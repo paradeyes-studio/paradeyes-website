@@ -40,12 +40,6 @@ function StatItem({ data }: StatItemProps) {
           <span className="pdy-stat-label-num">{data.number}</span>
           <span className="pdy-stat-label-name">· {data.label}</span>
         </span>
-        <span className="pdy-stat-trend" aria-hidden="true">
-          <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M2 8L6 4L10 8" />
-          </svg>
-          {data.trend}
-        </span>
       </header>
       <div className="pdy-stat-value-wrap">
         <span className="pdy-stat-value">

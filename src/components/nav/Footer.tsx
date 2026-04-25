@@ -4,6 +4,7 @@ import { ArrowRight, Mail, ExternalLink } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/brand/Logo";
 import { useMagnetic } from "@/hooks/useMagnetic";
+import { homeFooter } from "@/content/home-fallback";
 import { PreFooterCTA } from "./PreFooterCTA";
 
 interface FooterProps {
@@ -112,7 +113,7 @@ export function Footer({
               <Logo className="pdy-foot-logo-svg" />
             </Link>
             <p className="pdy-foot-baseline">
-              Le cinéma rencontre le tableau de bord.
+              {homeFooter.tagline}
             </p>
             <Link
               href="/contact#appel"

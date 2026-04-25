@@ -10,17 +10,24 @@
 
 ---
 
-## Préambule — Dépendance bloquante
+## Préambule — État des dépendances
 
-La **totalité du plan dépend du fichier** `reference/paradeyes-home-v5.1.html`. Il n'est pas encore présent dans le repo. La Step 0 de chaque batch pertinent vérifie sa présence et extrait les valeurs nécessaires directement de ce fichier. Aucun batch ne démarre tant que la ref n'est pas placée.
+**Vérifié au 2026-04-25 :**
 
-**Commande de vérification systématique :**
+- `reference/paradeyes-home-v5.1.html` : **PRÉSENT** (121 KB, 2623 lignes). Source de vérité visuelle disponible immédiatement.
+- `src/lib/tokens.ts` : **PRÉSENT** (palette, spacing, radii, shadows, durations, easings, gradients déjà déclarés). Action 2.1.3 = vérifier la parité avec ref + compléter, pas créer ex-nihilo.
+- `src/fonts/satoshi/` : **PRÉSENT** (5 weights `.woff2`).
+- `src/fonts/Gambarino-Italic.woff2` : **ABSENT**. **BLOQUANT pour Task 2.1.4.** Demander à l'utilisateur le fichier `.woff2` ou `.otf` Gambarino italic regular avant de lancer le chargement next/font.
+- DM Sans + DM Mono : disponibles via `next/font/google` (chargement à instaurer).
+
+**Commande de vérification systématique avant lancement :**
 
 ```bash
-test -f reference/paradeyes-home-v5.1.html && echo "ref OK" || echo "MISSING"
+test -f reference/paradeyes-home-v5.1.html && echo "ref OK" || echo "ref MISSING"
+test -f src/fonts/Gambarino-Italic.woff2 && echo "Gambarino OK" || echo "Gambarino MISSING"
 ```
 
-Si `MISSING` → attendre fourniture du fichier, signaler à l'utilisateur.
+Si `Gambarino MISSING` → demander à l'utilisateur, ne pas lancer Task 2.1.4 sans le fichier.
 
 ---
 
@@ -30,9 +37,10 @@ Si `MISSING` → attendre fourniture du fichier, signaler à l'utilisateur.
 |---|---|---|
 | `reference/paradeyes-home-v5.1.html` | Maquette source, source de vérité visuelle et tokens | Fourni par utilisateur |
 | `src/app/globals.css` | Tokens Tailwind v4 `@theme`, keyframes globales | Modification chirurgicale |
-| `src/lib/tokens.ts` | Tokens TypeScript (palette, spacing, easing, durations) | Création |
+| `src/lib/tokens.ts` | Tokens TypeScript (palette, spacing, easing, durations) | Vérification parité + compléments (déjà existant) |
 | `src/app/layout.tsx` | Chargement 4 polices via `next/font` | Modification chirurgicale |
-| `src/fonts/` | Fichiers locaux Satoshi (présent) + Gambarino Italic (à fournir) | Ajout Gambarino |
+| `src/fonts/satoshi/` | Satoshi 5 weights `.woff2` (présent) | Conservé |
+| `src/fonts/Gambarino-Italic.woff2` | Police italique accent (à fournir par utilisateur) | Ajout BLOQUANT Task 2.1.4 |
 | `src/components/nav/Header.tsx` | Header pixel-match ref | Réécriture |
 | `src/components/nav/Footer.tsx` | Footer pixel-match ref | Réécriture |
 | `src/components/nav/MobileMenu.tsx` | Menu mobile aligné Header | Modification si impact |
@@ -166,12 +174,14 @@ git add src/app/globals.css
 git commit -m "refactor: align globals.css tokens with v5.1 reference palette"
 ```
 
-### Task 2.1.3 — Créer src/lib/tokens.ts (export TypeScript)
+### Task 2.1.3 — Vérifier parité src/lib/tokens.ts ↔ globals.css
 
 **Files:**
-- Create: `src/lib/tokens.ts`
+- Modify: `src/lib/tokens.ts` (déjà présent : colors, grays, alphaGreenDeep, alphaGreenElectric, alphaWhite, spacing, radii, shadows, durations, stagger, easings, easingArrays, gradients).
 
-- [ ] **Step 1** : Écrire `src/lib/tokens.ts` avec export `as const` de chaque groupe.
+- [ ] **Step 0** : Lire `src/lib/tokens.ts` actuel + `src/app/globals.css` `@theme`. Diff numérique chaque groupe.
+
+- [ ] **Step 1** : Si écart constaté (ex: nouveau token ajouté en 2.1.2 absent de tokens.ts), compléter `src/lib/tokens.ts` avec export `as const` de chaque groupe ajouté.
 
 ```typescript
 export const colors = {
@@ -207,11 +217,11 @@ npx tsc --noEmit
 
 Attendu : 0 erreur.
 
-- [ ] **Step 3** : Commit.
+- [ ] **Step 3** : Commit (uniquement si modifications).
 
 ```bash
 git add src/lib/tokens.ts
-git commit -m "feat: add typed design tokens exports in src/lib/tokens.ts"
+git commit -m "refactor: align tokens.ts with v5.1 reference parity"
 ```
 
 ### Task 2.1.4 — Charger les 4 polices via next/font
@@ -925,4 +935,6 @@ Deux modes d'exécution disponibles :
 1. **Subagent-Driven (recommandé)** — un sous-agent fresh par task, review entre tasks, itération rapide.
 2. **Inline Execution** — exécution in-session avec checkpoints manuels par batch.
 
-**Attente de l'utilisateur** : le fichier `reference/paradeyes-home-v5.1.html` n'est pas encore fourni, et les instructions explicites de la mission demandent de s'arrêter jusqu'au feu vert de l'utilisateur + fourniture de la ref. Aucun batch n'est lancé tant que ces deux conditions ne sont pas réunies.
+**État au 2026-04-25** : `reference/paradeyes-home-v5.1.html` est présent (vérifié, 121 KB / 2623 lignes). Le seul bloqueur résiduel est le fichier `src/fonts/Gambarino-Italic.woff2` à fournir avant Task 2.1.4. Tous les autres batches sont déblocables dès feu vert de l'utilisateur.
+
+**Quelle approche d'exécution ?** (Subagent-Driven recommandé / Inline Execution / autre).
