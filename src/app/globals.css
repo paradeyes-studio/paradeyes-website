@@ -2480,3 +2480,320 @@ h1, h2, h3, h4 {
 .pdy-journal-card:hover .pdy-journal-title{
   background-size:100% 1px;
 }
+
+/* ================================================================
+   3.4 PREFOOTER CTA — Awwwards tabs (IRIS / Réservez un appel)
+================================================================ */
+.pdy-prefooter {
+  padding: 140px 5vw 120px;
+  color: var(--color-white-warm);
+}
+
+.pdy-prefooter-inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pdy-prefooter-header {
+  margin-bottom: 64px;
+}
+
+.pdy-prefooter-eyebrow {
+  display: inline-block;
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-green-electric);
+  margin: 0 0 12px;
+}
+
+.pdy-prefooter-title {
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0 auto 16px;
+  max-width: 14ch;
+}
+
+.pdy-prefooter-sub {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 56ch;
+  margin: 0 auto;
+}
+
+.pdy-prefooter-tabs {
+  position: relative;
+  display: inline-flex;
+  margin: 0 auto 48px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  padding: 6px;
+  gap: 4px;
+}
+
+.pdy-prefooter-tab {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.62);
+  cursor: pointer;
+  transition: color 240ms var(--ease-cinema-out);
+}
+
+.pdy-prefooter-tab svg {
+  width: 14px;
+  height: 14px;
+}
+
+.pdy-prefooter-tab:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.pdy-prefooter-tab--active {
+  color: var(--color-green-deep);
+}
+
+.pdy-prefooter-tab-indicator {
+  position: absolute;
+  z-index: 1;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  width: calc(50% - 4px);
+  background: var(--color-green-electric);
+  border-radius: 999px;
+  transition: transform 480ms var(--ease-cinema-out);
+}
+
+.pdy-prefooter-tab-indicator[data-active="iris"] {
+  transform: translateX(0);
+}
+
+.pdy-prefooter-tab-indicator[data-active="appel"] {
+  transform: translateX(calc(100% + 4px));
+}
+
+.pdy-prefooter-panels {
+  position: relative;
+  min-height: 320px;
+}
+
+.pdy-prefooter-panel {
+  position: relative;
+}
+
+/* Panel IRIS */
+.pdy-prefooter-iris {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.pdy-prefooter-iris-intro {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0 0 16px;
+}
+
+.pdy-prefooter-iris-form {
+  display: flex;
+  align-items: center;
+  background: var(--color-white-warm);
+  border-radius: 999px;
+  padding: 8px;
+  gap: 8px;
+  box-shadow: 0 16px 48px -16px rgba(87, 238, 161, 0.24);
+}
+
+.pdy-prefooter-iris-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  padding: 12px 16px;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--color-green-deep);
+  outline: none;
+}
+
+.pdy-prefooter-iris-input::placeholder {
+  color: rgba(0, 49, 53, 0.5);
+}
+
+.pdy-prefooter-iris-submit {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--color-green-deep);
+  color: var(--color-green-electric);
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 240ms var(--ease-cinema-out);
+}
+
+.pdy-prefooter-iris-submit:hover {
+  transform: scale(1.06);
+}
+
+.pdy-prefooter-iris-submit svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pdy-prefooter-iris-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.pdy-prefooter-iris-chip {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.78);
+  cursor: pointer;
+  transition:
+    background 240ms var(--ease-cinema-out),
+    border-color 240ms var(--ease-cinema-out),
+    color 240ms var(--ease-cinema-out);
+}
+
+.pdy-prefooter-iris-chip:hover {
+  background: rgba(87, 238, 161, 0.08);
+  border-color: rgba(87, 238, 161, 0.32);
+  color: var(--color-white-warm);
+}
+
+/* Panel APPEL */
+.pdy-prefooter-appel {
+  max-width: 560px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.pdy-prefooter-appel-intro {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+}
+
+.pdy-prefooter-appel-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: var(--color-green-electric);
+  color: var(--color-green-deep);
+  border-radius: 999px;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  transition:
+    transform 240ms var(--ease-cinema-out),
+    box-shadow 320ms var(--ease-cinema-out);
+}
+
+.pdy-prefooter-appel-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -8px rgba(87, 238, 161, 0.4);
+}
+
+.pdy-prefooter-appel-cta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-green-deep);
+  animation: pdy-pulse-dot 2s ease-in-out infinite;
+}
+
+.pdy-prefooter-appel-cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+.pdy-prefooter-appel-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.pdy-prefooter-appel-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.62);
+  text-decoration: none;
+  transition: color 240ms var(--ease-cinema-out);
+}
+
+.pdy-prefooter-appel-meta-item:is(a):hover {
+  color: var(--color-green-electric);
+}
+
+.pdy-prefooter-appel-meta-item svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 767px) {
+  .pdy-prefooter { padding: 80px 5vw; }
+  .pdy-prefooter-tabs { width: 100%; }
+  .pdy-prefooter-tab { flex: 1; padding: 10px 16px; font-size: 13px; }
+  .pdy-prefooter-tab span { white-space: nowrap; }
+  .pdy-prefooter-iris-form {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 16px;
+  }
+  .pdy-prefooter-iris-input { width: 100%; }
+  .pdy-prefooter-iris-submit {
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdy-prefooter-tab-indicator { transition: none; }
+  .pdy-prefooter-iris-submit:hover { transform: none; }
+  .pdy-prefooter-appel-cta:hover { transform: none; }
+}

@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Mail, Calendar, Sparkles } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { homePreFooter } from "@/content/home-fallback";
 
 type PreFooterVariant = "default" | "offre" | "contact";
@@ -22,8 +23,8 @@ interface PreFooterContent {
   titleItalic: string;
   titleAfter: string;
   description: string;
-  primaryLabel: string;
-  secondaryLabel: string;
+  cta: string;
+  ctaHref: string;
 }
 
 const CONTENT: Record<PreFooterVariant, PreFooterContent> = {
@@ -33,8 +34,8 @@ const CONTENT: Record<PreFooterVariant, PreFooterContent> = {
     titleItalic: homePreFooter.headline.italic,
     titleAfter: homePreFooter.headline.after,
     description: homePreFooter.sub,
-    primaryLabel: homePreFooter.cta,
-    secondaryLabel: "Écrire un message",
+    cta: homePreFooter.cta,
+    ctaHref: homePreFooter.ctaHref,
   },
   offre: {
     eyebrow: "Passons à l'étape suivante",
@@ -43,8 +44,8 @@ const CONTENT: Record<PreFooterVariant, PreFooterContent> = {
     titleAfter: " ?",
     description:
       "Dites nous en plus sur votre contexte en 30 minutes. On repart avec une idée claire de ce qu'on peut construire ensemble.",
-    primaryLabel: "Un appel gratuit de 30 min",
-    secondaryLabel: "Voir nos autres offres",
+    cta: "Un appel gratuit de 30 min",
+    ctaHref: "/contact#appel",
   },
   contact: {
     eyebrow: "Dernière chance",
@@ -53,10 +54,21 @@ const CONTENT: Record<PreFooterVariant, PreFooterContent> = {
     titleAfter: " encore ?",
     description:
       "Un dernier moyen rapide. Appel de 30 minutes, sans engagement. On écoute, on conseille, on avance si ça colle.",
-    primaryLabel: "Un appel gratuit de 30 min",
-    secondaryLabel: "Revenir plus tard",
+    cta: "Un appel gratuit de 30 min",
+    ctaHref: "/contact#appel",
   },
 };
+
+const IRIS_CHIPS = [
+  "Branding",
+  "Site web",
+  "Contenus",
+  "Déploiement",
+  "Acquisition",
+  "Événement",
+];
+
+type Tab = "iris" | "appel";
 
 export function PreFooterCTA({
   variant = "default",
@@ -64,87 +76,166 @@ export function PreFooterCTA({
 }: PreFooterCTAProps) {
   void _locale;
   const content = CONTENT[variant];
+  const [activeTab, setActiveTab] = useState<Tab>("iris");
+
+  const trackPrefooter = (label: string) => {
+    const plausible = (window as PlausibleWindow).plausible;
+    if (typeof plausible === "function") {
+      plausible("cta_prefooter_clicked", { props: { variant, tab: activeTab, label } });
+    }
+  };
 
   return (
     <section
-      className="pdy-section-stacked relative py-[var(--spacing-10)] lg:py-[var(--spacing-12)] overflow-hidden"
-      style={{ background: "var(--color-green-deep)" }}
+      className="pdy-prefooter pdy-bloc-dark pdy-bloc-dark--pre-footer pdy-section-stacked"
       data-section-theme="dark"
+      aria-labelledby="prefooter-title"
     >
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 100%, rgba(87, 238, 161, 0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 0%, rgba(101, 73, 246, 0.10) 0%, transparent 55%)",
-        }}
-        aria-hidden="true"
-      />
+      <div className="pdy-prefooter-inner">
+        <header className="pdy-prefooter-header">
+          <p className="pdy-prefooter-eyebrow">{content.eyebrow}</p>
+          <h2 id="prefooter-title" className="pdy-prefooter-title">
+            {content.titleBefore}
+            <em className="pdy-italic-accent">{content.titleItalic}</em>
+            {content.titleAfter}
+          </h2>
+          <p className="pdy-prefooter-sub">{content.description}</p>
+        </header>
 
-      <div className="relative max-w-[var(--container-4xl)] mx-auto px-[var(--spacing-5)] lg:px-[var(--spacing-6)] text-center">
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="font-mono text-mono-md uppercase tracking-[0.08em] font-medium mb-[var(--spacing-5)]"
-          style={{ color: "var(--color-green-electric)" }}
+        <div
+          className="pdy-prefooter-tabs"
+          role="tablist"
+          aria-label="Choisir un mode de contact"
         >
-          {content.eyebrow}
-        </motion.p>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-display text-display-md lg:text-display-lg leading-[var(--leading-heading-1)] tracking-[var(--tracking-tight)] font-medium mb-[var(--spacing-5)] max-w-[24ch] mx-auto"
-          style={{ color: "var(--color-white-warm)" }}
-        >
-          {content.titleBefore}
-          <em className="pdy-italic-accent" style={{ color: "var(--color-green-electric)" }}>
-            {content.titleItalic}
-          </em>
-          {content.titleAfter}
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="font-body text-body-lg leading-[var(--leading-body-lg)] max-w-[56ch] mx-auto mb-[var(--spacing-7)]"
-          style={{ color: "rgba(255, 255, 255, 0.7)" }}
-        >
-          {content.description}
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3"
-        >
-          <Button
-            variant="primary-light"
-            size="lg"
-            suffixIcon={<ArrowRight className="w-4 h-4" />}
-            animatedArrow
-            className="group"
-            onClick={() => {
-              const plausible = (window as PlausibleWindow).plausible;
-              if (typeof plausible === "function") {
-                plausible("cta_prefooter_clicked", { props: { variant } });
-              }
-              window.location.href = "/contact#appel";
-            }}
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === "iris"}
+            aria-controls="panel-iris"
+            id="tab-iris"
+            className={`pdy-prefooter-tab ${activeTab === "iris" ? "pdy-prefooter-tab--active" : ""}`}
+            onClick={() => setActiveTab("iris")}
           >
-            {content.primaryLabel}
-          </Button>
-          <Button variant="link" size="md">
-            {content.secondaryLabel}
-          </Button>
-        </motion.div>
+            <Sparkles aria-hidden="true" />
+            <span>Parlez à IRIS</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeTab === "appel"}
+            aria-controls="panel-appel"
+            id="tab-appel"
+            className={`pdy-prefooter-tab ${activeTab === "appel" ? "pdy-prefooter-tab--active" : ""}`}
+            onClick={() => setActiveTab("appel")}
+          >
+            <Calendar aria-hidden="true" />
+            <span>Réservez un appel</span>
+          </button>
+          <span
+            className="pdy-prefooter-tab-indicator"
+            data-active={activeTab}
+            aria-hidden="true"
+          />
+        </div>
+
+        <div className="pdy-prefooter-panels">
+          <AnimatePresence mode="wait">
+            {activeTab === "iris" ? (
+              <motion.div
+                key="iris"
+                role="tabpanel"
+                id="panel-iris"
+                aria-labelledby="tab-iris"
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 16 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                className="pdy-prefooter-panel"
+              >
+                <div className="pdy-prefooter-iris">
+                  <p className="pdy-prefooter-iris-intro">
+                    Décrivez votre projet. IRIS vous oriente en 2 minutes.
+                  </p>
+                  <form
+                    className="pdy-prefooter-iris-form"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      trackPrefooter("iris_submit");
+                      window.location.href = "/contact#iris";
+                    }}
+                  >
+                    <input
+                      type="text"
+                      placeholder="Qu'aimeriez-vous améliorer pour rendre votre business plus performant ?"
+                      className="pdy-prefooter-iris-input"
+                      aria-label="Décrivez votre projet"
+                    />
+                    <button
+                      type="submit"
+                      className="pdy-prefooter-iris-submit"
+                      aria-label="Envoyer"
+                    >
+                      <ArrowRight aria-hidden="true" />
+                    </button>
+                  </form>
+                  <div className="pdy-prefooter-iris-chips" role="list">
+                    {IRIS_CHIPS.map((c) => (
+                      <button
+                        key={c}
+                        type="button"
+                        className="pdy-prefooter-iris-chip"
+                        role="listitem"
+                        onClick={() => trackPrefooter(`chip_${c}`)}
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="appel"
+                role="tabpanel"
+                id="panel-appel"
+                aria-labelledby="tab-appel"
+                initial={{ opacity: 0, x: 16 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -16 }}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                className="pdy-prefooter-panel"
+              >
+                <div className="pdy-prefooter-appel">
+                  <p className="pdy-prefooter-appel-intro">
+                    {content.cta} pour discuter de votre projet de vive voix.
+                  </p>
+                  <Link
+                    href={content.ctaHref}
+                    className="pdy-prefooter-appel-cta"
+                    onClick={() => trackPrefooter("appel_cta")}
+                  >
+                    <span className="pdy-prefooter-appel-cta-dot" aria-hidden="true" />
+                    <span>{content.cta}</span>
+                    <ArrowRight aria-hidden="true" />
+                  </Link>
+                  <div className="pdy-prefooter-appel-meta">
+                    <a
+                      href="mailto:hello@paradeyesagency.com"
+                      className="pdy-prefooter-appel-meta-item"
+                    >
+                      <Mail aria-hidden="true" />
+                      <span>hello@paradeyesagency.com</span>
+                    </a>
+                    <div className="pdy-prefooter-appel-meta-item">
+                      <Calendar aria-hidden="true" />
+                      <span>Du lundi au vendredi, 9h à 19h</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
