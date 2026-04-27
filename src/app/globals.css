@@ -1528,8 +1528,12 @@ h1, h2, h3, h4 {
   font-style:italic;
   font-weight:400;
   letter-spacing:-0.01em;
+  color: var(--color-green-deep);
 }
-[data-section-theme="dark"] .pdy-italic-accent{color:var(--color-green-electric)}
+[data-section-theme="dark"] .pdy-italic-accent,
+.pdy-bloc-dark .pdy-italic-accent{
+  color: var(--color-green-electric);
+}
 
 /* ================================================================
    3.1.3 OFFRES

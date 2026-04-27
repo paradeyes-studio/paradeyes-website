@@ -59,7 +59,7 @@ export function OffreCard({ data }: OffreCardProps) {
 
       <h3 className="pdy-offre-title">
         {before}
-        <em className="pdy-italic">{data.titleItalic}</em>
+        <em className="pdy-italic-accent">{data.titleItalic}</em>
         {after}
       </h3>
 
