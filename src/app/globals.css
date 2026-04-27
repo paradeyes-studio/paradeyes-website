@@ -455,6 +455,15 @@ body {
   height: 100%;
 }
 
+/* Reserve scrollbar gutter symmetrically on both sides so that 100vw
+   matches the visible area. Without this, fixed/centered elements using
+   left:50% (e.g. the header capsule) drift horizontally relative to
+   content centered with mx-auto inside body, producing visible
+   asymmetry on macOS where the system scrollbar takes ~15px. */
+html {
+  scrollbar-gutter: stable both-edges;
+}
+
 body {
   /* Page background is intentionally a notch deeper than any section bg.
      This guarantees visible "lift" wedges at every rounded corner —
