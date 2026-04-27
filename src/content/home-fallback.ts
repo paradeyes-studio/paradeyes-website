@@ -199,6 +199,27 @@ export const homeChiffres = {
       // Notion 3459ea1e-2812-8195-b4be-efbfba9c10ed (Validé FR)
       caption: "Ils reviennent. Plusieurs fois.",
     },
+    {
+      number: "04",
+      label: "Secteurs d'activité",
+      value: 15,
+      suffix: "+",
+      caption: "Du luxe à l'industrie, du B2B au grand public.",
+    },
+    {
+      number: "05",
+      label: "Moments de croissance maîtrisés",
+      value: 4,
+      suffix: "",
+      caption: "Lancement, repositionnement, accélération, événement.",
+    },
+    {
+      number: "06",
+      label: "Projets sur-mesure",
+      value: 100,
+      suffix: "%",
+      caption: "Aucun template. Aucun copier-coller.",
+    },
   ],
   // Notion 3459ea1e-2812-8148-9f6c-c373af828b73 (Validé FR)
   transition: "Ces chiffres racontent une méthode. La voici.",
