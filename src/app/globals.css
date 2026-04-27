@@ -400,6 +400,7 @@
   overflow: hidden;
   transform: translateZ(0);
   backface-visibility: hidden;
+  contain: layout style;
 }
 
 @media (max-width: 767px) {
@@ -1258,6 +1259,7 @@ h1, h2, h3, h4 {
   padding:128px 32px 24px;
   overflow:hidden;
   isolation:isolate;
+  contain: layout style paint;
   margin-top:-1px;
 }
 @media (max-width:767px){
@@ -3194,6 +3196,9 @@ h1, h2, h3, h4 {
   position: relative;
   padding: 128px 32px;
   color: var(--color-white-warm);
+  isolation: isolate;
+  contain: layout style paint;
+  overflow: hidden;
 }
 .pdy-prefooter::before {
   content: "";
