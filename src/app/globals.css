@@ -375,6 +375,9 @@
   z-index: var(--stack-z, 1);
   box-shadow: 0 -16px 48px -16px rgba(0, 49, 53, 0.18);
   isolation: isolate;
+  overflow: hidden;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 @media (max-width: 767px) {
@@ -401,13 +404,13 @@
 /* === Section reveal (utilitaire universel) === */
 .pdy-section-reveal {
   opacity: 0;
-  transform: translateY(48px);
+  transform: translateY(48px) translateZ(0);
   will-change: opacity, transform;
 }
 
 .pdy-section-reveal--in {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateZ(0);
   transition:
     opacity 1100ms var(--ease-cinema-out),
     transform 1100ms var(--ease-cinema-out);
