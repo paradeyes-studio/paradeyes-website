@@ -1,45 +1,52 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { homeMoments } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { Particles } from "@/components/ui/Particles";
 
-const fadeUp = (delay: number): Variants => ({
-  hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-  },
-});
+type MomentItem = (typeof homeMoments.items)[number];
 
-const fadeOnly = (delay: number): Variants => ({
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.4, delay } },
-});
+function MomentCard({ item, index, reduced }: { item: MomentItem; index: number; reduced: boolean }) {
+  const ref = useRef<HTMLLIElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
-const grid: Variants = {
-  hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};
+  return (
+    <motion.li
+      ref={ref}
+      className="pdy-moment-card"
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.9, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <motion.span
+        className="pdy-moment-card-num"
+        aria-hidden="true"
+        style={reduced ? undefined : { y }}
+      >
+        {item.number}
+      </motion.span>
+      <div className="pdy-moment-card-content">
+        <span className="pdy-moment-card-tag">
+          <span className="pdy-moment-card-tag-dot" aria-hidden="true" />
+          Étape {item.number}
+        </span>
+        <h3 className="pdy-moment-card-title">{item.title}</h3>
+        <p className="pdy-moment-card-description">{item.description}</p>
+      </div>
+    </motion.li>
+  );
+}
 
 export function Moments() {
-  const reduced = useReducedMotion();
-  const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
+  const reduced = useReducedMotion() ?? false;
   const reveal = useSectionReveal<HTMLElement>(0.15);
 
   return (
@@ -47,63 +54,31 @@ export function Moments() {
       ref={reveal}
       className="pdy-moments pdy-bloc-dark pdy-section-stacked pdy-section-stacked--z2 pdy-section-reveal"
       data-section-theme="dark"
+      aria-labelledby="moments-title"
     >
       <div className="pdy-moments-halo" aria-hidden="true" />
       <Particles count={20} variant="green" />
 
       <div className="pdy-moments-inner">
         <header className="pdy-moments-head">
-          <motion.p
-            variants={v(0)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="pdy-eyebrow"
-          >
-            {homeMoments.eyebrow}
-          </motion.p>
+          <p className="pdy-eyebrow">{homeMoments.eyebrow}</p>
           <SectionHeadline
             before={homeMoments.headline.before}
             italic={homeMoments.headline.italic}
             after={homeMoments.headline.after}
             className="pdy-section-h2"
+            id="moments-title"
           />
-          <motion.p
-            variants={v(0.2)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="pdy-section-sub"
-          >
-            {homeMoments.sub}
-          </motion.p>
+          <p className="pdy-section-sub">{homeMoments.sub}</p>
         </header>
 
-        <motion.div
-          variants={grid}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          className="pdy-moments-grid"
-        >
-          {homeMoments.items.map((m) => (
-            <motion.article key={m.number} variants={item} className="pdy-moment-card">
-              <span className="pdy-moment-number">{m.number}</span>
-              <h3 className="pdy-moment-title">{m.title}</h3>
-              <p className="pdy-moment-desc">{m.description}</p>
-            </motion.article>
+        <ul className="pdy-moments-grid">
+          {homeMoments.items.map((m, idx) => (
+            <MomentCard key={m.number} item={m} index={idx} reduced={reduced} />
           ))}
-        </motion.div>
+        </ul>
 
-        <motion.p
-          variants={v(0.4)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.5 }}
-          className="pdy-moments-outro"
-        >
-          {homeMoments.outroCta}
-        </motion.p>
+        <p className="pdy-moments-outro">{homeMoments.outroCta}</p>
       </div>
     </section>
   );
