@@ -428,24 +428,25 @@
 .pdy-section-stacked--z9 { --stack-z: 9; }
 .pdy-section-stacked--z10 { --stack-z: 10; }
 
-/* === Section reveal, fade-in subtle uniquement === */
-/* Le mouvement principal est porte par les cards internes Framer Motion.
-   La section elle-meme reste statique en layout, juste un fade-in opacity.
-   opacity 0.001 evite les soucis de content-visibility avec opacity: 0. */
+/* === Section reveal, fade-in propre opacity uniquement === */
+/* Animation Cinema (translateY + scale + box-shadow) retiree pour eviter
+   le flash visuel a la transition entre sections. Les cards internes
+   conservent leurs animations Framer Motion individuelles. */
 .pdy-section-reveal {
-  opacity: 0.001;
+  opacity: 0;
+  will-change: opacity;
 }
 
 .pdy-section-reveal--in {
   opacity: 1;
-  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 900ms var(--ease-cinema-out);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pdy-section-reveal,
   .pdy-section-reveal--in {
-    opacity: 1 !important;
-    transition: none !important;
+    opacity: 1;
+    transition: none;
   }
 }
 
