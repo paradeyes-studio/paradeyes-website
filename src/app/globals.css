@@ -180,6 +180,10 @@
   --gradient-dark: linear-gradient(180deg, #003135 0%, #14222E 100%);
   --gradient-light: linear-gradient(135deg, #003135 0%, #57EEA1 100%);
   --gradient-plus: linear-gradient(135deg, #FF611D 0%, #4A6CFF 100%);
+
+  /* Gradients de signature semantiques */
+  --gradient-vital: linear-gradient(135deg, var(--color-green-deep) 0%, var(--color-green-electric) 100%);
+  --gradient-spectral: linear-gradient(135deg, var(--color-orange-flame) 0%, var(--color-blue-steel) 100%);
 }
 
 /* Font tokens reference next/font CSS variables, kept inline so they stay dynamic */
@@ -2305,7 +2309,7 @@ h1, h2, h3, h4 {
   line-height:0.95;
   letter-spacing:-0.04em;
   font-variant-numeric:tabular-nums;
-  background:linear-gradient(135deg, var(--color-green-deep) 0%, var(--color-green-electric) 100%);
+  background: var(--gradient-spectral);
   background-clip:text;
   -webkit-background-clip:text;
   color:transparent;
@@ -2317,7 +2321,7 @@ h1, h2, h3, h4 {
   font-weight:500;
   font-size:clamp(28px, 3vw, 48px);
   letter-spacing:-0.02em;
-  background:linear-gradient(135deg, var(--color-green-deep) 0%, var(--color-green-electric) 100%);
+  background: var(--gradient-spectral);
   background-clip:text;
   -webkit-background-clip:text;
   color:transparent;
