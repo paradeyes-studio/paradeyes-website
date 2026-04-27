@@ -428,51 +428,25 @@
 .pdy-section-stacked--z9 { --stack-z: 9; }
 .pdy-section-stacked--z10 { --stack-z: 10; }
 
-/* === Animation Cinema premium pour cards et sections === */
+/* === Section reveal, fade-in propre opacity uniquement === */
+/* Animation Cinema (translateY + scale + box-shadow) retiree pour eviter
+   le flash visuel a la transition entre sections. Les cards internes
+   conservent leurs animations Framer Motion individuelles. */
 .pdy-section-reveal {
   opacity: 0;
-  transform: translateY(80px) scale(0.92) translateZ(0);
-  box-shadow:
-    0 0 0 0 rgba(0, 49, 53, 0),
-    0 -16px 48px -16px rgba(0, 49, 53, 0.18);
-  will-change: opacity, transform, box-shadow;
+  will-change: opacity;
 }
 
 .pdy-section-reveal--in {
   opacity: 1;
-  transform: translateY(0) scale(1) translateZ(0);
-  box-shadow:
-    0 24px 64px -12px rgba(0, 49, 53, 0.32),
-    0 -16px 48px -16px rgba(0, 49, 53, 0.18);
-  transition:
-    opacity 1400ms var(--ease-cinema-out),
-    transform 1400ms var(--ease-cinema-out),
-    box-shadow 1400ms var(--ease-cinema-out);
-}
-
-[data-section-theme="dark"].pdy-section-reveal--in,
-.pdy-bloc-dark.pdy-section-reveal--in {
-  box-shadow:
-    0 24px 64px -12px rgba(0, 0, 0, 0.48),
-    0 -16px 48px -16px rgba(0, 0, 0, 0.32);
-}
-
-@media (max-width: 767px) {
-  .pdy-section-reveal {
-    transform: translateY(56px) scale(0.95) translateZ(0);
-  }
-  .pdy-section-reveal--in {
-    transition-duration: 1100ms;
-  }
+  transition: opacity 900ms var(--ease-cinema-out);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pdy-section-reveal,
   .pdy-section-reveal--in {
     opacity: 1;
-    transform: none;
     transition: none;
-    box-shadow: 0 -16px 48px -16px rgba(0, 49, 53, 0.18);
   }
 }
 
