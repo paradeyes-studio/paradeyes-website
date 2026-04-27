@@ -873,8 +873,10 @@ h1, h2, h3, h4 {
     right: 16px;
     transform: none;
     width: auto;
+    max-width: calc(100vw - 32px);
     height: 52px;
     padding: 8px 12px 8px 16px;
+    overflow: hidden;
   }
 
   .pdy-header-capsule--scrolled {
@@ -895,6 +897,18 @@ h1, h2, h3, h4 {
 
   .pdy-header-capsule-inner {
     justify-content: space-between;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .pdy-header-capsule-logo {
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .pdy-header-capsule-logo svg {
+    height: 20px;
+    flex-shrink: 0;
   }
 }
 
