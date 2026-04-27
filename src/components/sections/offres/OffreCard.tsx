@@ -1,8 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import {
+  IconBranding,
+  IconSitesWeb,
+  IconContenus,
+  IconDeploiement,
+  IconAcquisition,
+} from "@/components/icons/offres";
 
 interface OffreCardData {
   number: string;
@@ -21,19 +27,24 @@ interface OffreCardProps {
   index?: number;
 }
 
-const ICON_MAP: Record<string, string> = {
-  "01": "/images/icons/offres/branding.png",
-  "02": "/images/icons/offres/sites-web.png",
-  "03": "/images/icons/offres/contenus.png",
-  "04": "/images/icons/offres/deploiement.png",
-  "05": "/images/icons/offres/acquisition.png",
+type IconComponent = (props: { size?: number; className?: string; animated?: boolean }) => React.JSX.Element;
+
+const ICON_MAP: Record<string, IconComponent> = {
+  "01": IconBranding,
+  "02": IconSitesWeb,
+  "03": IconContenus,
+  "04": IconDeploiement,
+  "05": IconAcquisition,
 };
+
+const ROMAN_NUMERALS = ["i", "ii", "iii", "iv", "v"] as const;
 
 export function OffreCard({ data, index = 0 }: OffreCardProps) {
   const titleParts = data.title.split(data.titleItalic);
   const before = titleParts[0] ?? "";
   const after = titleParts[1] ?? "";
-  const iconSrc = ICON_MAP[data.number];
+  const Icon = ICON_MAP[data.number];
+  const romanNumeral = ROMAN_NUMERALS[index] ?? `${index + 1}`;
 
   return (
     <article className="pdy-offre-card">
@@ -41,18 +52,14 @@ export function OffreCard({ data, index = 0 }: OffreCardProps) {
         {data.number}
       </span>
 
-      {iconSrc ? (
-        <div className="pdy-offre-icon" aria-hidden="true">
-          <Image
-            src={iconSrc}
-            alt=""
-            width={120}
-            height={120}
-            className="pdy-offre-icon-img"
-            priority={index < 3}
-          />
+      <div className="pdy-offre-icon-wrapper">
+        <div className="pdy-offre-icon">
+          {Icon ? <Icon size={64} /> : null}
         </div>
-      ) : null}
+        <span className="pdy-offre-icon-numeral" aria-hidden="true">
+          {romanNumeral}.
+        </span>
+      </div>
 
       <span className="pdy-offre-tag">
         <span className="pdy-offre-tag-dot" aria-hidden="true" />
