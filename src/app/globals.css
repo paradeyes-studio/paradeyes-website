@@ -3277,6 +3277,17 @@ h1, h2, h3, h4 {
   isolation: isolate;
   contain: layout style paint;
   overflow: hidden;
+  border-top-left-radius: var(--section-radius);
+  border-top-right-radius: var(--section-radius);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+@media (max-width: 767px) {
+  .pdy-prefooter {
+    border-top-left-radius: var(--section-radius-mobile);
+    border-top-right-radius: var(--section-radius-mobile);
+  }
 }
 .pdy-prefooter::before {
   content: "";
