@@ -3463,8 +3463,11 @@ h1, h2, h3, h4 {
 .pdy-prefooter-tab {
   position: relative;
   z-index: 2;
+  flex: 1;
+  min-width: 0;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 12px 28px;
   background: transparent;
@@ -3476,6 +3479,8 @@ h1, h2, h3, h4 {
   letter-spacing: -0.005em;
   color: rgba(255, 255, 255, 0.62);
   cursor: pointer;
+  white-space: nowrap;
+  text-align: center;
   transition: color 240ms var(--ease-cinema-out);
 }
 
