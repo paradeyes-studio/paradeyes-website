@@ -253,6 +253,27 @@
 
   --section-radius: 60px;
   --section-radius-mobile: 32px;
+
+  /* === Padding standardisé responsive === */
+  --pdy-pad-x: 5vw;
+  --pdy-pad-x-mobile: 24px;
+  --pdy-pad-x-tablet: 32px;
+
+  /* Container max-widths */
+  --pdy-container-max: 1280px;
+  --pdy-container-max-narrow: 920px;
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --pdy-pad-x: var(--pdy-pad-x-tablet);
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --pdy-pad-x: var(--pdy-pad-x-mobile);
+  }
 }
 
 /* === Bloc dark texturé universel === */
