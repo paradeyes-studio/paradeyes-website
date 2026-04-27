@@ -1,9 +1,14 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { useTilt } from "@/hooks/useTilt";
+import {
+  IconBranding,
+  IconSitesWeb,
+  IconContenus,
+  IconDeploiement,
+  IconAcquisition,
+} from "@/components/icons/offres";
 
 interface OffreCardData {
   number: string;
@@ -19,70 +24,62 @@ interface OffreCardData {
 
 interface OffreCardProps {
   data: OffreCardData;
-  size?: "lg" | "md";
 }
 
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 24, scale: 0.985 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
-  },
+const ICON_BY_NUMBER: Record<string, (props: { size?: number }) => React.JSX.Element> = {
+  "01": IconBranding,
+  "02": IconSitesWeb,
+  "03": IconContenus,
+  "04": IconDeploiement,
+  "05": IconAcquisition,
 };
 
-export function OffreCard({ data, size = "md" }: OffreCardProps) {
+export function OffreCard({ data }: OffreCardProps) {
   const titleParts = data.title.split(data.titleItalic);
   const before = titleParts[0] ?? "";
   const after = titleParts[1] ?? "";
-  const tiltRef = useTilt<HTMLDivElement>({ max: 4, perspective: 1200 });
+  const Icon = ICON_BY_NUMBER[data.number];
 
   return (
-    <motion.div variants={cardVariants} style={{ height: "100%" }}>
-      <div
-        ref={tiltRef}
-        className={`pdy-offre-card pdy-offre-card-${size}`}
-        style={{ transformStyle: "preserve-3d" }}
-      >
-        <span className="pdy-offre-ghost" aria-hidden="true">
-          {data.number}
-        </span>
+    <article className="pdy-offre-card">
+      <span className="pdy-offre-ghost" aria-hidden="true">
+        {data.number}
+      </span>
 
-        <div className="pdy-offre-head">
-          <span className="pdy-offre-tag">
-            <span className="pdy-offre-tag-dot" aria-hidden="true" />
-            {data.tag}
-          </span>
-          <span className="pdy-offre-glyph" aria-hidden="true">
-            {data.glyph}
-          </span>
+      {Icon ? (
+        <div className="pdy-offre-icon" aria-hidden="true">
+          <Icon size={36} />
         </div>
+      ) : null}
 
-        <h3 className="pdy-offre-title">
-          {before}
-          <em className="pdy-italic-accent">{data.titleItalic}</em>
-          {after}
-        </h3>
+      <span className="pdy-offre-tag">
+        <span className="pdy-offre-tag-dot" aria-hidden="true" />
+        {data.tag}
+      </span>
 
-        <p className="pdy-offre-promise">{data.promise}</p>
+      <h3 className="pdy-offre-title">
+        {before}
+        <em className="pdy-italic">{data.titleItalic}</em>
+        {after}
+      </h3>
 
-        <ul className="pdy-offre-livrables">
-          {data.livrables.map((l) => (
-            <li key={l}>
-              <span className="pdy-offre-bullet" aria-hidden="true" />
-              {l}
-            </li>
-          ))}
-        </ul>
+      <p className="pdy-offre-promise">{data.promise}</p>
 
-        <div className="pdy-offre-footer">
-          <span className="pdy-offre-duration">{data.duration}</span>
-          <Link href={data.href} className="pdy-offre-cta" aria-label={`En savoir plus sur ${data.title}`}>
-            <ArrowRight aria-hidden="true" />
-          </Link>
-        </div>
+      <ul className="pdy-offre-livrables">
+        {data.livrables.map((l) => (
+          <li key={l}>
+            <span className="pdy-offre-bullet" aria-hidden="true" />
+            {l}
+          </li>
+        ))}
+      </ul>
+
+      <div className="pdy-offre-footer">
+        <span className="pdy-offre-duration">{data.duration}</span>
+        <Link href={data.href} className="pdy-offre-cta" aria-label={`En savoir plus sur ${data.title}`}>
+          <ArrowUpRight aria-hidden="true" />
+        </Link>
       </div>
-    </motion.div>
+    </article>
   );
 }
