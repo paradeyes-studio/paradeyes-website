@@ -4,7 +4,6 @@ import { ArrowRight, Mail, ExternalLink } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/brand/Logo";
 import { useMagnetic } from "@/hooks/useMagnetic";
-import { homeFooter } from "@/content/home-fallback";
 import { Particles } from "@/components/ui/Particles";
 import { PreFooterCTA } from "./PreFooterCTA";
 
@@ -114,9 +113,14 @@ export function Footer({
             >
               <Logo className="pdy-foot-logo-svg" />
             </Link>
-            <p className="pdy-foot-baseline">
-              {homeFooter.tagline}
-            </p>
+            <div className="pdy-footer-signature">
+              <span className="pdy-footer-signature-eyebrow">
+                AGENCE CRÉATIVE AU SERVICE DE VOTRE CROISSANCE.
+              </span>
+              <p className="pdy-footer-signature-tagline">
+                On comprend. On conçoit. On construit.
+              </p>
+            </div>
             <Link
               href="/contact#appel"
               className="pdy-foot-cta"
