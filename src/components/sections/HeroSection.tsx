@@ -178,7 +178,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
       data-hero-root
       className="pdy-hero relative overflow-hidden flex flex-col pt-[80px] md:pt-[96px] lg:pt-[112px]"
       style={{
-        backgroundColor: "#003135",
+        backgroundColor: "var(--color-green-deep)",
         minHeight: "100svh",
       }}
     >
@@ -341,7 +341,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
           >
             <span
               className="inline-block w-1.5 h-1.5 rounded-full pulse-green-dot"
-              style={{ backgroundColor: "#57eea1" }}
+              style={{ backgroundColor: "var(--color-green-electric)" }}
               aria-hidden="true"
             />
             <p
@@ -376,7 +376,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               className="italic font-medium pdy-headline-emphasis"
               style={{
                 fontFamily: "var(--font-italic-accent)",
-                color: "#57EEA1",
+                color: "var(--color-green-electric)",
               }}
             >
               {taglineLast}
@@ -418,7 +418,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 {irisBefore}
                 <strong
                   className="font-semibold"
-                  style={{ color: "#023236" }}
+                  style={{ color: "var(--color-green-deep)" }}
                 >
                   IRIS
                 </strong>
@@ -488,7 +488,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
               >
                 <Check
                   className="w-3.5 h-3.5 shrink-0"
-                  style={{ color: "#57EEA1" }}
+                  style={{ color: "var(--color-green-electric)" }}
                   strokeWidth={2.5}
                   aria-hidden="true"
                 />

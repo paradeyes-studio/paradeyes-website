@@ -152,7 +152,7 @@ export function Footer({
               <Mail aria-hidden="true" />
               hello@paradeyesagency.com
             </a>
-            <p className="pdy-foot-address">PARIS - CANNES</p>
+            <p className="pdy-foot-address">PARIS · CANNES</p>
             <p className="pdy-foot-hours">Du lundi au vendredi, 9h à 19h</p>
           </div>
 
