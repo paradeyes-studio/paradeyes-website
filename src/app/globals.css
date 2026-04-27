@@ -1721,16 +1721,27 @@ h1, h2, h3, h4 {
   max-width:56ch;margin:20px auto 0;
 }
 [data-section-theme="dark"] .pdy-section-sub{color:rgba(255,255,255,0.7)}
+/* === Gambarino italic, gradient Spectral sur fond light, green-electric solide sur fond dark === */
 .pdy-italic-accent{
   font-family:"Gambarino", "Playfair Display", serif;
   font-style:italic;
   font-weight:400;
   letter-spacing:-0.01em;
-  color: var(--color-green-deep);
+  background: var(--gradient-spectral);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 [data-section-theme="dark"] .pdy-italic-accent,
 .pdy-bloc-dark .pdy-italic-accent{
+  background: none;
+  background-clip: initial;
+  -webkit-background-clip: initial;
   color: var(--color-green-electric);
+  -webkit-text-fill-color: var(--color-green-electric);
 }
 
 /* ================================================================
