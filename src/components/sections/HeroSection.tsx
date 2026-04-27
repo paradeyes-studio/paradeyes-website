@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { Particles } from "@/components/ui/Particles";
 import { HeroScrollIndicator } from "./HeroScrollIndicator";
+import { HeroCurve } from "./HeroCurve";
 
 export interface HeroData {
   heroBadgePositionnement?: string;
@@ -501,6 +502,7 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
           <HeroScrollIndicator label="Faites défiler" />
         </div>
       </div>
+      <HeroCurve />
     </section>
   );
 }
