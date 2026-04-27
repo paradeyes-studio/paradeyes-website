@@ -1,3 +1,6 @@
+// COMPOSANT INUTILISE depuis le 28/04/2026
+// Conserve en backup, retire du Hero suite a feedback Basilide
+// Pour reactiver, importer dans HeroSection.tsx et restaurer le CSS .pdy-hero-curve dans globals.css
 "use client";
 
 import { useRef } from "react";

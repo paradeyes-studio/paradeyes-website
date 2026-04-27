@@ -1270,45 +1270,6 @@ h1, h2, h3, h4 {
   }
 }
 
-/* === Hero curve organique style Carty === */
-.pdy-hero-curve-wrap {
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 180px;
-  z-index: 2;
-  pointer-events: none;
-  display: block;
-}
-
-.pdy-hero-curve {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-@media (max-width: 1023px) {
-  .pdy-hero-curve-wrap {
-    height: 140px;
-  }
-}
-
-@media (max-width: 767px) {
-  .pdy-hero-curve-wrap {
-    height: 100px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pdy-hero-curve {
-    transform: none !important;
-  }
-}
-
 .pdy-hero-bottom{
   display:flex;
   flex-direction:column;
@@ -4204,9 +4165,6 @@ h1, h2, h3, h4 {
    demande explicitement une reduction des motions.
 ================================================================ */
 @media (prefers-reduced-motion: reduce) {
-  .pdy-hero-curve {
-    transform: none !important;
-  }
   .pdy-section-reveal,
   .pdy-section-reveal--in {
     opacity: 1 !important;
