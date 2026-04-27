@@ -2289,6 +2289,18 @@ h1, h2, h3, h4 {
   -webkit-text-fill-color:transparent;
   display:inline-block;
 }
+
+/* === Protection DA, Spectral jamais sur fond dark === */
+/* Override automatique vers gradient Vital sur les sections dark */
+[data-section-theme="dark"] .pdy-stat-value,
+[data-section-theme="dark"] .pdy-stat-suffix,
+.pdy-bloc-dark .pdy-stat-value,
+.pdy-bloc-dark .pdy-stat-suffix {
+  background: var(--gradient-vital) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+}
+
 .pdy-stat-caption{
   font-family:var(--font-dm-sans),system-ui,sans-serif;
   font-size:13px;line-height:1.5;
