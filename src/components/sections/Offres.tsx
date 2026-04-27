@@ -77,8 +77,8 @@ export function Offres() {
 
       <div className="pdy-offres-track-wrapper">
         <div ref={trackRef} className="pdy-offres-track">
-          {homeOffres.cards.map((card) => (
-            <OffreCard key={card.number} data={card} />
+          {homeOffres.cards.map((card, idx) => (
+            <OffreCard key={card.number} data={card} index={idx} />
           ))}
         </div>
       </div>

@@ -1,14 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import {
-  IconBranding,
-  IconSitesWeb,
-  IconContenus,
-  IconDeploiement,
-  IconAcquisition,
-} from "@/components/icons/offres";
 
 interface OffreCardData {
   number: string;
@@ -24,21 +18,22 @@ interface OffreCardData {
 
 interface OffreCardProps {
   data: OffreCardData;
+  index?: number;
 }
 
-const ICON_BY_NUMBER: Record<string, (props: { size?: number }) => React.JSX.Element> = {
-  "01": IconBranding,
-  "02": IconSitesWeb,
-  "03": IconContenus,
-  "04": IconDeploiement,
-  "05": IconAcquisition,
+const ICON_MAP: Record<string, string> = {
+  "01": "/images/icons/offres/branding.png",
+  "02": "/images/icons/offres/sites-web.png",
+  "03": "/images/icons/offres/contenus.png",
+  "04": "/images/icons/offres/deploiement.png",
+  "05": "/images/icons/offres/acquisition.png",
 };
 
-export function OffreCard({ data }: OffreCardProps) {
+export function OffreCard({ data, index = 0 }: OffreCardProps) {
   const titleParts = data.title.split(data.titleItalic);
   const before = titleParts[0] ?? "";
   const after = titleParts[1] ?? "";
-  const Icon = ICON_BY_NUMBER[data.number];
+  const iconSrc = ICON_MAP[data.number];
 
   return (
     <article className="pdy-offre-card">
@@ -46,9 +41,16 @@ export function OffreCard({ data }: OffreCardProps) {
         {data.number}
       </span>
 
-      {Icon ? (
+      {iconSrc ? (
         <div className="pdy-offre-icon" aria-hidden="true">
-          <Icon size={36} />
+          <Image
+            src={iconSrc}
+            alt=""
+            width={120}
+            height={120}
+            className="pdy-offre-icon-img"
+            priority={index < 3}
+          />
         </div>
       ) : null}
 

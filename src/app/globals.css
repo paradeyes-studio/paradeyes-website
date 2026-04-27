@@ -1690,7 +1690,34 @@ h1, h2, h3, h4 {
   position: relative;
   z-index: 1;
   margin-bottom: 24px;
-  color: var(--color-green-deep);
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdy-offre-icon-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0, 49, 53, 0.12));
+  transition:
+    transform 480ms var(--ease-cinema-out),
+    filter 480ms var(--ease-cinema-out);
+}
+
+.pdy-offre-card:hover .pdy-offre-icon-img {
+  transform: scale(1.05) translateY(-2px);
+  filter: drop-shadow(0 12px 32px rgba(0, 49, 53, 0.18));
+}
+
+@media (max-width: 767px) {
+  .pdy-offre-icon {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 20px;
+  }
 }
 
 .pdy-offre-tag {
