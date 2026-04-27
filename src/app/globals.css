@@ -4214,3 +4214,59 @@ h1, h2, h3, h4 {
     transition: none !important;
   }
 }
+
+/* ================================================================
+   Narrative Thread, fil conducteur SVG anime entre deux sections
+================================================================ */
+.pdy-narrative-section {
+  position: relative;
+  isolation: isolate;
+}
+
+.pdy-narrative-section > section {
+  position: relative;
+  z-index: 1;
+}
+
+.pdy-narrative-thread {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.pdy-narrative-thread-svg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+  max-width: 1600px;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+}
+
+[data-section-theme="dark"] .pdy-narrative-thread-svg,
+.pdy-bloc-dark .pdy-narrative-thread-svg {
+  mix-blend-mode: screen;
+  opacity: 0.4;
+}
+
+@media (max-width: 1023px) {
+  .pdy-narrative-thread {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdy-narrative-thread-svg {
+    transform: translateX(-50%) !important;
+  }
+}

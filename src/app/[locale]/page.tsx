@@ -10,6 +10,7 @@ import { Cases } from "@/components/sections/Cases";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { JournalPreview } from "@/components/sections/JournalPreview";
 import { Faq } from "@/components/sections/Faq";
+import { NarrativeThread } from "@/components/visuals/NarrativeThread";
 import { sanityClient } from "@/lib/sanity";
 import { homePageQuery, type HomePageData } from "@/lib/sanity.queries";
 
@@ -94,8 +95,11 @@ export default async function Home({ params }: Props) {
         <Offres />
         <Moments />
         <Chiffres />
-        <Methode />
-        <Cases />
+        <div className="pdy-narrative-section">
+          <NarrativeThread variant="methode-cases" />
+          <Methode />
+          <Cases />
+        </div>
         <Testimonials />
         <JournalPreview />
         <Faq />
