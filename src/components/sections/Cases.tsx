@@ -57,7 +57,6 @@ export function Cases() {
     });
   };
 
-  const currentNumber = String(currentIndex + 1).padStart(2, "0");
   const reveal = useSectionReveal<HTMLElement>(0.15);
 
   return (
@@ -95,11 +94,6 @@ export function Cases() {
         </header>
 
         <div className="pdy-cases-controls">
-          <span className="pdy-cases-counter">
-            <span className="pdy-cases-counter-current">{currentNumber}</span>
-            <span className="pdy-cases-counter-sep">/</span>
-            <span className="pdy-cases-counter-total">{String(total).padStart(2, "0")}</span>
-          </span>
           <div className="pdy-cases-arrows">
             <button
               type="button"
