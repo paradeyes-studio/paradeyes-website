@@ -392,14 +392,19 @@
 
 /* === Section stacking (cards empilées V2) ===
    Effet de cartes empilées : chaque section après le Hero overlap la précédente
-   via margin-top négative + z-index ladder + box-shadow vers le haut. */
+   via margin-top négative + z-index ladder + box-shadow haut et bas pour rendu
+   carte uni avec arrondis sur les 4 coins (type Apple/Linear premium). */
 .pdy-section-stacked {
   position: relative;
   border-top-left-radius: var(--section-radius);
   border-top-right-radius: var(--section-radius);
+  border-bottom-left-radius: var(--section-radius);
+  border-bottom-right-radius: var(--section-radius);
   margin-top: -64px;
   z-index: var(--stack-z, 1);
-  box-shadow: 0 -16px 48px -16px rgba(0, 49, 53, 0.18);
+  box-shadow:
+    0 -16px 48px -16px rgba(0, 49, 53, 0.18),
+    0 16px 48px -16px rgba(0, 49, 53, 0.12);
   isolation: isolate;
   overflow: hidden;
   transform: translateZ(0);
@@ -411,8 +416,12 @@
   .pdy-section-stacked {
     border-top-left-radius: var(--section-radius-mobile);
     border-top-right-radius: var(--section-radius-mobile);
+    border-bottom-left-radius: var(--section-radius-mobile);
+    border-bottom-right-radius: var(--section-radius-mobile);
     margin-top: -36px;
-    box-shadow: 0 -8px 24px -8px rgba(0, 49, 53, 0.16);
+    box-shadow:
+      0 -8px 24px -8px rgba(0, 49, 53, 0.16),
+      0 8px 24px -8px rgba(0, 49, 53, 0.10);
   }
 }
 
@@ -429,9 +438,14 @@
 .pdy-section-stacked--z10 { --stack-z: 10; }
 
 /* === Section reveal, fade-in propre opacity uniquement === */
-/* Animation Cinema (translateY + scale + box-shadow) retiree pour eviter
-   le flash visuel a la transition entre sections. Les cards internes
-   conservent leurs animations Framer Motion individuelles. */
+/* 2026-04-28, retour des arrondis bas et box-shadow downward sur
+   .pdy-section-stacked pour rendu carte uni type Apple/Linear.
+   ATTENTION, l'animation Cinema (translateY + scale) reste retiree,
+   elle a ete documentee comme cause du flash visuel historique a la
+   transition entre sections. NE PAS la reintroduire sans methodologie
+   de capture video slow-motion pour confirmer absence de regression.
+   Les cards internes conservent leurs animations Framer Motion
+   individuelles. */
 .pdy-section-reveal {
   opacity: 0;
   will-change: opacity;
