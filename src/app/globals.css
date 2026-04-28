@@ -3098,6 +3098,162 @@ h1, h2, h3, h4 {
   min-width:8%;
 }
 
+/* === TestimonialHero featured 2 cols === */
+.pdy-testimonial-hero {
+  position: relative;
+  background: rgba(255, 255, 255, 0.025);
+  border: 0.5px solid rgba(87, 238, 161, 0.18);
+  border-radius: 16px;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 32px;
+  overflow: hidden;
+}
+@media (max-width: 768px) {
+  .pdy-testimonial-hero {
+    grid-template-columns: 1fr;
+    padding: 24px;
+    gap: 24px;
+  }
+}
+.pdy-testimonial-hero-quote-mark {
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  font-size: 180px;
+  line-height: 1;
+  color: rgba(87, 238, 161, 0.06);
+  font-family: Georgia, serif;
+  font-weight: 700;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+@media (max-width: 768px) {
+  .pdy-testimonial-hero-quote-mark {
+    font-size: 120px;
+    top: -14px;
+    right: -8px;
+  }
+}
+.pdy-testimonial-hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+.pdy-testimonial-hero-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.pdy-testimonial-hero-avatar-fallback {
+  background: linear-gradient(135deg, #57EEA1 0%, #1F8C5C 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #003135;
+  letter-spacing: 0.02em;
+}
+@media (max-width: 768px) {
+  .pdy-testimonial-hero-avatar { width: 56px; height: 56px; }
+}
+.pdy-testimonial-hero-name {
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 0;
+}
+.pdy-testimonial-hero-role {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
+.pdy-testimonial-hero-stars {
+  display: flex;
+  gap: 3px;
+}
+.pdy-testimonial-hero-star {
+  color: #57EEA1;
+  font-size: 13px;
+  line-height: 1;
+}
+.pdy-testimonial-hero-star[data-filled="false"] {
+  color: rgba(87, 238, 161, 0.25);
+}
+.pdy-testimonial-hero-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #57EEA1;
+}
+.pdy-testimonial-hero-verified-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #57EEA1;
+}
+.pdy-testimonial-hero-kpi {
+  margin-top: 8px;
+  padding-top: 14px;
+  border-top: 0.5px solid rgba(87, 238, 161, 0.15);
+}
+.pdy-testimonial-hero-kpi-value {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: #57EEA1;
+  line-height: 1;
+}
+.pdy-testimonial-hero-kpi-label {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 6px;
+}
+.pdy-testimonial-hero-right {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+.pdy-testimonial-hero-quote {
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.005em;
+}
+@media (max-width: 768px) {
+  .pdy-testimonial-hero-quote {
+    font-size: 18px;
+  }
+}
+.pdy-testimonial-hero-quote-italic {
+  font-style: italic;
+  font-family: var(--font-italic-accent), Georgia, serif;
+  color: #57EEA1;
+  font-weight: 400;
+}
+
 /* ================================================================
    3.3.2 TESTIMONIALS — premium G2/Vercel-like cards (no photos)
 ================================================================ */
