@@ -1093,10 +1093,10 @@ h1, h2, h3, h4 {
   isolation:isolate;
 }
 @media (max-width:1023px){
-  .pdy-iris-card{max-width:100%;padding:20px 22px}
+  .pdy-iris-card{max-width:100%;padding:20px 22px;margin-bottom:24px}
 }
 @media (max-width:767px){
-  .pdy-iris-card{padding:16px;border-radius:20px;margin-bottom:48px}
+  .pdy-iris-card{padding:16px;border-radius:20px;margin-bottom:16px}
 }
 
 .pdy-iris-input-wrap{
@@ -1248,13 +1248,13 @@ h1, h2, h3, h4 {
 
 @media (max-width: 1023px) {
   .pdy-hero {
-    padding-bottom: 180px;
+    padding-bottom: 64px;
   }
 }
 
 @media (max-width: 767px) {
   .pdy-hero {
-    padding-bottom: 160px;
+    padding-bottom: 48px;
   }
 }
 
@@ -3437,7 +3437,7 @@ h1, h2, h3, h4 {
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
-    margin: 0;
+    margin: 0 0 16px 0;
     padding: 0;
     list-style: none;
     max-width: 100%;
