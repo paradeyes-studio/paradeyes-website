@@ -1253,6 +1253,22 @@ h1, h2, h3, h4 {
     justify-content: center;
     padding-bottom: 32px;
   }
+  /* Extension de background 32px sous la fin du Hero pour masquer le bord
+     blanc residuel cause par la URL bar dynamique de Safari iOS. La couleur
+     est hardcodee sur var(--color-green-deep) car le bg du Hero est applique
+     via inline style React (background: inherit ne traverse pas toujours
+     l'inline style de maniere fiable sur tous les navigateurs). */
+  .pdy-hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -32px;
+    height: 32px;
+    background-color: var(--color-green-deep);
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 @media (max-width: 767px) {
