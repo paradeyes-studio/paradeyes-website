@@ -1172,6 +1172,12 @@ h1, h2, h3, h4 {
 @media (min-width:768px){
   .pdy-iris-chips-row{flex-wrap:wrap;overflow:visible}
 }
+/* Mobile et tablette, masquer entierement les 6 chips d'offre. Approche
+   @media directe car Tailwind .hidden en @layer utilities est battu par
+   la regle .pdy-iris-chips-row { display:flex } unlayered. */
+@media (max-width:1023px){
+  .pdy-iris-chips-row{display:none}
+}
 .pdy-iris-chip{
   flex-shrink:0;
   padding:8px 16px;
