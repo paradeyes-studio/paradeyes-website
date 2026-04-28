@@ -30,6 +30,7 @@ type HeroCopy = {
   irisPlaceholder: string;
   suggestions: string[];
   trustBadges: string[];
+  mobileTrustBadges: string[];
   discover: string;
 };
 
@@ -58,6 +59,11 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "Approche sur-mesure, jamais de template",
       "ROI mesurable sur chaque projet",
     ],
+    mobileTrustBadges: [
+      "Une seule agence",
+      "Sur-mesure",
+      "ROI mesurable",
+    ],
     discover: "Découvrir",
   },
   en: {
@@ -82,6 +88,11 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "One agency, one single point of contact",
       "Bespoke approach, never a template",
       "Measurable ROI on every project",
+    ],
+    mobileTrustBadges: [
+      "One single agency",
+      "Bespoke",
+      "Measurable ROI",
     ],
     discover: "Discover",
   },
@@ -495,11 +506,12 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
           the available height without being pulled up by the bottom weight. */}
       <div className="relative w-full px-5 lg:px-6 pb-5 lg:pb-8 pt-2 md:pt-0">
         <div className="pdy-hero-bottom max-w-4xl mx-auto">
+          {/* Trust row desktop, conserve le rendu actuel avec icones Check. */}
           <motion.ul
             variants={variant(0.85)}
             initial="hidden"
             animate="visible"
-            className="pdy-trust-row"
+            className="pdy-trust-row pdy-trust-row--desktop"
           >
             {trustBadges.map((label, i) => (
               <li
@@ -515,6 +527,20 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
                 <span className="font-mono uppercase pdy-trust-label">
                   {label}
                 </span>
+              </li>
+            ))}
+          </motion.ul>
+
+          {/* Trust row mobile, 1 ligne avec separateur point milieu, sans icone. */}
+          <motion.ul
+            variants={variant(0.85)}
+            initial="hidden"
+            animate="visible"
+            className="pdy-trust-row pdy-trust-row--mobile"
+          >
+            {COPY[locale].mobileTrustBadges.map((label, i) => (
+              <li key={`m-${label}-${i}`}>
+                <span className="font-mono uppercase">{label}</span>
               </li>
             ))}
           </motion.ul>
