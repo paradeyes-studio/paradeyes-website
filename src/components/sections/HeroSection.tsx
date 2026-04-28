@@ -25,6 +25,7 @@ type HeroCopy = {
   badge: string;
   tagline: string;
   subtitle: string;
+  subtitleMobile: string;
   irisLead: string;
   irisPlaceholder: string;
   suggestions: string[];
@@ -39,6 +40,8 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "On identifie ce qui bloque votre croissance. On construit ce qui performe.",
     subtitle:
       "Une agence qui comprend votre business avant de proposer. Communication stratégique, design, vidéo, site web. Construits sur-mesure, pensés pour convertir.",
+    subtitleMobile:
+      "Une agence sur-mesure, pensée pour transformer vos enjeux en résultats.",
     irisLead: "Décrivez votre projet. IRIS vous oriente en 2 minutes.",
     irisPlaceholder:
       "Qu'aimeriez-vous améliorer pour rendre votre business plus performant ?",
@@ -62,6 +65,8 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
     tagline: "We identify what blocks your growth. We build what performs.",
     subtitle:
       "An agency that understands your business before proposing. Strategic communication, design, video, web. Custom-built, engineered to convert.",
+    subtitleMobile:
+      "A bespoke agency, built to turn your challenges into measurable results.",
     irisLead: "Describe your project. IRIS guides you in 2 minutes.",
     irisPlaceholder:
       "What would you like to improve to make your business perform better?",
@@ -382,12 +387,12 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             </em>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Subtitle desktop, conserve le wording dynamique Sanity ou fallback. */}
           <motion.p
             variants={variant(0.4)}
             initial="hidden"
             animate="visible"
-            className="font-body mb-7 max-w-[min(56ch,100%)]"
+            className="pdy-hero-subtitle pdy-hero-subtitle--desktop font-body mb-7 max-w-[min(56ch,100%)]"
             style={{
               fontSize: "clamp(0.875rem, 2.4vw, 0.9375rem)",
               color: "rgba(255, 255, 255, 0.7)",
@@ -395,6 +400,22 @@ export function HeroSection({ data, locale = "fr" }: HeroSectionProps) {
             }}
           >
             {subtitle}
+          </motion.p>
+
+          {/* Subtitle mobile, fallback statique uniquement, ignorer data?.heroSubtitle.
+              Champ Sanity dedie heroSubtitleMobile a creer plus tard si besoin. */}
+          <motion.p
+            variants={variant(0.4)}
+            initial="hidden"
+            animate="visible"
+            className="pdy-hero-subtitle pdy-hero-subtitle--mobile font-body mb-7 max-w-[min(56ch,100%)]"
+            style={{
+              fontSize: "clamp(0.875rem, 2.4vw, 0.9375rem)",
+              color: "rgba(255, 255, 255, 0.7)",
+              lineHeight: "1.55",
+            }}
+          >
+            {COPY[locale].subtitleMobile}
           </motion.p>
 
           {/* Carte IRIS : proportions canoniques 800px max, submit 44px */}

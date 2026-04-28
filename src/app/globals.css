@@ -1274,6 +1274,18 @@ h1, h2, h3, h4 {
   .pdy-iris-input-wrap { margin-bottom:12px !important; }
 }
 
+/* === Hero subtitle responsive switch ===
+   Dual rendu mobile/desktop avec @media directes (pas d'utilitaires Tailwind
+   responsive a cause de la cascade layers v4 ou .pdy-* unlayered bat les
+   utilities @layer). Le subtitle mobile utilise un wording statique, le
+   desktop conserve la dynamique Sanity. */
+@media (max-width: 1023px) {
+  .pdy-hero-subtitle--desktop { display: none; }
+}
+@media (min-width: 1024px) {
+  .pdy-hero-subtitle--mobile { display: none; }
+}
+
 /* ================================================================
    H-P3 polish: drawn underline on the H1 emphasized word.
    The Gambarino italic word ("performe.") stays a typographic seal,
