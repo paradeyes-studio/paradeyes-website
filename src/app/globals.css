@@ -64,6 +64,14 @@
   --color-accent-special: var(--color-green-electric);
   --color-focus-on-light: var(--color-green-deep);
 
+  /* DA universelle eyebrows et accents par fond
+     light fond white-warm, blue steel #4A6CFF
+     dark fond green-deep, green electric #57EEA1 */
+  --color-eyebrow-light: var(--color-blue-steel);
+  --color-eyebrow-dark: var(--color-green-electric);
+  --color-accent-signature-light: var(--color-blue-steel);
+  --color-accent-signature-dark: var(--color-green-electric);
+
   /* Header glass (legacy aliases, still consumed by Header.tsx) */
   --color-bg-header-light: var(--color-w-72);
   --color-bg-header-dark: rgba(20, 34, 46, 0.64);
@@ -1769,10 +1777,10 @@ h1, h2, h3, h4 {
   font-family:var(--font-dm-mono),ui-monospace,monospace;
   font-size:11px;font-weight:500;
   text-transform:uppercase;letter-spacing:0.22em;
-  color:var(--color-violet-spark);
+  color:var(--color-eyebrow-light);
   margin:0 0 12px;
 }
-[data-section-theme="dark"] .pdy-eyebrow{color:var(--color-green-electric)}
+[data-section-theme="dark"] .pdy-eyebrow{color:var(--color-eyebrow-dark)}
 .pdy-section-h2{
   font-family:var(--font-satoshi),system-ui,sans-serif;
   font-weight:500;
