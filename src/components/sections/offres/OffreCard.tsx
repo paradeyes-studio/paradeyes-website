@@ -48,9 +48,6 @@ export function OffreCard({ data }: OffreCardProps) {
         <div className="pdy-offre-icon">
           <OffrePicto type={pictoType} className="pdy-offre-picto" isHovered={isHovered} />
         </div>
-        <span className="pdy-offre-icon-numeral" aria-hidden="true">
-          {data.number}
-        </span>
       </div>
 
       <span className="pdy-offre-tag">

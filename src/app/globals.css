@@ -1981,27 +1981,10 @@ h1, h2, h3, h4 {
   display: block;
 }
 
-.pdy-offre-icon-numeral {
-  font-family: var(--font-dm-mono), ui-monospace, monospace;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  color: var(--color-green-deep);
-  opacity: 0.62;
-  line-height: 1;
-  letter-spacing: 0.12em;
-  align-self: flex-start;
-  padding-top: 6px;
-  user-select: none;
-}
-
 @media (max-width: 767px) {
   .pdy-offre-icon {
     width: 64px;
     height: 64px;
-  }
-  .pdy-offre-icon-numeral {
-    font-size: 12px;
   }
 }
 
