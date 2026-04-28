@@ -12,6 +12,23 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+function renderSubWithBreak(sub: string) {
+  const marker = "croissance.";
+  const idx = sub.indexOf(marker);
+  if (idx < 0) return sub;
+  const part1 = sub.slice(0, idx + marker.length);
+  const part2 = sub.slice(idx + marker.length).trimStart();
+  if (!part2) return sub;
+  return (
+    <>
+      {part1}
+      <br className="pdy-offres-sub-break" />
+      {" "}
+      {part2}
+    </>
+  );
+}
+
 export function Offres() {
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -72,13 +89,13 @@ export function Offres() {
           className="pdy-offres-title"
           id="offres-title"
         />
-        <p className="pdy-offres-sub">{homeOffres.sub}</p>
+        <p className="pdy-offres-sub">{renderSubWithBreak(homeOffres.sub)}</p>
       </header>
 
       <div className="pdy-offres-track-wrapper">
         <div ref={trackRef} className="pdy-offres-track">
-          {homeOffres.cards.map((card, idx) => (
-            <OffreCard key={card.number} data={card} index={idx} />
+          {homeOffres.cards.map((card) => (
+            <OffreCard key={card.number} data={card} />
           ))}
         </div>
       </div>

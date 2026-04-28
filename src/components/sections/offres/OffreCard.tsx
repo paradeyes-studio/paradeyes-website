@@ -24,7 +24,6 @@ interface OffreCardData {
 
 interface OffreCardProps {
   data: OffreCardData;
-  index?: number;
 }
 
 type IconComponent = (props: { size?: number; className?: string; animated?: boolean }) => React.JSX.Element;
@@ -37,14 +36,12 @@ const ICON_MAP: Record<string, IconComponent> = {
   "05": IconAcquisition,
 };
 
-const ROMAN_NUMERALS = ["i", "ii", "iii", "iv", "v"] as const;
-
-export function OffreCard({ data, index = 0 }: OffreCardProps) {
+export function OffreCard({ data }: OffreCardProps) {
   const titleParts = data.title.split(data.titleItalic);
   const before = titleParts[0] ?? "";
   const after = titleParts[1] ?? "";
   const Icon = ICON_MAP[data.number];
-  const romanNumeral = ROMAN_NUMERALS[index] ?? `${index + 1}`;
+  const durationLabel = data.duration.split(/\s*·\s*/)[0] ?? data.duration;
 
   return (
     <article className="pdy-offre-card">
@@ -57,7 +54,7 @@ export function OffreCard({ data, index = 0 }: OffreCardProps) {
           {Icon ? <Icon size={64} /> : null}
         </div>
         <span className="pdy-offre-icon-numeral" aria-hidden="true">
-          {romanNumeral}.
+          {data.number}
         </span>
       </div>
 
@@ -84,7 +81,7 @@ export function OffreCard({ data, index = 0 }: OffreCardProps) {
       </ul>
 
       <div className="pdy-offre-footer">
-        <span className="pdy-offre-duration">{data.duration}</span>
+        <span className="pdy-offre-duration">{durationLabel}</span>
         <Link href={data.href} className="pdy-offre-cta" aria-label={`En savoir plus sur ${data.title}`}>
           <ArrowUpRight aria-hidden="true" />
         </Link>

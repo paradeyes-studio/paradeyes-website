@@ -1821,7 +1821,7 @@ h1, h2, h3, h4 {
 .pdy-offres {
   position: relative;
   height: 100vh;
-  min-height: 720px;
+  min-height: 880px;
   width: 100%;
   background: var(--color-white-warm);
   color: var(--color-green-deep);
@@ -1885,12 +1885,22 @@ h1, h2, h3, h4 {
   margin: 0 auto;
 }
 
+.pdy-offres-sub-break {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .pdy-offres-sub-break {
+    display: inline;
+  }
+}
+
 .pdy-offres-track-wrapper {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
-  padding: 280px 0 100px;
+  padding: 224px 0 80px;
   pointer-events: none;
   z-index: 1;
 }
@@ -1966,16 +1976,16 @@ h1, h2, h3, h4 {
 }
 
 .pdy-offre-icon-numeral {
-  font-family: var(--font-italic-accent);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 28px;
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
   color: var(--color-green-deep);
   opacity: 0.62;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.12em;
   align-self: flex-start;
-  padding-top: 4px;
+  padding-top: 6px;
   user-select: none;
 }
 
@@ -1985,7 +1995,7 @@ h1, h2, h3, h4 {
     height: 48px;
   }
   .pdy-offre-icon-numeral {
-    font-size: 22px;
+    font-size: 12px;
   }
 }
 
@@ -2067,7 +2077,7 @@ h1, h2, h3, h4 {
   z-index: 1;
   margin-top: auto;
   padding-top: 16px;
-  border-top: 1px solid rgba(0, 49, 53, 0.08);
+  border-top: 1px solid rgba(87, 238, 161, 0.7);
   display: flex;
   align-items: center;
   justify-content: space-between;
