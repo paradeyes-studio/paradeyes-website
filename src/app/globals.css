@@ -793,7 +793,7 @@ h1, h2, h3, h4 {
 }
 
 .pdy-header-capsule--light .pdy-header-capsule-burger:hover {
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(0, 49, 53, 0.06);
 }
 
 /* LangSwitch (inside capsule) */
@@ -833,7 +833,7 @@ h1, h2, h3, h4 {
   border-color: rgba(0, 49, 53, 0.08);
 }
 .pdy-header-capsule--light .pdy-lang-switch button {
-  color: rgba(0, 49, 53, 0.6);
+  color: rgba(0, 49, 53, 0.7);
 }
 .pdy-header-capsule--light .pdy-lang-switch button.active {
   background: var(--color-green-deep);
