@@ -2278,16 +2278,16 @@ h1, h2, h3, h4 {
 }
 .pdy-moment-card:hover{
   transform: translateY(-4px);
-  background-color: rgba(87, 238, 161, 0.04);
-  border-color: rgba(87, 238, 161, 0.18);
+  background-color: rgba(87, 238, 161, 0.028);
+  border-color: rgba(87, 238, 161, 0.13);
   box-shadow:
-    0 0 0 1px rgba(87, 238, 161, 0.08),
-    0 16px 48px -12px rgba(87, 238, 161, 0.18),
-    0 0 80px -20px rgba(87, 238, 161, 0.22);
+    0 0 0 1px rgba(87, 238, 161, 0.06),
+    0 16px 48px -12px rgba(87, 238, 161, 0.12),
+    0 0 80px -20px rgba(87, 238, 161, 0.15);
 }
 .pdy-moment-card:hover .pdy-moment-card-num{
-  color: rgba(87, 238, 161, 0.22);
-  transform: scale(1.04);
+  color: rgba(87, 238, 161, 0.19);
+  transform: scale(1.03);
 }
 .pdy-moment-card-num{
   position: absolute;
