@@ -9,6 +9,22 @@ import { Particles } from "@/components/ui/Particles";
 
 type MomentItem = (typeof homeMoments.items)[number];
 
+function renderTextWithBreak(text: string, marker: string, breakClass: string) {
+  const idx = text.indexOf(marker);
+  if (idx < 0) return text;
+  const part1 = text.slice(0, idx + marker.length);
+  const part2 = text.slice(idx + marker.length).trimStart();
+  if (!part2) return text;
+  return (
+    <>
+      {part1}
+      <br className={breakClass} />
+      {" "}
+      {part2}
+    </>
+  );
+}
+
 function MomentCard({ item, index, reduced }: { item: MomentItem; index: number; reduced: boolean }) {
   const ref = useRef<HTMLLIElement>(null);
   const { scrollYProgress } = useScroll({
@@ -69,7 +85,9 @@ export function Moments() {
             className="pdy-section-h2"
             id="moments-title"
           />
-          <p className="pdy-section-sub">{homeMoments.sub}</p>
+          <p className="pdy-section-sub">
+            {renderTextWithBreak(homeMoments.sub, "Identifiez le vôtre,", "pdy-moments-sub-break")}
+          </p>
         </header>
 
         <ul className="pdy-moments-grid">
