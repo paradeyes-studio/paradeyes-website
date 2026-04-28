@@ -3332,11 +3332,33 @@ h1, h2, h3, h4 {
 }
 
 /* ================================================================
-   3.3.2 TESTIMONIALS — premium G2/Vercel-like cards (no photos)
+   3.3.2 TESTIMONIALS — hero featured + grid of 3 minis
 ================================================================ */
 .pdy-testimonials {
   padding: 128px 32px;
   color: var(--color-white-warm);
+}
+.pdy-testimonials-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.pdy-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 1024px) {
+  .pdy-testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .pdy-testimonials-grid {
+    grid-template-columns: 1fr;
+  }
 }
 @media (max-width: 1023px){.pdy-testimonials{padding:96px 24px}}
 @media (max-width: 767px){.pdy-testimonials{padding:80px 20px}}
