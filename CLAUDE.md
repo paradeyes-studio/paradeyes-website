@@ -35,6 +35,25 @@ Bureau Cannes, lancement juin 2026. Objectif 10K€/mois.
 - Typographie fallback : DM Sans (via next/font/google)
 - PAS d'Instrument Serif
 
+## Règle DA universelle, eyebrows et accents par fond
+
+**Règle absolue à respecter à chaque session, sans exception.**
+
+| Fond de section | Couleur eyebrow et accents signature | Token CSS |
+|---|---|---|
+| `#F8F6F0` white warm (light) | `#4A6CFF` blue steel violet | `--color-eyebrow-light` |
+| `#003135` green deep (dark) | `#57EEA1` green electric | `--color-eyebrow-dark` |
+
+**Détails contraignants** :
+- Sur fond light, le green electric `#57EEA1` n'a aucun usage fonctionnel, il est remplacé par le blue steel `#4A6CFF` (couleur froide du gradient Spectral, lisible sur clair, signature)
+- Sur fond dark, le green electric `#57EEA1` est la couleur signature absolue
+- Le blue steel `#4A6CFF` ne s'affiche jamais sur fond dark
+- Le green electric `#57EEA1` ne s'affiche jamais comme élément fonctionnel (trait, bordure, séparateur, eyebrow) sur fond light. Autorisé uniquement comme accent ultra ponctuel signature à doses très réduites
+
+**Implémentation** : chaque section pose `data-section-theme="light"` ou `data-section-theme="dark"` sur son wrapper racine selon son fond. La classe `.pdy-eyebrow` et tous les accents signature consomment la variable CSS conditionnée par ce data attribute via les sélecteurs définis dans `src/app/globals.css`. La convention `data-section-theme` est utilisée car `data-theme` est réservé au toggle global du site (light/dark mode utilisateur).
+
+**Référence Notion** : https://www.notion.so/3509ea1e2812813290d5e00d2fbcecc1
+
 ## Conventions éditoriales (NON NÉGOCIABLES)
 
 - Français vouvoiement dans tous les textes clients
