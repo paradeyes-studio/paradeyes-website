@@ -2270,15 +2270,24 @@ h1, h2, h3, h4 {
   overflow: hidden;
   min-height: 320px;
   transition:
-    background 320ms var(--ease-cinema-out),
-    border-color 320ms var(--ease-cinema-out);
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
 }
 .pdy-moment-card:hover{
-  background: rgba(87, 238, 161, 0.04);
-  border-color: rgba(87, 238, 161, 0.24);
+  transform: translateY(-4px);
+  background-color: rgba(87, 238, 161, 0.04);
+  border-color: rgba(87, 238, 161, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(87, 238, 161, 0.08),
+    0 16px 48px -12px rgba(87, 238, 161, 0.18),
+    0 0 80px -20px rgba(87, 238, 161, 0.22);
 }
 .pdy-moment-card:hover .pdy-moment-card-num{
-  color: rgba(87, 238, 161, 0.10);
+  color: rgba(87, 238, 161, 0.22);
+  transform: scale(1.04);
 }
 .pdy-moment-card-num{
   position: absolute;
@@ -2293,7 +2302,23 @@ h1, h2, h3, h4 {
   user-select: none;
   pointer-events: none;
   z-index: 0;
-  transition: color 480ms var(--ease-cinema-out);
+  transform-origin: top right;
+  transition:
+    color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdy-moment-card,
+  .pdy-moment-card-num {
+    transition: none;
+  }
+  .pdy-moment-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .pdy-moment-card:hover .pdy-moment-card-num {
+    transform: none;
+  }
 }
 .pdy-moment-card-content{
   position: relative;
