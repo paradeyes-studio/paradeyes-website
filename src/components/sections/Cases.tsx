@@ -132,8 +132,8 @@ export function Cases() {
 
         <div className="pdy-cases-cta-wrapper">
           <Link href="/realisations" className="pdy-cases-cta">
-            <span>Découvrir toutes les réalisations</span>
-            <ArrowUpRight aria-hidden="true" />
+            <span className="pdy-cases-cta-text">Découvrir toutes les réalisations</span>
+            <ArrowUpRight className="pdy-cases-cta-arrow" aria-hidden="true" />
           </Link>
         </div>
       </div>
