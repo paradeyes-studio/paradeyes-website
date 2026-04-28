@@ -4247,6 +4247,8 @@ h1, h2, h3, h4 {
 .pdy-narrative-section {
   position: relative;
   isolation: isolate;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .pdy-narrative-section > section {
@@ -4264,7 +4266,7 @@ h1, h2, h3, h4 {
   height: 100%;
   pointer-events: none;
   z-index: 0;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .pdy-narrative-thread-svg {
