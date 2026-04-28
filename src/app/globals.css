@@ -2626,34 +2626,6 @@ h1, h2, h3, h4 {
   text-stroke: 1.5px rgba(87, 238, 161, 0.32);
 }
 
-.pdy-methode-panel-num::after {
-  content: "";
-  position: absolute;
-  bottom: 12%;
-  right: -8px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--color-green-electric);
-  box-shadow: 0 0 16px rgba(87, 238, 161, 0.6);
-  animation: pdy-pulse-num-dot 3s ease-in-out infinite;
-}
-
-@keyframes pdy-pulse-num-dot {
-  0%, 100% {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pdy-methode-panel-num::after { animation: none; }
-}
-
 .pdy-methode-panel-content {
   display: flex;
   flex-direction: column;
