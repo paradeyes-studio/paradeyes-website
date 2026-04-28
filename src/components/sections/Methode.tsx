@@ -7,6 +7,7 @@ import { motion, useInView, useReducedMotion, type Variants } from "framer-motio
 import { homeMethode } from "@/content/home-fallback";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { Particles } from "@/components/ui/Particles";
+import { CheckRond } from "@/components/ui/CheckRond";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -142,14 +143,19 @@ export function Methode() {
                 </h3>
                 <p className="pdy-methode-panel-description">{step.description}</p>
                 <ul className="pdy-methode-panel-livrables">
-                  {step.livrables.map((liv) => (
-                    <li key={liv.label}>
-                      <span>{liv.label}</span>
-                      <span className="pdy-methode-panel-livrable-duration">
-                        {liv.duration}
-                      </span>
-                    </li>
-                  ))}
+                  {step.livrables.map((liv, livIdx) => {
+                    const cardRevealDelay = 0.15 + idx * 0.18;
+                    const checkBaseDelay = cardRevealDelay + 0.9 + 0.1;
+                    return (
+                      <li key={liv.label}>
+                        <span>{liv.label}</span>
+                        <CheckRond
+                          inView={sectionInView}
+                          delay={checkBaseDelay + livIdx * 0.15}
+                        />
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             </motion.article>
