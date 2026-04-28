@@ -42,7 +42,7 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
     subtitle:
       "Une agence qui comprend votre business avant de proposer. Communication stratégique, design, vidéo, site web. Construits sur-mesure, pensés pour convertir.",
     subtitleMobile:
-      "Une agence sur-mesure, pensée pour transformer vos enjeux en résultats.",
+      "Une agence sur-mesure pour transformer vos enjeux.",
     irisLead: "Décrivez votre projet. IRIS vous oriente en 2 minutes.",
     irisPlaceholder:
       "Qu'aimeriez-vous améliorer pour rendre votre business plus performant ?",
@@ -72,7 +72,7 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
     subtitle:
       "An agency that understands your business before proposing. Strategic communication, design, video, web. Custom-built, engineered to convert.",
     subtitleMobile:
-      "A bespoke agency, built to turn your challenges into measurable results.",
+      "A bespoke agency turning your challenges into results.",
     irisLead: "Describe your project. IRIS guides you in 2 minutes.",
     irisPlaceholder:
       "What would you like to improve to make your business perform better?",
