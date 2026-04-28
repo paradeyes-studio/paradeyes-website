@@ -79,7 +79,7 @@ export function Header({ locale }: HeaderProps) {
           }
         });
       },
-      { rootMargin: "-40% 0px -40% 0px", threshold: 0 },
+      { rootMargin: "-72px 0px -85% 0px", threshold: 0 },
     );
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
