@@ -3190,8 +3190,8 @@ h1, h2, h3, h4 {
 }
 .pdy-testimonial-hero-role {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.5;
   margin: 4px 0 0;
 }
@@ -3237,10 +3237,10 @@ h1, h2, h3, h4 {
 }
 .pdy-testimonial-hero-kpi-label {
   font-family: var(--font-dm-mono), ui-monospace, monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   margin-top: 6px;
 }
 .pdy-testimonial-hero-right {
@@ -3319,9 +3319,9 @@ h1, h2, h3, h4 {
 }
 .pdy-testimonial-mini-quote {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 13px;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
   margin: 0;
   flex: 1;
   font-style: normal;
@@ -3333,17 +3333,17 @@ h1, h2, h3, h4 {
 }
 .pdy-testimonial-mini-name {
   font-family: var(--font-satoshi), system-ui, sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: #FFFFFF;
   margin: 0;
 }
 .pdy-testimonial-mini-role {
   font-family: var(--font-dm-mono), ui-monospace, monospace;
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   margin: 3px 0 0;
 }
 
