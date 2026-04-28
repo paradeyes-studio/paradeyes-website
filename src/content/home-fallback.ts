@@ -446,6 +446,24 @@ export const homeTestimonials = {
       author: "Alexandre P.",
       role: "Marketing Director, Maison de Luxe",
     },
+    {
+      quote:
+        "Ils ont compris en 2 réunions ce que nos précédentes agences n'avaient pas saisi en 6 mois. Le résultat suit.",
+      author: "Camille L.",
+      role: "Head of Brand, Maison de cosmétique",
+    },
+    {
+      quote:
+        "L'équipe ne vend pas du livrable, elle pense en effet sur le business. C'est ce qu'il manquait à notre stack.",
+      author: "Vincent M.",
+      role: "CEO, Scale-up SaaS",
+    },
+    {
+      quote:
+        "Du conseil sans esbroufe, une exécution propre. Un standard rare aujourd'hui.",
+      author: "Léa B.",
+      role: "Directrice Communication, Fondation",
+    },
   ],
 } as const;
 
