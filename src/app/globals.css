@@ -2694,13 +2694,43 @@ h1, h2, h3, h4 {
   border-bottom: 0;
 }
 
-.pdy-methode-panel-livrable-duration {
-  font-family: var(--font-dm-mono), ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(87, 238, 161, 0.62);
+.pdy-check-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #57EEA1;
+  background: rgba(87, 238, 161, 0.06);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.pdy-check-rond svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+
+@keyframes pdy-check-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(87, 238, 161, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(87, 238, 161, 0.18);
+  }
+}
+
+.pdy-check-rond[data-pulse="true"] {
+  animation: pdy-check-pulse 2.6s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdy-check-rond[data-pulse="true"] {
+    animation: none;
+  }
 }
 
 .pdy-methode-progress-wrapper {
