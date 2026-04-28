@@ -1,13 +1,67 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 import { homeMoments } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { Particles } from "@/components/ui/Particles";
 
 type MomentItem = (typeof homeMoments.items)[number];
+
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+    filter: "blur(20px)",
+    scale: 0.94,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    scale: 1,
+    transition: {
+      duration: 1.0,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+const ghostNumberVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.6 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      delay: 0.4,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
+const reducedVariants: Variants = {
+  hidden: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+  visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+};
 
 function renderTextWithBreak(text: string, marker: string, breakClass: string) {
   const idx = text.indexOf(marker);
@@ -25,27 +79,25 @@ function renderTextWithBreak(text: string, marker: string, breakClass: string) {
   );
 }
 
-function MomentCard({ item, index, reduced }: { item: MomentItem; index: number; reduced: boolean }) {
+function MomentCard({ item, reduced }: { item: MomentItem; reduced: boolean }) {
   const ref = useRef<HTMLLIElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
     <motion.li
       ref={ref}
       className="pdy-moment-card"
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.9, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+      variants={reduced ? reducedVariants : cardVariants}
     >
       <motion.span
         className="pdy-moment-card-num"
         aria-hidden="true"
-        style={reduced ? undefined : { y }}
+        variants={reduced ? reducedVariants : ghostNumberVariants}
+        style={reduced ? undefined : { y: parallaxY }}
       >
         {item.number}
       </motion.span>
@@ -64,6 +116,8 @@ function MomentCard({ item, index, reduced }: { item: MomentItem; index: number;
 export function Moments() {
   const reduced = useReducedMotion() ?? false;
   const reveal = useSectionReveal<HTMLElement>(0.15);
+  const gridRef = useRef<HTMLUListElement>(null);
+  const isGridInView = useInView(gridRef, { once: true, margin: "-80px" });
 
   return (
     <section
@@ -90,11 +144,17 @@ export function Moments() {
           </p>
         </header>
 
-        <ul className="pdy-moments-grid">
-          {homeMoments.items.map((m, idx) => (
-            <MomentCard key={m.number} item={m} index={idx} reduced={reduced} />
+        <motion.ul
+          ref={gridRef}
+          className="pdy-moments-grid"
+          initial="hidden"
+          animate={isGridInView ? "visible" : "hidden"}
+          variants={containerVariants}
+        >
+          {homeMoments.items.map((m) => (
+            <MomentCard key={m.number} item={m} reduced={reduced} />
           ))}
-        </ul>
+        </motion.ul>
 
         <p className="pdy-moments-outro">{homeMoments.outroCta}</p>
       </div>
