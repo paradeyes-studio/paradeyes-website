@@ -1812,6 +1812,12 @@ h1, h2, h3, h4 {
   background: var(--color-white-warm);
   color: var(--color-green-deep);
   overflow: hidden;
+  /* Override le margin-top:-64px herite de .pdy-section-stacked uniquement
+     pour la transition Hero -> Offres. Supprime l'overlap stacked qui
+     creait un bord blanc visible en bas du Hero (Offres rendu par-dessus
+     Hero dans les 64 derniers pixels du viewport). Les autres transitions
+     stacked (Offres -> Moments -> ...) conservent leur lift wedges. */
+  margin-top: 0;
 }
 
 .pdy-offres-header {
