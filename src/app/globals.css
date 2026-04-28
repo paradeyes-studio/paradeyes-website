@@ -1925,12 +1925,45 @@ h1, h2, h3, h4 {
   border: 1px solid rgba(0, 49, 53, 0.08);
   border-radius: 20px;
   position: relative;
-  overflow: hidden;
   isolation: isolate;
   transition:
     background 320ms var(--ease-cinema-out),
     border-color 320ms var(--ease-cinema-out),
     transform 320ms var(--ease-cinema-out);
+}
+
+.pdy-offre-card::before {
+  content: "";
+  position: absolute;
+  inset: -60px;
+  border-radius: 40px;
+  background: linear-gradient(135deg, #4A6CFF 0%, #FF611D 100%);
+  filter: blur(72px);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.pdy-offre-card:hover::before {
+  opacity: 0.22;
+}
+
+[data-theme="dark"] .pdy-offre-card::before,
+[data-section-theme="dark"] .pdy-offre-card::before {
+  background: linear-gradient(135deg, #003135 0%, #57EEA1 100%);
+}
+
+[data-theme="dark"] .pdy-offre-card:hover::before,
+[data-section-theme="dark"] .pdy-offre-card:hover::before {
+  opacity: 0.30;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdy-offre-card::before {
+    transition: none;
+  }
 }
 
 .pdy-offre-card:hover {
