@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useReducedMotion } from "framer-motion";
+import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { homeMethode } from "@/content/home-fallback";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { Particles } from "@/components/ui/Particles";
@@ -12,11 +12,45 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 50, filter: "blur(16px)", scale: 0.95 },
+  visible: (idx: number) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    scale: 1,
+    transition: {
+      duration: 0.9,
+      ease: [0.16, 1, 0.3, 1],
+      delay: 0.15 + idx * 0.18,
+    },
+  }),
+};
+
+const ghostNumberVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.7 },
+  visible: (idx: number) => ({
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1],
+      delay: 0.15 + idx * 0.18 + 0.3,
+    },
+  }),
+};
+
+const reducedVariants: Variants = {
+  hidden: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+  visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+};
+
 export function Methode() {
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const progressRef = useRef<HTMLDivElement | null>(null);
+  const sectionInView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -77,11 +111,25 @@ export function Methode() {
 
       <div className="pdy-methode-track-wrapper">
         <div ref={trackRef} className="pdy-methode-track">
-          {homeMethode.steps.map((step) => (
-            <article key={step.number} className="pdy-methode-panel">
-              <div className="pdy-methode-panel-num" aria-hidden="true">
+          {homeMethode.steps.map((step, idx) => (
+            <motion.article
+              key={step.number}
+              className="pdy-methode-panel"
+              custom={idx}
+              variants={reduced ? reducedVariants : cardVariants}
+              initial="hidden"
+              animate={sectionInView ? "visible" : "hidden"}
+            >
+              <motion.div
+                className="pdy-methode-panel-num"
+                aria-hidden="true"
+                custom={idx}
+                variants={reduced ? reducedVariants : ghostNumberVariants}
+                initial="hidden"
+                animate={sectionInView ? "visible" : "hidden"}
+              >
                 {step.number}
-              </div>
+              </motion.div>
               <div className="pdy-methode-panel-content">
                 <span className="pdy-methode-panel-tag">
                   <span className="pdy-methode-panel-tag-dot" aria-hidden="true" />
@@ -104,7 +152,7 @@ export function Methode() {
                   ))}
                 </ul>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </div>
