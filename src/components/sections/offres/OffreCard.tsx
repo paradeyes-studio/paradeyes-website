@@ -2,13 +2,7 @@
 
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import {
-  IconBranding,
-  IconSitesWeb,
-  IconContenus,
-  IconDeploiement,
-  IconAcquisition,
-} from "@/components/icons/offres";
+import { OffrePicto, mapSlugToPictoType } from "@/components/icons/OffrePicto";
 
 interface OffreCardData {
   number: string;
@@ -26,21 +20,16 @@ interface OffreCardProps {
   data: OffreCardData;
 }
 
-type IconComponent = (props: { size?: number; className?: string; animated?: boolean }) => React.JSX.Element;
-
-const ICON_MAP: Record<string, IconComponent> = {
-  "01": IconBranding,
-  "02": IconSitesWeb,
-  "03": IconContenus,
-  "04": IconDeploiement,
-  "05": IconAcquisition,
-};
+function extractSlug(href: string): string {
+  const segments = href.split("/").filter(Boolean);
+  return segments[segments.length - 1] ?? "";
+}
 
 export function OffreCard({ data }: OffreCardProps) {
   const titleParts = data.title.split(data.titleItalic);
   const before = titleParts[0] ?? "";
   const after = titleParts[1] ?? "";
-  const Icon = ICON_MAP[data.number];
+  const pictoType = mapSlugToPictoType(extractSlug(data.href));
   const durationLabel = data.duration.split(/\s*·\s*/)[0] ?? data.duration;
 
   return (
@@ -51,7 +40,7 @@ export function OffreCard({ data }: OffreCardProps) {
 
       <div className="pdy-offre-icon-wrapper">
         <div className="pdy-offre-icon">
-          {Icon ? <Icon size={64} /> : null}
+          <OffrePicto type={pictoType} className="pdy-offre-picto" />
         </div>
         <span className="pdy-offre-icon-numeral" aria-hidden="true">
           {data.number}

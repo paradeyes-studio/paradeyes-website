@@ -1965,14 +1965,20 @@ h1, h2, h3, h4 {
 }
 
 .pdy-offre-icon {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   position: relative;
   color: var(--color-green-deep);
+}
+
+.pdy-offre-picto {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .pdy-offre-icon-numeral {
@@ -1991,8 +1997,8 @@ h1, h2, h3, h4 {
 
 @media (max-width: 767px) {
   .pdy-offre-icon {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
   }
   .pdy-offre-icon-numeral {
     font-size: 12px;
