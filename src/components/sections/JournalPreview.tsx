@@ -5,7 +5,46 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { homeJournal } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
+import { useTilt } from "@/hooks/useTilt";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
+
+type JournalArticle = (typeof homeJournal.articles)[number];
+
+function JournalCard({ article }: { article: JournalArticle }) {
+  const tiltRef = useTilt<HTMLElement>({ max: 4, perspective: 1200 });
+  const slug = article.href.replace("/journal/", "");
+
+  return (
+    <motion.article
+      ref={tiltRef}
+      variants={item}
+      className="pdy-journal-card"
+      style={{ transformStyle: "preserve-3d" }}
+    >
+      <Link href={article.href} className="pdy-journal-card-link">
+        <div className="pdy-journal-card-cover" aria-hidden="true">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/images/journal/${slug}-cover.png`}
+            alt=""
+            loading="lazy"
+            width={1920}
+            height={1080}
+          />
+        </div>
+        <div className="pdy-journal-card-content">
+          <span className="pdy-journal-category">{article.category}</span>
+          <h3 className="pdy-journal-title">{article.title}</h3>
+          <p className="pdy-journal-excerpt">{article.excerpt}</p>
+          <footer className="pdy-journal-card-footer">
+            <span className="pdy-journal-readtime">{article.readTime}</span>
+            <span className="pdy-journal-date">{article.date}</span>
+          </footer>
+        </div>
+      </Link>
+    </motion.article>
+  );
+}
 
 const fadeUp = (delay: number): Variants => ({
   hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
@@ -96,34 +135,9 @@ export function JournalPreview() {
           viewport={{ once: true, amount: 0.15 }}
           className="pdy-journal-grid"
         >
-          {homeJournal.articles.map((article) => {
-            const slug = article.href.replace("/journal/", "");
-            return (
-              <motion.article key={article.href} variants={item} className="pdy-journal-card">
-                <Link href={article.href} className="pdy-journal-card-link">
-                  <div className="pdy-journal-card-cover" aria-hidden="true">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={`/images/journal/${slug}-cover.png`}
-                      alt=""
-                      loading="lazy"
-                      width={1920}
-                      height={1080}
-                    />
-                  </div>
-                  <div className="pdy-journal-card-content">
-                    <span className="pdy-journal-category">{article.category}</span>
-                    <h3 className="pdy-journal-title">{article.title}</h3>
-                    <p className="pdy-journal-excerpt">{article.excerpt}</p>
-                    <footer className="pdy-journal-card-footer">
-                      <span className="pdy-journal-readtime">{article.readTime}</span>
-                      <span className="pdy-journal-date">{article.date}</span>
-                    </footer>
-                  </div>
-                </Link>
-              </motion.article>
-            );
-          })}
+          {homeJournal.articles.map((article) => (
+            <JournalCard key={article.href} article={article} />
+          ))}
         </motion.div>
       </div>
     </section>
