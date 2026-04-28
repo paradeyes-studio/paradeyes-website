@@ -53,8 +53,8 @@ export function Testimonials() {
 
   const items = homeTestimonials.items;
   const featured = toHeroData(items[0], 0);
-  // TODO si besoin de scaler au dela de 3 minis, prevoir grille 2x2 ou 3x2 ou bouton voir tous les avis
-  const others = items.slice(1, 4).map((item, i) => toMiniData(item, i + 1));
+  // TODO si besoin de scaler au dela de 6 minis, prevoir grille 4 cols ou bouton voir tous les avis
+  const others = items.slice(1, 7).map((item, i) => toMiniData(item, i + 1));
 
   return (
     <section
