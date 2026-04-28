@@ -3254,6 +3254,83 @@ h1, h2, h3, h4 {
   font-weight: 400;
 }
 
+/* === TestimonialMini compact card with hover signature === */
+.pdy-testimonial-mini {
+  background: rgba(255, 255, 255, 0.025);
+  border: 0.5px solid rgba(87, 238, 161, 0.12);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  transition:
+    transform 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 500ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+}
+.pdy-testimonial-mini:hover {
+  transform: translateY(-3px);
+  background-color: rgba(87, 238, 161, 0.028);
+  border-color: rgba(87, 238, 161, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(87, 238, 161, 0.06),
+    0 12px 32px -10px rgba(87, 238, 161, 0.1),
+    0 0 60px -16px rgba(87, 238, 161, 0.13);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pdy-testimonial-mini {
+    transition: none;
+  }
+  .pdy-testimonial-mini:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+.pdy-testimonial-mini-stars {
+  display: flex;
+  gap: 2px;
+}
+.pdy-testimonial-mini-star {
+  color: #57EEA1;
+  font-size: 11px;
+  line-height: 1;
+}
+.pdy-testimonial-mini-star[data-filled="false"] {
+  color: rgba(87, 238, 161, 0.25);
+}
+.pdy-testimonial-mini-quote {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  flex: 1;
+  font-style: normal;
+}
+.pdy-testimonial-mini-divider {
+  border-top: 0.5px solid rgba(87, 238, 161, 0.12);
+  margin-top: 4px;
+  padding-top: 10px;
+}
+.pdy-testimonial-mini-name {
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 0;
+}
+.pdy-testimonial-mini-role {
+  font-family: var(--font-dm-mono), ui-monospace, monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 3px 0 0;
+}
+
 /* ================================================================
    3.3.2 TESTIMONIALS — premium G2/Vercel-like cards (no photos)
 ================================================================ */
