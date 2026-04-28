@@ -110,7 +110,6 @@ export function JournalPreview() {
                       width={1920}
                       height={1080}
                     />
-                    <div className="pdy-journal-card-cover-fade" aria-hidden="true" />
                   </div>
                   <div className="pdy-journal-card-content">
                     <span className="pdy-journal-category">{article.category}</span>
