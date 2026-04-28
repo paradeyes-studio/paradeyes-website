@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { homeCases } from "@/content/home-fallback";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
@@ -127,6 +128,13 @@ export function Cases() {
             className="pdy-cases-progress-bar"
             style={{ width: `${Math.max(8, progress * 100)}%` }}
           />
+        </div>
+
+        <div className="pdy-cases-cta-wrapper">
+          <Link href="/realisations" className="pdy-cases-cta">
+            <span>Découvrir toutes les réalisations</span>
+            <ArrowUpRight aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>
