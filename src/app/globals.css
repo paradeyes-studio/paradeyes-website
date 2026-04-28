@@ -1251,13 +1251,13 @@ h1, h2, h3, h4 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-bottom: 64px;
+    padding-bottom: 32px;
   }
 }
 
 @media (max-width: 767px) {
   .pdy-hero {
-    padding-bottom: 48px;
+    padding-bottom: 24px;
   }
 }
 
