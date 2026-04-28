@@ -156,7 +156,9 @@ export function Moments() {
           ))}
         </motion.ul>
 
-        <p className="pdy-moments-outro">{homeMoments.outroCta}</p>
+        <p className="pdy-moments-outro">
+          {renderTextWithBreak(homeMoments.outroCta, "Parlez-en à IRIS,", "pdy-moments-outro-break")}
+        </p>
       </div>
     </section>
   );
