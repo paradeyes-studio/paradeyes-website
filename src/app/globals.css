@@ -1821,7 +1821,7 @@ h1, h2, h3, h4 {
 .pdy-offres {
   position: relative;
   height: 100vh;
-  min-height: 880px;
+  min-height: 1000px;
   width: 100%;
   background: var(--color-white-warm);
   color: var(--color-green-deep);
@@ -1899,8 +1899,8 @@ h1, h2, h3, h4 {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
-  padding: 224px 0 80px;
+  align-items: flex-start;
+  padding: 400px 0 60px;
   pointer-events: none;
   z-index: 1;
 }
