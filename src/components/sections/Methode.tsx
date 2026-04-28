@@ -152,6 +152,7 @@ export function Methode() {
                         <CheckRond
                           inView={sectionInView}
                           delay={checkBaseDelay + livIdx * 0.15}
+                          pulseDelay={1.6 + livIdx * 0.5}
                         />
                       </li>
                     );

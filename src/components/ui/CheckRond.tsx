@@ -6,9 +6,15 @@ interface CheckRondProps {
   className?: string;
   inView?: boolean;
   delay?: number;
+  pulseDelay?: number;
 }
 
-export function CheckRond({ className, inView = true, delay = 0 }: CheckRondProps) {
+export function CheckRond({
+  className,
+  inView = true,
+  delay = 0,
+  pulseDelay = 1.6,
+}: CheckRondProps) {
   const shouldReduceMotion = useReducedMotion();
 
   const containerVariants: Variants = shouldReduceMotion
@@ -54,6 +60,7 @@ export function CheckRond({ className, inView = true, delay = 0 }: CheckRondProp
       variants={containerVariants}
       data-pulse={shouldReduceMotion ? "false" : "true"}
       aria-hidden="true"
+      style={{ "--pdy-check-pulse-delay": `${pulseDelay}s` } as React.CSSProperties}
     >
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <motion.path

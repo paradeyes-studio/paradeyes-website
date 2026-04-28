@@ -2724,7 +2724,7 @@ h1, h2, h3, h4 {
 
 .pdy-check-rond[data-pulse="true"] {
   animation: pdy-check-pulse 2.6s ease-in-out infinite;
-  animation-delay: 1.6s;
+  animation-delay: var(--pdy-check-pulse-delay, 1.6s);
 }
 
 @media (prefers-reduced-motion: reduce) {
