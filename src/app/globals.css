@@ -609,14 +609,14 @@ h1, h2, h3, h4 {
 }
 
 .pdy-header-capsule--light {
-  background: rgba(255, 255, 255, 0.6);
-  border-color: rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.78);
+  border-color: rgba(0, 49, 53, 0.08);
   color: var(--color-green-deep);
 }
 
 .pdy-header-capsule--light.pdy-header-capsule--scrolled {
-  background: rgba(255, 255, 255, 0.85);
-  border-color: rgba(0, 0, 0, 0.10);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 49, 53, 0.12);
 }
 
 .pdy-header-capsule-inner {
