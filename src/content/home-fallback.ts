@@ -221,8 +221,6 @@ export const homeChiffres = {
       caption: "Aucun template. Aucun copier-coller.",
     },
   ],
-  // Notion 3459ea1e-2812-8148-9f6c-c373af828b73 (Validé FR)
-  transition: "Ces chiffres racontent une méthode. La voici.",
   clientsLabel: "Sélection de clients · Secteurs confondus",
   clients: [
     "Volkswagen",

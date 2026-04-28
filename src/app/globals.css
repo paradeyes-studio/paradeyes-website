@@ -2389,7 +2389,7 @@ h1, h2, h3, h4 {
   grid-template-columns:repeat(3, 1fr);
   grid-template-rows:auto auto;
   gap:64px 48px;
-  margin-bottom:48px;
+  margin-bottom:96px;
   max-width:1280px;
   margin-inline:auto;
 }
@@ -2464,20 +2464,6 @@ h1, h2, h3, h4 {
   margin:0;
   max-width:36ch;
 }
-.pdy-chiffres-transition{
-  font-family:var(--font-dm-sans),system-ui,sans-serif;
-  font-style:italic;
-  font-size:clamp(15px,1.2vw,18px);
-  line-height:1.5;
-  color:var(--color-gd-60);
-  max-width:48ch;
-  margin:0 auto 48px;
-  text-align:center;
-}
-@media (max-width:767px){
-  .pdy-chiffres-transition{margin-bottom:32px}
-}
-
 /* === Clients marquee (continuous ticker) === */
 .pdy-clients-marquee {
   position: relative;

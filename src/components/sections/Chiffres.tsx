@@ -101,16 +101,6 @@ export function Chiffres() {
           ))}
         </div>
 
-        <motion.p
-          variants={v(0.3)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-          className="pdy-chiffres-transition"
-        >
-          {homeChiffres.transition}
-        </motion.p>
-
         <ClientsMarquee
           clients={homeChiffres.clients}
           label={homeChiffres.clientsLabel}
