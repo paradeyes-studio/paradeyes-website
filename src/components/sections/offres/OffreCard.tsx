@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { OffrePicto, mapSlugToPictoType } from "@/components/icons/OffrePicto";
@@ -26,6 +27,7 @@ function extractSlug(href: string): string {
 }
 
 export function OffreCard({ data }: OffreCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
   const titleParts = data.title.split(data.titleItalic);
   const before = titleParts[0] ?? "";
   const after = titleParts[1] ?? "";
@@ -33,14 +35,18 @@ export function OffreCard({ data }: OffreCardProps) {
   const durationLabel = data.duration.split(/\s*·\s*/)[0] ?? data.duration;
 
   return (
-    <article className="pdy-offre-card">
+    <article
+      className="pdy-offre-card"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <span className="pdy-offre-ghost" aria-hidden="true">
         {data.number}
       </span>
 
       <div className="pdy-offre-icon-wrapper">
         <div className="pdy-offre-icon">
-          <OffrePicto type={pictoType} className="pdy-offre-picto" />
+          <OffrePicto type={pictoType} className="pdy-offre-picto" isHovered={isHovered} />
         </div>
         <span className="pdy-offre-icon-numeral" aria-hidden="true">
           {data.number}
