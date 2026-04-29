@@ -93,7 +93,11 @@ export default async function Home({ params }: Props) {
           }}
         />
 
-        <Offres />
+        <Offres
+          data={{
+            sub: resolveLocalized(homeData?.offresSubtitle, typedLocale),
+          }}
+        />
         <Moments />
         <Chiffres />
         <div className="pdy-narrative-section">

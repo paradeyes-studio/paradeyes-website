@@ -29,7 +29,18 @@ function renderSubWithBreak(sub: string) {
   );
 }
 
-export function Offres() {
+export interface OffresData {
+  eyebrow?: string;
+  title?: { before: string; italic: string; after: string };
+  sub?: string;
+  cards?: typeof homeOffres.cards;
+}
+
+export function Offres({ data = {} }: { data?: OffresData } = {}) {
+  const eyebrow = data.eyebrow ?? homeOffres.eyebrow;
+  const headline = data.title ?? homeOffres.headline;
+  const sub = data.sub ?? homeOffres.sub;
+  const cards = data.cards ?? homeOffres.cards;
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -81,20 +92,20 @@ export function Offres() {
       aria-labelledby="offres-title"
     >
       <header className="pdy-offres-header">
-        <p className="pdy-offres-eyebrow">{homeOffres.eyebrow}</p>
+        <p className="pdy-offres-eyebrow">{eyebrow}</p>
         <SectionHeadline
-          before={homeOffres.headline.before}
-          italic={homeOffres.headline.italic}
-          after={homeOffres.headline.after}
+          before={headline.before}
+          italic={headline.italic}
+          after={headline.after}
           className="pdy-offres-title"
           id="offres-title"
         />
-        <p className="pdy-offres-sub">{renderSubWithBreak(homeOffres.sub)}</p>
+        <p className="pdy-offres-sub">{renderSubWithBreak(sub)}</p>
       </header>
 
       <div className="pdy-offres-track-wrapper">
         <div ref={trackRef} className="pdy-offres-track">
-          {homeOffres.cards.map((card) => (
+          {cards.map((card) => (
             <OffreCard key={card.number} data={card} />
           ))}
         </div>
