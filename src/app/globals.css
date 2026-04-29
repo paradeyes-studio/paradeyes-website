@@ -402,21 +402,20 @@
   }
 }
 
-/* === Section stacking (cards empilées V2) ===
-   Effet de cartes empilées : chaque section après le Hero overlap la précédente
-   via margin-top négative + z-index ladder + box-shadow haut et bas pour rendu
-   carte uni avec arrondis sur les 4 coins (type Apple/Linear premium). */
+/* === Section stacking (cards empilees V3) ===
+   Effet de cartes empilees, decision Notion 25/04 : chaque section apres le
+   Hero overlap la precedente via margin-top negative + z-index ladder. Seul
+   le HAUT est arrondi, le bas reste plat pour que la section suivante revele
+   la couleur de la precedente dans ses coins arrondis (effet "carte posee
+   sur une autre"). Avec border-bottom-radius sur chaque section, les coins
+   du bas creaient des encoches body-color visibles a chaque transition. */
 .pdy-section-stacked {
   position: relative;
   border-top-left-radius: var(--section-radius);
   border-top-right-radius: var(--section-radius);
-  border-bottom-left-radius: var(--section-radius);
-  border-bottom-right-radius: var(--section-radius);
   margin-top: -64px;
   z-index: var(--stack-z, 1);
-  box-shadow:
-    0 -16px 48px -16px rgba(0, 49, 53, 0.18),
-    0 16px 48px -16px rgba(0, 49, 53, 0.12);
+  box-shadow: 0 -16px 48px -16px rgba(0, 49, 53, 0.18);
   isolation: isolate;
   overflow: hidden;
   transform: translateZ(0);
@@ -428,12 +427,8 @@
   .pdy-section-stacked {
     border-top-left-radius: var(--section-radius-mobile);
     border-top-right-radius: var(--section-radius-mobile);
-    border-bottom-left-radius: var(--section-radius-mobile);
-    border-bottom-right-radius: var(--section-radius-mobile);
     margin-top: -36px;
-    box-shadow:
-      0 -8px 24px -8px rgba(0, 49, 53, 0.16),
-      0 8px 24px -8px rgba(0, 49, 53, 0.10);
+    box-shadow: 0 -8px 24px -8px rgba(0, 49, 53, 0.16);
   }
 }
 
@@ -3864,12 +3859,20 @@ h1, h2, h3, h4 {
   border-top-right-radius: var(--section-radius);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  /* Overlap sur la section precedente (MarqueeTags, light) pour que les coins
+     arrondis du haut revelent la couleur claire de MarqueeTags au lieu du body
+     dark. Aligne sur le pattern .pdy-section-stacked des sections du body. */
+  margin-top: -64px;
+  z-index: 9;
+  box-shadow: 0 -16px 48px -16px rgba(0, 49, 53, 0.18);
 }
 
 @media (max-width: 767px) {
   .pdy-prefooter {
     border-top-left-radius: var(--section-radius-mobile);
     border-top-right-radius: var(--section-radius-mobile);
+    margin-top: -36px;
+    box-shadow: 0 -8px 24px -8px rgba(0, 49, 53, 0.16);
   }
 }
 @media (max-width: 1023px){.pdy-prefooter{padding:96px 24px 60px}}
