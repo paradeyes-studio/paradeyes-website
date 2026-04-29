@@ -9,7 +9,7 @@ import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { TestimonialHero, type TestimonialHeroData } from "./testimonials/TestimonialHero";
 import { TestimonialMini, type TestimonialMiniData } from "./testimonials/TestimonialMini";
 
-type RawItem = (typeof homeTestimonials.items)[number];
+type RawItem = { quote: string; author: string; role: string };
 
 function splitRoleCompany(role: string): { role: string; company?: string } {
   const idx = role.indexOf(",");

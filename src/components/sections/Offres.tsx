@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
 import { homeOffres } from "@/content/home-fallback";
+import type { OffreCardItem } from "@/lib/sanity-mappers";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { OffreCard } from "./offres/OffreCard";
 
@@ -33,7 +34,7 @@ export interface OffresData {
   eyebrow?: string;
   title?: { before: string; italic: string; after: string };
   sub?: string;
-  cards?: typeof homeOffres.cards;
+  cards?: ReadonlyArray<OffreCardItem>;
 }
 
 export function Offres({ data = {} }: { data?: OffresData } = {}) {

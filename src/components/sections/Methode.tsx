@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 import { homeMethode } from "@/content/home-fallback";
+import type { MethodeStepItem } from "@/lib/sanity-mappers";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { Particles } from "@/components/ui/Particles";
 import { CheckRond } from "@/components/ui/CheckRond";
@@ -50,7 +51,7 @@ export interface MethodeData {
   eyebrow?: string;
   title?: { before: string; italic: string; after: string };
   sub?: string;
-  steps?: typeof homeMethode.steps;
+  steps?: ReadonlyArray<MethodeStepItem>;
 }
 
 export function Methode({ data = {} }: { data?: MethodeData } = {}) {

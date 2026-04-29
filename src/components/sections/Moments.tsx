@@ -10,11 +10,12 @@ import {
   type Variants,
 } from "framer-motion";
 import { homeMoments } from "@/content/home-fallback";
+import type { MomentItemShape } from "@/lib/sanity-mappers";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { Particles } from "@/components/ui/Particles";
 
-type MomentItem = (typeof homeMoments.items)[number];
+type MomentItem = MomentItemShape;
 
 const containerVariants: Variants = {
   hidden: {},
@@ -117,7 +118,7 @@ export interface MomentsData {
   eyebrow?: string;
   title?: { before: string; italic: string; after: string };
   sub?: string;
-  items?: typeof homeMoments.items;
+  items?: ReadonlyArray<MomentItemShape>;
   outroCta?: string;
 }
 

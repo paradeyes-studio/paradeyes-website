@@ -21,6 +21,16 @@ import {
   contactQuery,
   type ContactData,
 } from "@/lib/sanity.queries";
+import {
+  mapSanityOfferCards,
+  mapSanityMethodeSteps,
+  mapSanityMoments,
+  mapSanityStats,
+  mapSanityCaseStudies,
+  mapSanityTestimonials,
+  mapSanityJournalArticles,
+  mapSanityFaqItems,
+} from "@/lib/sanity-mappers";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -206,6 +216,7 @@ export default async function Home({ params }: Props) {
               typedLocale,
             ),
             sub: resolveLocalized(homeData?.offresSubtitle, typedLocale),
+            cards: mapSanityOfferCards(homeData?.offresCards, typedLocale),
           }}
         />
         <Moments
@@ -218,6 +229,7 @@ export default async function Home({ params }: Props) {
               typedLocale,
             ),
             sub: resolveLocalized(homeData?.momentsSubtitle, typedLocale),
+            items: mapSanityMoments(homeData?.momentsItems, typedLocale),
             outroCta: resolveLocalized(homeData?.momentsPhraseSortie, typedLocale),
           }}
         />
@@ -231,6 +243,7 @@ export default async function Home({ params }: Props) {
               typedLocale,
             ),
             sub: resolveLocalized(homeData?.chiffresSubtitle, typedLocale),
+            stats: mapSanityStats(homeData?.chiffresItems, typedLocale),
             clients: resolvePlainStringArray(homeData?.chiffresClients),
             clientsLabel: resolveLocalized(
               homeData?.chiffresClientsLabel,
@@ -250,6 +263,7 @@ export default async function Home({ params }: Props) {
                 typedLocale,
               ),
               sub: resolveLocalized(homeData?.methodeSubtitle, typedLocale),
+              steps: mapSanityMethodeSteps(homeData?.methodeSteps, typedLocale),
             }}
           />
           <Cases
@@ -262,6 +276,7 @@ export default async function Home({ params }: Props) {
                 typedLocale,
               ),
               sub: resolveLocalized(homeData?.etudesSubtitle, typedLocale),
+              cases: mapSanityCaseStudies(homeData?.etudesFeatured, typedLocale),
               ctaLabel: resolveLocalized(homeData?.etudesCtaLabel, typedLocale),
               ctaHref: typeof homeData?.etudesUrl === "string" ? homeData.etudesUrl : undefined,
             }}
@@ -276,6 +291,7 @@ export default async function Home({ params }: Props) {
               homeData?.temoignagesTitleAfter,
               typedLocale,
             ),
+            items: mapSanityTestimonials(homeData?.temoignagesFeatured, typedLocale),
           }}
         />
         <JournalPreview
@@ -290,6 +306,7 @@ export default async function Home({ params }: Props) {
             sub: resolveLocalized(homeData?.journalSubtitle, typedLocale),
             cta: resolveLocalized(homeData?.journalCtaLabel, typedLocale),
             ctaHref: typeof homeData?.journalCtaUrl === "string" ? homeData.journalCtaUrl : undefined,
+            articles: mapSanityJournalArticles(homeData?.journalArticles, typedLocale),
           }}
         />
         <Faq
@@ -302,6 +319,7 @@ export default async function Home({ params }: Props) {
               typedLocale,
             ),
             sub: resolveLocalized(homeData?.faqSubtitle, typedLocale),
+            items: mapSanityFaqItems(homeData?.faqItems, typedLocale),
           }}
         />
         <MarqueeTags data={homeData?.marqueeTagsSection} />

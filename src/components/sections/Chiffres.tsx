@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeChiffres } from "@/content/home-fallback";
+import type { ChiffreStatItem } from "@/lib/sanity-mappers";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
@@ -23,7 +24,7 @@ const fadeOnly = (delay: number): Variants => ({
 });
 
 interface StatItemProps {
-  data: (typeof homeChiffres.stats)[number];
+  data: ChiffreStatItem;
 }
 
 function StatItem({ data }: StatItemProps) {
@@ -60,7 +61,7 @@ export interface ChiffresData {
   eyebrow?: string;
   title?: { before: string; italic: string; after: string };
   sub?: string;
-  stats?: typeof homeChiffres.stats;
+  stats?: ReadonlyArray<ChiffreStatItem>;
   clients?: ReadonlyArray<string>;
   clientsLabel?: string;
 }

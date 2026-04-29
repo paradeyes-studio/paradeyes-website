@@ -4,11 +4,12 @@ import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Link } from "@/i18n/navigation";
 import { homeJournal } from "@/content/home-fallback";
+import type { JournalArticleItem } from "@/lib/sanity-mappers";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { useTilt } from "@/hooks/useTilt";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 
-type JournalArticle = (typeof homeJournal.articles)[number];
+type JournalArticle = JournalArticleItem;
 
 function JournalCard({ article }: { article: JournalArticle }) {
   const tiltRef = useTilt<HTMLElement>({ max: 4, perspective: 1200 });
@@ -81,7 +82,7 @@ export interface JournalPreviewData {
   sub?: string;
   cta?: string;
   ctaHref?: string;
-  articles?: typeof homeJournal.articles;
+  articles?: ReadonlyArray<JournalArticleItem>;
 }
 
 export function JournalPreview({ data = {} }: { data?: JournalPreviewData } = {}) {

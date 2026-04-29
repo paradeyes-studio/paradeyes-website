@@ -5,6 +5,7 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { homeCases } from "@/content/home-fallback";
+import type { CaseCardItem } from "@/lib/sanity-mappers";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { CaseCard } from "./cases/CaseCard";
@@ -28,7 +29,7 @@ export interface CasesData {
   eyebrow?: string;
   title?: { before: string; italic: string; after: string };
   sub?: string;
-  cases?: typeof homeCases.cases;
+  cases?: ReadonlyArray<CaseCardItem>;
   ctaLabel?: string;
   ctaHref?: string;
 }

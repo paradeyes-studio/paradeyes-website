@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { homeFaq } from "@/content/home-fallback";
+import type { FaqItemShape } from "@/lib/sanity-mappers";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { Particles } from "@/components/ui/Particles";
@@ -27,7 +28,7 @@ export interface FaqData {
   eyebrow?: string;
   title?: { before: string; italic: string; after: string };
   sub?: string;
-  items?: typeof homeFaq.items;
+  items?: ReadonlyArray<FaqItemShape>;
 }
 
 export function Faq({ data = {} }: { data?: FaqData } = {}) {
