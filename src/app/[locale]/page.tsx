@@ -125,6 +125,9 @@ export default async function Home({ params }: Props) {
           />
         </div>
         <Testimonials />
+        {/* Testimonials accepts a `data` prop with eyebrow/title/items.
+            No simple Sanity field maps to the structured items shape today;
+            wiring stays at the prop contract level for future Studio expansion. */}
         <JournalPreview />
         <Faq />
         <MarqueeTags />
