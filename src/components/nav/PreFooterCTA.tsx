@@ -10,9 +10,18 @@ import { Particles } from "@/components/ui/Particles";
 
 type PreFooterVariant = "default" | "offre" | "contact";
 
+export interface PreFooterCTAData {
+  eyebrow?: string;
+  title?: { before: string; italic: string; after: string };
+  description?: string;
+  cta?: string;
+  ctaHref?: string;
+}
+
 interface PreFooterCTAProps {
   variant?: PreFooterVariant;
   locale: "fr" | "en";
+  data?: PreFooterCTAData;
 }
 
 type PlausibleWindow = Window & {
@@ -75,9 +84,19 @@ type Tab = "iris" | "appel";
 export function PreFooterCTA({
   variant = "default",
   locale: _locale,
+  data,
 }: PreFooterCTAProps) {
   void _locale;
-  const content = CONTENT[variant];
+  const baseContent = CONTENT[variant];
+  const content: PreFooterContent = {
+    eyebrow: data?.eyebrow ?? baseContent.eyebrow,
+    titleBefore: data?.title?.before ?? baseContent.titleBefore,
+    titleItalic: data?.title?.italic ?? baseContent.titleItalic,
+    titleAfter: data?.title?.after ?? baseContent.titleAfter,
+    description: data?.description ?? baseContent.description,
+    cta: data?.cta ?? baseContent.cta,
+    ctaHref: data?.ctaHref ?? baseContent.ctaHref,
+  };
   const [activeTab, setActiveTab] = useState<Tab>("iris");
 
   const trackPrefooter = (label: string) => {

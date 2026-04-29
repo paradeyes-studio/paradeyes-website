@@ -5,12 +5,25 @@ import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/brand/Logo";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { Particles } from "@/components/ui/Particles";
-import { PreFooterCTA } from "./PreFooterCTA";
+import { PreFooterCTA, type PreFooterCTAData } from "./PreFooterCTA";
+
+export interface FooterData {
+  tagline?: string;
+  taglineEyebrow?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  email?: string;
+  address?: string;
+  hours?: string;
+  copyrightSuffix?: string;
+}
 
 interface FooterProps {
   locale: "fr" | "en";
   showPreFooter?: boolean;
   preFooterVariant?: "default" | "offre" | "contact";
+  preFooterData?: PreFooterCTAData;
+  data?: FooterData;
 }
 
 type PlausibleWindow = Window & {
@@ -58,14 +71,33 @@ export function Footer({
   locale,
   showPreFooter = true,
   preFooterVariant = "default",
+  preFooterData,
+  data,
 }: FooterProps) {
   const year = new Date().getFullYear();
   const logoRef = useMagnetic<HTMLAnchorElement>({ strength: 3, radius: 80 });
   void locale;
 
+  const taglineEyebrow =
+    data?.taglineEyebrow ?? "AGENCE CRÉATIVE AU SERVICE DE VOTRE CROISSANCE.";
+  const tagline = data?.tagline ?? "On comprend. On conçoit. On construit.";
+  const ctaLabel = data?.ctaLabel ?? "Un appel gratuit de 30 min";
+  const ctaHref = data?.ctaHref ?? "/contact#appel";
+  const email = data?.email ?? "hello@paradeyesagency.com";
+  const address = data?.address ?? "PARIS · CANNES";
+  const hours = data?.hours ?? "Du lundi au vendredi, 9h à 19h";
+  const copyrightSuffix =
+    data?.copyrightSuffix ?? "Paradeyes Agency. Tous droits réservés.";
+
   return (
     <>
-      {showPreFooter && <PreFooterCTA variant={preFooterVariant} locale={locale} />}
+      {showPreFooter && (
+        <PreFooterCTA
+          variant={preFooterVariant}
+          locale={locale}
+          data={preFooterData}
+        />
+      )}
 
       <footer
         className="pdy-footer"
@@ -115,14 +147,14 @@ export function Footer({
             </Link>
             <div className="pdy-footer-signature">
               <span className="pdy-footer-signature-eyebrow">
-                AGENCE CRÉATIVE AU SERVICE DE VOTRE CROISSANCE.
+                {taglineEyebrow}
               </span>
               <p className="pdy-footer-signature-tagline">
-                On comprend. On conçoit. On construit.
+                {tagline}
               </p>
             </div>
             <Link
-              href="/contact#appel"
+              href={ctaHref}
               className="pdy-foot-cta"
               onClick={() => {
                 const plausible = (window as PlausibleWindow).plausible;
@@ -131,7 +163,7 @@ export function Footer({
                 }
               }}
             >
-              Un appel gratuit de 30 min
+              {ctaLabel}
               <ArrowRight aria-hidden="true" />
             </Link>
           </div>
@@ -150,14 +182,14 @@ export function Footer({
           <div className="pdy-foot-col-contact">
             <p className="pdy-foot-col-title">Contact</p>
             <a
-              href="mailto:hello@paradeyesagency.com"
+              href={`mailto:${email}`}
               className="pdy-foot-email"
             >
               <Mail aria-hidden="true" />
-              hello@paradeyesagency.com
+              {email}
             </a>
-            <p className="pdy-foot-address">PARIS · CANNES</p>
-            <p className="pdy-foot-hours">Du lundi au vendredi, 9h à 19h</p>
+            <p className="pdy-foot-address">{address}</p>
+            <p className="pdy-foot-hours">{hours}</p>
           </div>
 
           <div className="pdy-foot-col-soc">
@@ -189,7 +221,7 @@ export function Footer({
 
         <div className="pdy-foot-bottom">
           <p className="pdy-foot-copy">
-            © {year} Paradeyes Agency. Tous droits réservés.
+            © {year} {copyrightSuffix}
           </p>
           <div className="pdy-foot-legal">
             <Link href="/mentions-legales">Mentions légales</Link>

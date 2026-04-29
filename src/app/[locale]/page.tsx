@@ -137,7 +137,17 @@ export default async function Home({ params }: Props) {
         <MarqueeTags />
       </main>
 
-      <Footer locale={typedLocale} showPreFooter preFooterVariant="default" />
+      <Footer
+        locale={typedLocale}
+        showPreFooter
+        preFooterVariant="default"
+        preFooterData={{
+          description: resolveLocalized(
+            homeData?.ctaFinalSubtitle,
+            typedLocale,
+          ),
+        }}
+      />
     </>
   );
 }
