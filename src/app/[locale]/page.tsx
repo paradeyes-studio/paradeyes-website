@@ -86,6 +86,64 @@ function resolveLocalizedBadges(
   return labels.length > 0 ? labels : undefined;
 }
 
+/**
+ * Resolves a Phase 3 split title (before/italic/after) into the {before, italic, after} shape
+ * expected by SectionHeadline. Returns undefined if any of the 3 parts is missing,
+ * so the component falls back to the home-fallback split title.
+ */
+function resolveTitleEclate(
+  beforeField: unknown,
+  italicField: unknown,
+  afterField: unknown,
+  locale: string,
+): { before: string; italic: string; after: string } | undefined {
+  const before = resolveLocalized(beforeField, locale);
+  const italic = resolveLocalized(italicField, locale);
+  const after = resolveLocalized(afterField, locale);
+  if (!before || !italic || !after) return undefined;
+  return { before, italic, after };
+}
+
+/**
+ * Resolves a plain string array (Sanity field of type `array of string`, no i18n wrapper).
+ * Used for clients list, marquee tags lines, etc.
+ */
+function resolvePlainStringArray(field: unknown): string[] | undefined {
+  if (!Array.isArray(field)) return undefined;
+  const values = field.filter(
+    (v): v is string => typeof v === "string" && v.length > 0,
+  );
+  return values.length > 0 ? values : undefined;
+}
+
+type HeaderNavItem = { label: string; href: string };
+
+/**
+ * Resolves the Sanity siteSettings.headerLinks array into the shape Header expects.
+ * Each link in Sanity has {label (i18n), slug (string), isExternal (bool)}.
+ * Header expects {label, href}.
+ */
+function resolveHeaderNavItems(
+  field: unknown,
+  locale: string,
+): ReadonlyArray<HeaderNavItem> | undefined {
+  if (!Array.isArray(field)) return undefined;
+  const items: HeaderNavItem[] = [];
+  for (const entry of field) {
+    if (!entry || typeof entry !== "object") continue;
+    const raw = entry as { label?: unknown; slug?: unknown; isExternal?: unknown };
+    const label = resolveLocalized(raw.label, locale);
+    const slug = typeof raw.slug === "string" ? raw.slug : undefined;
+    if (!label || !slug) continue;
+    const isExternal = raw.isExternal === true;
+    const href = isExternal || slug.startsWith("/") || slug.startsWith("#")
+      ? slug
+      : `/${slug}`;
+    items.push({ label, href });
+  }
+  return items.length > 0 ? items : undefined;
+}
+
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -102,6 +160,14 @@ export default async function Home({ params }: Props) {
       <Header
         locale={typedLocale}
         data={{
+          navItems: resolveHeaderNavItems(
+            (siteSettings as { headerLinks?: unknown } | null)?.headerLinks,
+            typedLocale,
+          ),
+          ctaLabel: resolveLocalized(
+            (siteSettings as { headerCtaLabel?: unknown } | null)?.headerCtaLabel,
+            typedLocale,
+          ),
           ctaHref:
             typeof siteSettings?.headerCtaUrl === "string"
               ? siteSettings.headerCtaUrl
@@ -132,42 +198,109 @@ export default async function Home({ params }: Props) {
 
         <Offres
           data={{
+            eyebrow: resolveLocalized(homeData?.offresEyebrow, typedLocale),
+            title: resolveTitleEclate(
+              homeData?.offresTitleBefore,
+              homeData?.offresTitleItalic,
+              homeData?.offresTitleAfter,
+              typedLocale,
+            ),
             sub: resolveLocalized(homeData?.offresSubtitle, typedLocale),
           }}
         />
         <Moments
           data={{
+            eyebrow: resolveLocalized(homeData?.momentsEyebrow, typedLocale),
+            title: resolveTitleEclate(
+              homeData?.momentsTitleBefore,
+              homeData?.momentsTitleItalic,
+              homeData?.momentsTitleAfter,
+              typedLocale,
+            ),
             sub: resolveLocalized(homeData?.momentsSubtitle, typedLocale),
             outroCta: resolveLocalized(homeData?.momentsPhraseSortie, typedLocale),
           }}
         />
         <Chiffres
           data={{
+            eyebrow: resolveLocalized(homeData?.chiffresEyebrow, typedLocale),
+            title: resolveTitleEclate(
+              homeData?.chiffresTitleBefore,
+              homeData?.chiffresTitleItalic,
+              homeData?.chiffresTitleAfter,
+              typedLocale,
+            ),
             sub: resolveLocalized(homeData?.chiffresSubtitle, typedLocale),
+            clients: resolvePlainStringArray(homeData?.chiffresClients),
+            clientsLabel: resolveLocalized(
+              homeData?.chiffresClientsLabel,
+              typedLocale,
+            ),
           }}
         />
         <div className="pdy-narrative-section">
           <NarrativeThread variant="methode-cases" />
           <Methode
             data={{
+              eyebrow: resolveLocalized(homeData?.methodeEyebrow, typedLocale),
+              title: resolveTitleEclate(
+                homeData?.methodeTitleBefore,
+                homeData?.methodeTitleItalic,
+                homeData?.methodeTitleAfter,
+                typedLocale,
+              ),
               sub: resolveLocalized(homeData?.methodeSubtitle, typedLocale),
             }}
           />
           <Cases
             data={{
+              eyebrow: resolveLocalized(homeData?.etudesEyebrow, typedLocale),
+              title: resolveTitleEclate(
+                homeData?.etudesTitleBefore,
+                homeData?.etudesTitleItalic,
+                homeData?.etudesTitleAfter,
+                typedLocale,
+              ),
               sub: resolveLocalized(homeData?.etudesSubtitle, typedLocale),
               ctaLabel: resolveLocalized(homeData?.etudesCtaLabel, typedLocale),
               ctaHref: typeof homeData?.etudesUrl === "string" ? homeData.etudesUrl : undefined,
             }}
           />
         </div>
-        <Testimonials />
-        {/* Testimonials accepts a `data` prop with eyebrow/title/items.
-            No simple Sanity field maps to the structured items shape today;
-            wiring stays at the prop contract level for future Studio expansion. */}
-        <JournalPreview />
+        <Testimonials
+          data={{
+            eyebrow: resolveLocalized(homeData?.temoignagesEyebrow, typedLocale),
+            title: resolveTitleEclate(
+              homeData?.temoignagesTitleBefore,
+              homeData?.temoignagesTitleItalic,
+              homeData?.temoignagesTitleAfter,
+              typedLocale,
+            ),
+          }}
+        />
+        <JournalPreview
+          data={{
+            eyebrow: resolveLocalized(homeData?.journalEyebrow, typedLocale),
+            title: resolveTitleEclate(
+              homeData?.journalTitleBefore,
+              homeData?.journalTitleItalic,
+              homeData?.journalTitleAfter,
+              typedLocale,
+            ),
+            sub: resolveLocalized(homeData?.journalSubtitle, typedLocale),
+            cta: resolveLocalized(homeData?.journalCtaLabel, typedLocale),
+            ctaHref: typeof homeData?.journalCtaUrl === "string" ? homeData.journalCtaUrl : undefined,
+          }}
+        />
         <Faq
           data={{
+            eyebrow: resolveLocalized(homeData?.faqEyebrow, typedLocale),
+            title: resolveTitleEclate(
+              homeData?.faqTitleBefore,
+              homeData?.faqTitleItalic,
+              homeData?.faqTitleAfter,
+              typedLocale,
+            ),
             sub: resolveLocalized(homeData?.faqSubtitle, typedLocale),
           }}
         />
@@ -179,15 +312,31 @@ export default async function Home({ params }: Props) {
         showPreFooter
         preFooterVariant="default"
         preFooterData={{
+          eyebrow: resolveLocalized(homeData?.ctaFinalEyebrow, typedLocale),
+          title: resolveTitleEclate(
+            homeData?.ctaFinalTitleBefore,
+            homeData?.ctaFinalTitleItalic,
+            homeData?.ctaFinalTitleAfter,
+            typedLocale,
+          ),
           description: resolveLocalized(
             homeData?.ctaFinalSubtitle,
             typedLocale,
           ),
+          cta: resolveLocalized(homeData?.ctaFinalCtaLabel, typedLocale),
+          ctaHref:
+            typeof homeData?.ctaFinalCtaUrl === "string"
+              ? homeData.ctaFinalCtaUrl
+              : undefined,
         }}
         data={{
           tagline:
             resolveLocalized(siteSettings?.footerBaseline, typedLocale) ??
             resolveLocalized(siteSettings?.baseline, typedLocale),
+          address: resolveLocalized(
+            (siteSettings as { footerAddress?: unknown } | null)?.footerAddress,
+            typedLocale,
+          ),
           email: contact?.email,
         }}
       />

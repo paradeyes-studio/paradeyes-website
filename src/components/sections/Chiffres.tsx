@@ -61,7 +61,7 @@ export interface ChiffresData {
   title?: { before: string; italic: string; after: string };
   sub?: string;
   stats?: typeof homeChiffres.stats;
-  clients?: typeof homeChiffres.clients;
+  clients?: ReadonlyArray<string>;
   clientsLabel?: string;
 }
 
