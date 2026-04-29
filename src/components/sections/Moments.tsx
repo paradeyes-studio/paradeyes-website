@@ -113,7 +113,20 @@ function MomentCard({ item, reduced }: { item: MomentItem; reduced: boolean }) {
   );
 }
 
-export function Moments() {
+export interface MomentsData {
+  eyebrow?: string;
+  title?: { before: string; italic: string; after: string };
+  sub?: string;
+  items?: typeof homeMoments.items;
+  outroCta?: string;
+}
+
+export function Moments({ data = {} }: { data?: MomentsData } = {}) {
+  const eyebrow = data.eyebrow ?? homeMoments.eyebrow;
+  const headline = data.title ?? homeMoments.headline;
+  const sub = data.sub ?? homeMoments.sub;
+  const items = data.items ?? homeMoments.items;
+  const outroCta = data.outroCta ?? homeMoments.outroCta;
   const reduced = useReducedMotion() ?? false;
   const reveal = useSectionReveal<HTMLElement>(0.15);
   const gridRef = useRef<HTMLUListElement>(null);
@@ -131,16 +144,16 @@ export function Moments() {
 
       <div className="pdy-moments-inner">
         <header className="pdy-moments-head">
-          <p className="pdy-eyebrow">{homeMoments.eyebrow}</p>
+          <p className="pdy-eyebrow">{eyebrow}</p>
           <SectionHeadline
-            before={homeMoments.headline.before}
-            italic={homeMoments.headline.italic}
-            after={homeMoments.headline.after}
+            before={headline.before}
+            italic={headline.italic}
+            after={headline.after}
             className="pdy-section-h2"
             id="moments-title"
           />
           <p className="pdy-section-sub">
-            {renderTextWithBreak(homeMoments.sub, "Identifiez le vôtre,", "pdy-moments-sub-break")}
+            {renderTextWithBreak(sub, "Identifiez le vôtre,", "pdy-moments-sub-break")}
           </p>
         </header>
 
@@ -151,13 +164,13 @@ export function Moments() {
           animate={isGridInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
-          {homeMoments.items.map((m) => (
+          {items.map((m) => (
             <MomentCard key={m.number} item={m} reduced={reduced} />
           ))}
         </motion.ul>
 
         <p className="pdy-moments-outro">
-          {renderTextWithBreak(homeMoments.outroCta, "Parlez-en à IRIS,", "pdy-moments-outro-break")}
+          {renderTextWithBreak(outroCta, "Parlez-en à IRIS,", "pdy-moments-outro-break")}
         </p>
       </div>
     </section>

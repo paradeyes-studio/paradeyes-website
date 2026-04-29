@@ -98,7 +98,12 @@ export default async function Home({ params }: Props) {
             sub: resolveLocalized(homeData?.offresSubtitle, typedLocale),
           }}
         />
-        <Moments />
+        <Moments
+          data={{
+            sub: resolveLocalized(homeData?.momentsSubtitle, typedLocale),
+            outroCta: resolveLocalized(homeData?.momentsPhraseSortie, typedLocale),
+          }}
+        />
         <Chiffres
           data={{
             sub: resolveLocalized(homeData?.chiffresSubtitle, typedLocale),
