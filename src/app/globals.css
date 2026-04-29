@@ -3764,6 +3764,43 @@ h1, h2, h3, h4 {
   .pdy-testimonials { padding: 80px 5vw; }
 }
 
+/* === Testimonials flat (simplification 2026-04-29) === */
+.pdy-testimonials.pdy-testimonials--flat {
+  padding: 120px 5vw;
+}
+.pdy-testimonials--flat .pdy-testimonials-header {
+  margin-bottom: 64px;
+}
+.pdy-testimonials--flat .pdy-testimonials-inner {
+  max-width: 1300px;
+}
+.pdy-testimonials--flat .pdy-testimonials-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.pdy-testimonials--flat .pdy-testimonial-mini {
+  padding: 24px;
+}
+.pdy-testimonials--flat .pdy-testimonial-mini-quote {
+  font-size: 15px;
+}
+@media (max-width: 1024px) {
+  .pdy-testimonials--flat .pdy-testimonials-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .pdy-testimonials.pdy-testimonials--flat {
+    padding: 80px 20px;
+  }
+  .pdy-testimonials--flat .pdy-testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .pdy-testimonials--flat .pdy-testimonials-header {
+    margin-bottom: 48px;
+  }
+}
+
 /* ================================================================
    3.3.3 JOURNAL PREVIEW
 ================================================================ */
