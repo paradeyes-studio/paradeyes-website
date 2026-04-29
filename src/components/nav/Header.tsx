@@ -147,7 +147,7 @@ export function Header({ locale }: HeaderProps) {
         <div className="pdy-header-capsule-inner">
           <Link
             href="/"
-            aria-label="Paradeyes, retour à l'accueil"
+            aria-label="Paradeyes, retour à l’accueil"
             className="pdy-header-capsule-logo"
           >
             <Logo />

@@ -37,11 +37,11 @@ export const homeOffres = {
       // Notion 3459ea1e-2812-81b3-9bdf-db36c65e5aa0 (Validé FR)
       promise: "Structurez la perception de votre marque avant de la dessiner.",
       glyph: "Æ",
-      // TODO Notion sync : livrables et durée non validés Notion
+      // TODO Notion sync : livrables et durée non validés Notion
       livrables: [
         "Plateforme de marque et naming",
-        "Système d'identité visuelle complet",
-        "Charte d'usage et déploiement",
+        "Système d’identité visuelle complet",
+        "Charte d’usage et déploiement",
       ],
       duration: "03 livrables · 6-10 sem.",
       href: "/offres/branding",
@@ -73,8 +73,8 @@ export const homeOffres = {
       glyph: "◉",
       livrables: [
         "Films, photos, éditorial",
-        "De l'écriture au montage",
-        "Diffusion et mesure d'impact",
+        "De l’écriture au montage",
+        "Diffusion et mesure d’impact",
       ],
       duration: "récurrent · 3-12 mois",
       href: "/offres/creation-de-contenus",
@@ -86,7 +86,7 @@ export const homeOffres = {
       titleItalic: "supports",
       // Notion 3459ea1e-2812-81d5-a9b2-ced673867a1c (Validé FR)
       promise:
-        "Le support est secondaire. La perception qu'il crée est centrale.",
+        "Le support est secondaire. La perception qu’il crée est centrale.",
       glyph: "❋",
       livrables: [
         "Print premium et signalétique",
@@ -122,9 +122,9 @@ export const homeMoments = {
     // Notion 3459ea1e-2812-8125-8d83-cce68bfe2cad (Validé FR)
     before: "À quel ",
     italic: "moment",
-    after: " de votre croissance nous vous rejoignons ?",
+    after: " de votre croissance nous vous rejoignons ?",
   },
-  // TODO Notion sync : sous-titre Moments non validé Notion
+  // TODO Notion sync : sous-titre Moments non validé Notion
   sub: "Chaque levier répond à un moment précis. Identifiez le vôtre, on vous oriente vers la bonne combinaison.",
   items: [
     {
@@ -132,33 +132,33 @@ export const homeMoments = {
       title: "Lancement",
       // Notion 3459ea1e-2812-8158-b065-e59a70de8427 (Validé FR)
       description:
-        "Vous créez, vous lancez, vous ouvrez. Tout est à construire en partant d'une page blanche. On pose les fondations d'une communication cohérente dès le départ.",
+        "Vous créez, vous lancez, vous ouvrez. Tout est à construire en partant d’une page blanche. On pose les fondations d’une communication cohérente dès le départ.",
     },
     {
       number: "02",
       title: "Repositionnement",
       // Notion 3459ea1e-2812-81c9-8f23-f1b689d7f2c6 (Validé FR)
       description:
-        "Votre activité existe, elle tourne, mais votre image n'est plus alignée avec votre niveau actuel. L'écart se creuse entre ce que vous valez et ce qu'on voit de vous.",
+        "Votre activité existe, elle tourne, mais votre image n’est plus alignée avec votre niveau actuel. L’écart se creuse entre ce que vous valez et ce qu’on voit de vous.",
     },
     {
       number: "03",
       title: "Accélération",
       // Notion 3459ea1e-2812-8136-a933-c73e8ce36f5f (Validé FR)
       description:
-        "Votre business performe, votre marché s'ouvre. Vous voulez passer au niveau supérieur et capturer la croissance qui se présente. On construit les outils pour y aller.",
+        "Votre business performe, votre marché s’ouvre. Vous voulez passer au niveau supérieur et capturer la croissance qui se présente. On construit les outils pour y aller.",
     },
     {
       number: "04",
       title: "Événement stratégique",
       // Notion 3459ea1e-2812-818c-a7f1-fd1e3fbf37e2 (Validé FR)
       description:
-        "Un lancement produit, un salon, une levée de fonds, une ouverture, une campagne ciblée. Vous avez besoin d'une communication qui performe sur un moment précis, avec un rendu à la hauteur de l'enjeu.",
+        "Un lancement produit, un salon, une levée de fonds, une ouverture, une campagne ciblée. Vous avez besoin d’une communication qui performe sur un moment précis, avec un rendu à la hauteur de l’enjeu.",
     },
   ],
   // Notion 3459ea1e-2812-8145-98a6-c0a9b31c72fc (Validé FR)
   outroCta:
-    "Votre situation ne figure pas ici ? Parlez-en à IRIS, on trouvera ensemble.",
+    "Votre situation ne figure pas ici ? Parlez-en à IRIS, on trouvera ensemble.",
 } as const;
 
 export const homeChiffres = {
@@ -171,7 +171,7 @@ export const homeChiffres = {
   },
   // Notion 3459ea1e-2812-81bb-a09b-fe06c80d7524 (Validé FR)
   sub: "Pas de storytelling. Juste des faits.",
-  // 3 stats (Stat 4 archivée Notion : "Bloc finalisé avec 3 stats. Quatrième stat non retenue.")
+  // 3 stats (Stat 4 archivée Notion : "Bloc finalisé avec 3 stats. Quatrième stat non retenue.")
   stats: [
     {
       number: "01",
@@ -184,7 +184,7 @@ export const homeChiffres = {
     },
     {
       number: "02",
-      label: "Années d'expertise",
+      label: "Années d’expertise",
       value: 7,
       suffix: "+",
       // Notion 3459ea1e-2812-812d-b17f-c5c4ba4953a5 (Validé FR)
@@ -201,10 +201,10 @@ export const homeChiffres = {
     },
     {
       number: "04",
-      label: "Secteurs d'activité",
+      label: "Secteurs d’activité",
       value: 15,
       suffix: "+",
-      caption: "Du luxe à l'industrie, du B2B au grand public.",
+      caption: "Du luxe à l’industrie, du B2B au grand public.",
     },
     {
       number: "05",
@@ -243,7 +243,7 @@ export const homeMethode = {
     after: " Paradeyes.",
   },
   // Notion 3459ea1e-2812-8120-8b6e-f2aa68835e0e (Validé FR)
-  sub: "Quatre étapes. Un seul cap : votre croissance.",
+  sub: "Quatre étapes. Un seul cap : votre croissance.",
   timelineLabel: "Timeline projet · ~16 semaines",
   timeline: [
     { label: "Comprendre", duration: "2 sem.", flex: 1 },
@@ -257,7 +257,7 @@ export const homeMethode = {
       tag: "Étape 01",
       title: "Comprendre",
       titleItalic: "Comprendre",
-      // TODO Notion sync : headline italic découpée non validée Notion
+      // TODO Notion sync : headline italic découpée non validée Notion
       headline: {
         before: "On comprend votre business avant de ",
         italic: "proposer",
@@ -265,8 +265,8 @@ export const homeMethode = {
       },
       // Notion 3459ea1e-2812-81ac-8695-d778824ab262 (Validé FR), préfixe "01 Comprendre. " retiré
       description:
-        "On s'imprègne de votre business, de vos enjeux, de votre marché. Pas de solution avant le diagnostic.",
-      // TODO Notion sync : livrables non validés Notion
+        "On s’imprègne de votre business, de vos enjeux, de votre marché. Pas de solution avant le diagnostic.",
+      // TODO Notion sync : livrables non validés Notion
       livrables: [
         { label: "Audit business et concurrentiel", duration: "10 j" },
         { label: "Entretiens clients et équipes", duration: "2 sem." },
@@ -317,13 +317,13 @@ export const homeMethode = {
       title: "Accompagner",
       titleItalic: "Accompagner",
       headline: {
-        before: "La livraison n'est pas la fin. C'est le ",
+        before: "La livraison n’est pas la fin. C’est le ",
         italic: "début",
         after: ".",
       },
       // Notion 3459ea1e-2812-8191-8ffd-ee06892e6918 (Validé FR), préfixe retiré
       description:
-        "On accompagne dans la durée pour que chaque action génère du retour. La livraison n'est pas la fin, c'est le début.",
+        "On accompagne dans la durée pour que chaque action génère du retour. La livraison n’est pas la fin, c’est le début.",
       livrables: [
         { label: "Reporting mensuel structuré", duration: "récurrent" },
         { label: "Optimisations continues", duration: "récurrent" },
@@ -343,14 +343,14 @@ export const homeCases = {
   },
   // Notion 3469ea1e-2812-8189-a15f-c7658d441bb7 (Validé FR)
   sub: "Chaque projet est une réponse sur-mesure à un enjeu précis.",
-  // TODO Notion sync : 4 case studies non validés Notion (vivront dans Sanity caseStudy)
+  // TODO Notion sync : 4 case studies non validés Notion (vivront dans Sanity caseStudy)
   cases: [
     {
       number: "01",
       total: "04",
       tag: "Branding · Film",
       title: "Ciné Cascade",
-      sub: "Festival indépendant de la Côte d'Azur. Refonte d'identité et film de lancement.",
+      sub: "Festival indépendant de la Côte d’Azur. Refonte d’identité et film de lancement.",
       metrics: [
         { value: "+180%", label: "CTR" },
         { value: "×2,4", label: "engagement" },
@@ -366,7 +366,7 @@ export const homeCases = {
       total: "04",
       tag: "Campagne · Activation",
       title: "Permobil, Salon 2025",
-      sub: "Campagne 360 pour l'activation salon international. Stand, film, retombées presse.",
+      sub: "Campagne 360 pour l’activation salon international. Stand, film, retombées presse.",
       metrics: [
         { value: "+62%", label: "leads" },
         { value: "×3,1", label: "presse" },
@@ -398,7 +398,7 @@ export const homeCases = {
       total: "04",
       tag: "Branding · Print",
       title: "Maison artisan premium",
-      sub: "Repositionnement d'un label artisan en marque premium. Identité, packaging, retail.",
+      sub: "Repositionnement d’un label artisan en marque premium. Identité, packaging, retail.",
       metrics: [
         { value: "+32%", label: "prix moyen" },
         { value: "×4,1", label: "presse spé." },
@@ -420,7 +420,7 @@ export const homeTestimonials = {
     italic: "mieux",
     after: " que nous.",
   },
-  // TODO Notion sync : 4 témoignages non validés Notion (vivront dans Sanity testimonial)
+  // TODO Notion sync : 4 témoignages non validés Notion (vivront dans Sanity testimonial)
   items: [
     {
       quote:
@@ -442,32 +442,32 @@ export const homeTestimonials = {
     },
     {
       quote:
-        "Cohérence, exigence, vitesse d'exécution. Trois qualités qu'on ne trouve presque jamais ensemble.",
+        "Cohérence, exigence, vitesse d’exécution. Trois qualités qu’on ne trouve presque jamais ensemble.",
       author: "Alexandre P.",
       role: "Marketing Director, Maison de Luxe",
     },
     {
       quote:
-        "Ils ont compris en 2 réunions ce que nos précédentes agences n'avaient pas saisi en 6 mois. Le résultat suit.",
+        "Ils ont compris en 2 réunions ce que nos précédentes agences n’avaient pas saisi en 6 mois. Le résultat suit.",
       author: "Camille L.",
       role: "Head of Brand, Maison de cosmétique",
     },
     {
       quote:
-        "L'équipe ne vend pas du livrable, elle pense en effet sur le business. C'est ce qu'il manquait à notre stack.",
+        "L’équipe ne vend pas du livrable, elle pense en effet sur le business. C’est ce qu’il manquait à notre stack.",
       author: "Vincent M.",
       role: "CEO, Scale-up SaaS",
     },
     {
       quote:
-        "Du conseil sans esbroufe, une exécution propre. Un standard rare aujourd'hui.",
+        "Du conseil sans esbroufe, une exécution propre. Un standard rare aujourd’hui.",
       author: "Léa B.",
       role: "Directrice Communication, Fondation",
     },
   ],
 } as const;
 
-// TODO Notion sync : section Journal preview entièrement absente Notion
+// TODO Notion sync : section Journal preview entièrement absente Notion
 export const homeJournal = {
   eyebrow: "Journal",
   headline: {
@@ -475,34 +475,34 @@ export const homeJournal = {
     italic: "convictions",
     after: ".",
   },
-  sub: "Trois articles par mois sur la croissance, le branding, la mesure d'impact.",
+  sub: "Trois articles par mois sur la croissance, le branding, la mesure d’impact.",
   cta: "Voir tous les articles",
   ctaHref: "/journal",
   articles: [
     {
       category: "Stratégie",
       title:
-        "Pourquoi 80 % des refontes de site n'augmentent pas le CA.",
+        "Pourquoi 80 % des refontes de site n’augmentent pas le CA.",
       excerpt:
-        "Le diagnostic est presque toujours le même. Et il n'a rien à voir avec le design.",
+        "Le diagnostic est presque toujours le même. Et il n’a rien à voir avec le design.",
       readTime: "8 min",
       date: "Avril 2026",
       href: "/journal/refonte-site-augmentation-ca",
     },
     {
       category: "Méthode",
-      title: "Mesurer l'impact d'une marque, vraiment.",
+      title: "Mesurer l’impact d’une marque, vraiment.",
       excerpt:
-        "Au-delà du CTR. Trois indicateurs qu'on regarde tous les trimestres.",
+        "Au-delà du CTR. Trois indicateurs qu’on regarde tous les trimestres.",
       readTime: "6 min",
       date: "Avril 2026",
       href: "/journal/mesurer-impact-marque",
     },
     {
       category: "Tendance",
-      title: "L'IA dans la création : levier ou paresse ?",
+      title: "L’IA dans la création : levier ou paresse ?",
       excerpt:
-        "Pour nous, c'est une question d'usage. Voici notre cadre interne.",
+        "Pour nous, c’est une question d’usage. Voici notre cadre interne.",
       readTime: "5 min",
       date: "Mars 2026",
       href: "/journal/ia-creation-levier-paresse",
@@ -519,53 +519,53 @@ export const homeFaq = {
     after: ".",
   },
   // Notion 3469ea1e-2812-8199-98a5-f05f63495a0d (Validé FR)
-  sub: "Si votre question n'est pas là, parlez-en à IRIS ou réservez un appel.",
+  sub: "Si votre question n’est pas là, parlez-en à IRIS ou réservez un appel.",
   items: [
     {
       // Notion 3469ea1e-2812-8104-9f1d-c94dd33b7633 (Validé FR)
-      q: "Comment évaluez-vous le budget d'un projet ?",
-      a: "Chaque projet a son propre budget, aligné sur vos enjeux et les résultats attendus. Nous ne vendons pas des prestations à la grille, nous construisons des réponses sur-mesure. Le budget exact se définit ensemble pendant l'appel, une fois qu'on a compris votre situation.",
+      q: "Comment évaluez-vous le budget d’un projet ?",
+      a: "Chaque projet a son propre budget, aligné sur vos enjeux et les résultats attendus. Nous ne vendons pas des prestations à la grille, nous construisons des réponses sur-mesure. Le budget exact se définit ensemble pendant l’appel, une fois qu’on a compris votre situation.",
     },
     {
       // Notion 3469ea1e-2812-811b-a918-cd269e5122b4 (Validé FR)
-      q: "Combien de temps prend un projet ?",
-      a: "De quelques semaines à plusieurs mois selon l'ampleur. La seule constante : nous n'improvisons jamais et nous ne livrons jamais en urgence. Si votre deadline est serrée, parlons-en rapidement pour voir si c'est réalisable.",
+      q: "Combien de temps prend un projet ?",
+      a: "De quelques semaines à plusieurs mois selon l’ampleur. La seule constante : nous n’improvisons jamais et nous ne livrons jamais en urgence. Si votre deadline est serrée, parlons-en rapidement pour voir si c’est réalisable.",
     },
     {
       // Notion 3469ea1e-2812-8162-8dc9-df1a6700bb0f (Validé FR)
-      q: "Où travaillez-vous ?",
-      a: "Partout en France et à l'international. La proximité compte moins que la compréhension de votre business. Nous travaillons en visio pour la plupart des échanges et nous nous déplaçons quand c'est utile.",
+      q: "Où travaillez-vous ?",
+      a: "Partout en France et à l’international. La proximité compte moins que la compréhension de votre business. Nous travaillons en visio pour la plupart des échanges et nous nous déplaçons quand c’est utile.",
     },
     {
       // Notion 3469ea1e-2812-8181-80c9-f83c04526c06 (Validé FR)
-      q: "Comment se passe un projet concrètement ?",
-      a: "Diagnostic approfondi, stratégie créative, production, suivi de croissance. Un interlocuteur unique, des validations régulières, zéro surprise. Le détail exact de votre projet se construit lors de l'appel de cadrage.",
+      q: "Comment se passe un projet concrètement ?",
+      a: "Diagnostic approfondi, stratégie créative, production, suivi de croissance. Un interlocuteur unique, des validations régulières, zéro surprise. Le détail exact de votre projet se construit lors de l’appel de cadrage.",
     },
     {
       // Notion 3469ea1e-2812-814f-bb92-dc21ef8722f4 (Validé FR)
-      q: "Qu'est-ce qui différencie Paradeyes d'une agence classique ?",
-      a: "Nous refusons deux pratiques courantes dans notre métier : proposer avant d'avoir compris, livrer sans mesurer. Votre budget communication doit vous rapporter plus qu'il ne vous coûte. Sinon, nous n'avons pas fait notre travail.",
+      q: "Qu’est-ce qui différencie Paradeyes d’une agence classique ?",
+      a: "Nous refusons deux pratiques courantes dans notre métier : proposer avant d’avoir compris, livrer sans mesurer. Votre budget communication doit vous rapporter plus qu’il ne vous coûte. Sinon, nous n’avons pas fait notre travail.",
     },
     {
       // Notion 3469ea1e-2812-81d8-abbe-e76b716af596 (Validé FR)
-      q: "Vous gérez aussi les réseaux sociaux ?",
-      a: "Nous produisons les contenus qui alimentent vos réseaux : vidéo, photo, motion, campagnes, identité visuelle. Pour le périmètre exact de notre accompagnement, ça dépend de votre stratégie et de vos équipes. C'est précisément ce genre de sujet qu'on clarifie dans l'appel de 30 minutes.",
+      q: "Vous gérez aussi les réseaux sociaux ?",
+      a: "Nous produisons les contenus qui alimentent vos réseaux : vidéo, photo, motion, campagnes, identité visuelle. Pour le périmètre exact de notre accompagnement, ça dépend de votre stratégie et de vos équipes. C’est précisément ce genre de sujet qu’on clarifie dans l’appel de 30 minutes.",
     },
     {
       // Notion 3469ea1e-2812-8127-9f6e-e226189320af (Validé FR)
-      q: "Comment démarrer un projet avec vous ?",
-      a: "Un échange de 30 minutes, gratuit, structuré. Vous repartez avec des recommandations concrètes, que vous choisissiez de travailler avec nous ou non. C'est la meilleure façon de savoir si on est la bonne agence pour vous.",
+      q: "Comment démarrer un projet avec vous ?",
+      a: "Un échange de 30 minutes, gratuit, structuré. Vous repartez avec des recommandations concrètes, que vous choisissiez de travailler avec nous ou non. C’est la meilleure façon de savoir si on est la bonne agence pour vous.",
     },
     {
       // Notion 3469ea1e-2812-81b8-9d56-e78bf8a1ed66 (Validé FR)
-      q: "Est-ce que vous acceptez tous les projets ?",
-      a: "Non. Nous travaillons avec des clients qui veulent vraiment construire, pas juste livrer. Si votre projet manque de clarté ou si l'alignement n'est pas là, nous vous le dirons honnêtement.",
+      q: "Est-ce que vous acceptez tous les projets ?",
+      a: "Non. Nous travaillons avec des clients qui veulent vraiment construire, pas juste livrer. Si votre projet manque de clarté ou si l’alignement n’est pas là, nous vous le dirons honnêtement.",
     },
   ],
 } as const;
 
 export const homePreFooter = {
-  eyebrow: "Vous voulez avancer ?",
+  eyebrow: "Vous voulez avancer ?",
   headline: {
     // Notion 3459ea1e-2812-81e2-842f-cb5601aae00e (Validé FR)
     before: "Parlons de votre ",
@@ -573,7 +573,7 @@ export const homePreFooter = {
     after: " maintenant.",
   },
   // Notion 3459ea1e-2812-8174-b613-e9a8471cd9a9 (Validé FR)
-  sub: "30 minutes d'appel gratuit. Sans engagement. Des recommandations concrètes à la clé.",
+  sub: "30 minutes d’appel gratuit. Sans engagement. Des recommandations concrètes à la clé.",
   cta: "Un appel gratuit de 30 min",
   ctaHref: "/contact#appel",
 } as const;

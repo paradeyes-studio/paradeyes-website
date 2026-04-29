@@ -45,7 +45,7 @@ const COPY: Record<"fr" | "en", HeroCopy> = {
       "Une agence sur-mesure pour transformer vos enjeux.",
     irisLead: "Décrivez votre projet. IRIS vous oriente en 2 minutes.",
     irisPlaceholder:
-      "Qu'aimeriez-vous améliorer pour rendre votre business plus performant ?",
+      "Qu’aimeriez-vous améliorer pour rendre votre business plus performant ?",
     suggestions: [
       "Branding",
       "Site web",

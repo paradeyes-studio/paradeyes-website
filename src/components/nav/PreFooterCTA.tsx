@@ -40,12 +40,12 @@ const CONTENT: Record<PreFooterVariant, PreFooterContent> = {
     ctaHref: homePreFooter.ctaHref,
   },
   offre: {
-    eyebrow: "Passons à l'étape suivante",
+    eyebrow: "Passons à l’étape suivante",
     titleBefore: "Ce que vous venez de lire vous ",
     titleItalic: "parle",
-    titleAfter: " ?",
+    titleAfter: " ?",
     description:
-      "Dites nous en plus sur votre contexte en 30 minutes. On repart avec une idée claire de ce qu'on peut construire ensemble.",
+      "Dites nous en plus sur votre contexte en 30 minutes. On repart avec une idée claire de ce qu’on peut construire ensemble.",
     cta: "Un appel gratuit de 30 min",
     ctaHref: "/contact#appel",
   },
@@ -53,7 +53,7 @@ const CONTENT: Record<PreFooterVariant, PreFooterContent> = {
     eyebrow: "Dernière chance",
     titleBefore: "Vous ",
     titleItalic: "hésitez",
-    titleAfter: " encore ?",
+    titleAfter: " encore ?",
     description:
       "Un dernier moyen rapide. Appel de 30 minutes, sans engagement. On écoute, on conseille, on avance si ça colle.",
     cta: "Un appel gratuit de 30 min",
@@ -171,7 +171,7 @@ export function PreFooterCTA({
                   >
                     <input
                       type="text"
-                      placeholder="Qu'aimeriez-vous améliorer pour rendre votre business plus performant ?"
+                      placeholder="Qu’aimeriez-vous améliorer pour rendre votre business plus performant ?"
                       className="pdy-prefooter-iris-input"
                       aria-label="Décrivez votre projet"
                     />

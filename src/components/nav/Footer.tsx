@@ -108,7 +108,7 @@ export function Footer({
             <Link
               ref={logoRef}
               href="/"
-              aria-label="Paradeyes, retour à l'accueil"
+              aria-label="Paradeyes, retour à l’accueil"
               className="pdy-foot-logo"
             >
               <Logo className="pdy-foot-logo-svg" />
