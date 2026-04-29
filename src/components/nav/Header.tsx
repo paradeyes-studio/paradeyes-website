@@ -9,11 +9,18 @@ import { ThemeSwitch } from "./ThemeSwitch";
 import { MobileMenu } from "./MobileMenu";
 import { cn } from "@/lib/utils";
 
-interface HeaderProps {
-  locale: "fr" | "en";
+export interface HeaderData {
+  navItems?: ReadonlyArray<{ label: string; href: string }>;
+  ctaLabel?: string;
+  ctaHref?: string;
 }
 
-const NAV_ITEMS = [
+interface HeaderProps {
+  locale: "fr" | "en";
+  data?: HeaderData;
+}
+
+const DEFAULT_NAV_ITEMS = [
   { label: "Agence", href: "/agence" },
   { label: "Offres", href: "/offres" },
   { label: "Réalisations", href: "/realisations" },
@@ -25,9 +32,12 @@ type PlausibleWindow = Window & {
   plausible?: (event: string, options?: { props?: Record<string, unknown> }) => void;
 };
 
-export function Header({ locale }: HeaderProps) {
+export function Header({ locale, data }: HeaderProps) {
   const pathname = usePathname();
   const activeHref = pathname || "/";
+  const navItems = data?.navItems ?? DEFAULT_NAV_ITEMS;
+  const ctaLabel = data?.ctaLabel ?? "Un appel gratuit de 30 min";
+  const ctaHref = data?.ctaHref ?? "/contact#appel";
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLight, setIsLight] = useState(false);
@@ -158,7 +168,7 @@ export function Header({ locale }: HeaderProps) {
             className="pdy-header-capsule-nav"
             aria-label="Navigation principale"
           >
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -181,7 +191,7 @@ export function Header({ locale }: HeaderProps) {
           </div>
 
           <Link
-            href="/contact#appel"
+            href={ctaHref}
             className="pdy-header-capsule-cta"
             onClick={() => {
               const plausible = (window as PlausibleWindow).plausible;
@@ -191,7 +201,7 @@ export function Header({ locale }: HeaderProps) {
             }}
           >
             <span className="pdy-header-capsule-cta-dot" aria-hidden="true" />
-            <span>Un appel gratuit de 30 min</span>
+            <span>{ctaLabel}</span>
             <ArrowRight aria-hidden="true" />
           </Link>
 

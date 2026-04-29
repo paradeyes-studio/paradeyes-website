@@ -99,7 +99,15 @@ export default async function Home({ params }: Props) {
 
   return (
     <>
-      <Header locale={typedLocale} />
+      <Header
+        locale={typedLocale}
+        data={{
+          ctaHref:
+            typeof siteSettings?.headerCtaUrl === "string"
+              ? siteSettings.headerCtaUrl
+              : undefined,
+        }}
+      />
 
       <main id="main">
         <HeroSection

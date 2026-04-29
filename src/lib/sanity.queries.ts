@@ -65,6 +65,7 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
   footerBaseline,
   footerStatement,
   footerLocation,
+  headerCtaUrl,
   preFooterDefault{
     eyebrow,
     title,
@@ -82,6 +83,7 @@ export type SiteSettingsData = {
   footerBaseline?: unknown;
   footerStatement?: string;
   footerLocation?: string;
+  headerCtaUrl?: string;
   preFooterDefault?: {
     eyebrow: string;
     title: string;
