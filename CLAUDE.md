@@ -174,6 +174,23 @@ Pattern de wiring d'une nouvelle section :
 
 Les composants n'ont jamais besoin d'être modifiés pour consommer un nouveau champ Sanity tant que leur interface `Data` couvre déjà la prop. Si un nouveau sous-champ est ajouté en Phase 5+, étendre l'interface du composant ET le mapping dans `page.tsx`.
 
+## Pattern mappers Sanity centralisés (Phase 5)
+
+Le wiring fin des **arrays Sanity** (cards Offres, steps Méthode, items Moments, stats Chiffres, refs caseStudy/testimonial/article/faqItem) est centralisé dans `src/lib/sanity-mappers.ts`. Chaque mapper :
+
+1. Prend un payload Sanity brut (objet ou array de refs après résolution GROQ).
+2. Retourne `ReadonlyArray<ItemType> | undefined` où `ItemType` est exporté depuis `sanity-mappers.ts`.
+3. Retourne `undefined` si l'array est vide ou si tous les items sont incomplets, déclenchant le fallback statique du composant.
+4. Gère défensivement les nullish, les casts (string ↔ number), les dates FR (mois année), les concaténations (slug → href).
+
+**Pour ajouter un nouveau mapper** :
+- Définir le `Item` type exporté dans `sanity-mappers.ts`.
+- Implémenter `mapSanityXxx(rawField, locale): ReadonlyArray<ItemType> | undefined`.
+- Relâcher l'interface du composant : `xxx?: ReadonlyArray<ItemType>`.
+- Importer le mapper dans `page.tsx` et l'appeler dans le mapping de la section.
+
+Les fallbacks `home-fallback.ts` restent **inchangés** (tuples `as const`). Ils sont assignables à `ReadonlyArray<ItemType>` par covariance, donc le composant continue de les accepter sans cast.
+
 ## Dashboard (NE PAS CASSER)
 
 dashboard.paradeyesagency.com est un projet séparé déjà en production.
