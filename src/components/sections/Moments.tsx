@@ -1,67 +1,33 @@
 "use client";
 
-import { useRef } from "react";
 import {
   motion,
-  useInView,
   useReducedMotion,
-  useScroll,
-  useTransform,
   type Variants,
 } from "framer-motion";
 import { homeMoments } from "@/content/home-fallback";
 import type { MomentItemShape } from "@/lib/sanity-mappers";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
-import { Particles } from "@/components/ui/Particles";
 
 type MomentItem = MomentItemShape;
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
-    },
-  },
-};
-
 const cardVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 60,
-    filter: "blur(20px)",
-    scale: 0.94,
-  },
-  visible: {
+  hidden: { opacity: 0, y: 20 },
+  visible: (idx: number) => ({
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
-    scale: 1,
     transition: {
-      duration: 1.0,
+      duration: 0.6,
+      delay: idx * 0.12,
       ease: [0.16, 1, 0.3, 1],
     },
-  },
-};
-
-const ghostNumberVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.6 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      delay: 0.4,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
+  }),
 };
 
 const reducedVariants: Variants = {
-  hidden: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
-  visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0 },
 };
 
 function renderTextWithBreak(text: string, marker: string, breakClass: string) {
@@ -80,28 +46,16 @@ function renderTextWithBreak(text: string, marker: string, breakClass: string) {
   );
 }
 
-function MomentCard({ item, reduced }: { item: MomentItem; reduced: boolean }) {
-  const ref = useRef<HTMLLIElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [40, -40]);
-
+function MomentCard({ item, index, reduced }: { item: MomentItem; index: number; reduced: boolean }) {
   return (
     <motion.li
-      ref={ref}
       className="pdy-moment-card"
+      custom={index}
       variants={reduced ? reducedVariants : cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
     >
-      <motion.span
-        className="pdy-moment-card-num"
-        aria-hidden="true"
-        variants={reduced ? reducedVariants : ghostNumberVariants}
-        style={reduced ? undefined : { y: parallaxY }}
-      >
-        {item.number}
-      </motion.span>
       <div className="pdy-moment-card-content">
         <span className="pdy-moment-card-tag">
           <span className="pdy-moment-card-tag-dot" aria-hidden="true" />
@@ -130,19 +84,14 @@ export function Moments({ data = {} }: { data?: MomentsData } = {}) {
   const outroCta = data.outroCta ?? homeMoments.outroCta;
   const reduced = useReducedMotion() ?? false;
   const reveal = useSectionReveal<HTMLElement>(0.15);
-  const gridRef = useRef<HTMLUListElement>(null);
-  const isGridInView = useInView(gridRef, { once: true, margin: "-80px" });
 
   return (
     <section
       ref={reveal}
-      className="pdy-moments pdy-bloc-dark pdy-section-stacked pdy-section-stacked--z2 pdy-section-reveal"
+      className="pdy-moments pdy-moments--flat pdy-bloc-dark pdy-section-reveal"
       data-section-theme="dark"
       aria-labelledby="moments-title"
     >
-      <div className="pdy-moments-halo" aria-hidden="true" />
-      <Particles count={20} variant="green" />
-
       <div className="pdy-moments-inner">
         <header className="pdy-moments-head">
           <p className="pdy-eyebrow">{eyebrow}</p>
@@ -158,17 +107,11 @@ export function Moments({ data = {} }: { data?: MomentsData } = {}) {
           </p>
         </header>
 
-        <motion.ul
-          ref={gridRef}
-          className="pdy-moments-grid"
-          initial="hidden"
-          animate={isGridInView ? "visible" : "hidden"}
-          variants={containerVariants}
-        >
-          {items.map((m) => (
-            <MomentCard key={m.number} item={m} reduced={reduced} />
+        <ul className="pdy-moments-grid">
+          {items.map((m, idx) => (
+            <MomentCard key={m.number} item={m} index={idx} reduced={reduced} />
           ))}
-        </motion.ul>
+        </ul>
 
         <p className="pdy-moments-outro">
           {renderTextWithBreak(outroCta, "Parlez-en à IRIS,", "pdy-moments-outro-break")}
