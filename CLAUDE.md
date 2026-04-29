@@ -130,6 +130,21 @@ Cette règle est obligatoire pour toutes les futures contributions. Le fetch San
 
 Le pattern est identique pour les composants client et serveur (le fetch est server, la prop est sérialisée vers le client). Aucun composant ne fait son propre fetch Sanity.
 
+## Règle additive sur les schémas Sanity (Phase 3)
+
+Toute modification d'un schéma Sanity côté `paradeyes-dashboard` doit être strictement additive. Aucun champ existant n'est supprimé ni renommé, même s'il paraît obsolète. Pour faire évoluer un champ sans casse :
+
+1. Ajouter un nouveau champ à côté du champ existant (ex : `titleRich` à côté de `title`)
+2. Mettre à jour la GROQ pour fetcher les deux
+3. Côté composant, utiliser une chaîne de fallback : `data?.titleRich ?? data?.title ?? fallback.title`
+4. Lorsque le contenu est entièrement migré dans le nouveau champ, l'ancien peut être marqué deprecated mais conservé jusqu'à confirmation explicite de Basilide.
+
+Cette règle garantit que le Studio reste fonctionnel et que le rendu visuel reste identique tout au long des évolutions de schéma.
+
+## Pattern Portable Text (futures contributions)
+
+Pour les champs structurés à mark italique signature (titres éclatés before/italic/after), le pattern actuel utilise 3 strings séparés. Si un futur chantier introduit du Portable Text via `array of block` côté Sanity, le rendu côté website devra utiliser `@portabletext/react` avec un mapping de marks personnalisé (ex : `em` rendu avec la classe italique signature). Voir `SANITY_PHASE3_FIELD_AUDIT.md` pour le détail des champs concernés.
+
 ## Dashboard (NE PAS CASSER)
 
 dashboard.paradeyesagency.com est un projet séparé déjà en production.
