@@ -75,7 +75,22 @@ const item: Variants = {
   },
 };
 
-export function JournalPreview() {
+export interface JournalPreviewData {
+  eyebrow?: string;
+  title?: { before: string; italic: string; after: string };
+  sub?: string;
+  cta?: string;
+  ctaHref?: string;
+  articles?: typeof homeJournal.articles;
+}
+
+export function JournalPreview({ data = {} }: { data?: JournalPreviewData } = {}) {
+  const eyebrow = data.eyebrow ?? homeJournal.eyebrow;
+  const headline = data.title ?? homeJournal.headline;
+  const sub = data.sub ?? homeJournal.sub;
+  const cta = data.cta ?? homeJournal.cta;
+  const ctaHref = data.ctaHref ?? homeJournal.ctaHref;
+  const articles = data.articles ?? homeJournal.articles;
   const reduced = useReducedMotion();
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
   const reveal = useSectionReveal<HTMLElement>(0.15);
@@ -96,12 +111,12 @@ export function JournalPreview() {
               viewport={{ once: true, amount: 0.3 }}
               className="pdy-eyebrow"
             >
-              {homeJournal.eyebrow}
+              {eyebrow}
             </motion.p>
             <SectionHeadline
-              before={homeJournal.headline.before}
-              italic={homeJournal.headline.italic}
-              after={homeJournal.headline.after}
+              before={headline.before}
+              italic={headline.italic}
+              after={headline.after}
               className="pdy-section-h2"
             />
             <motion.p
@@ -111,7 +126,7 @@ export function JournalPreview() {
               viewport={{ once: true, amount: 0.3 }}
               className="pdy-section-sub"
             >
-              {homeJournal.sub}
+              {sub}
             </motion.p>
           </div>
           <motion.div
@@ -121,8 +136,8 @@ export function JournalPreview() {
             viewport={{ once: true, amount: 0.3 }}
             className="pdy-journal-cta-wrap"
           >
-            <Link href={homeJournal.ctaHref} className="pdy-journal-cta">
-              {homeJournal.cta}
+            <Link href={ctaHref} className="pdy-journal-cta">
+              {cta}
               <ArrowRight aria-hidden="true" />
             </Link>
           </motion.div>
@@ -135,7 +150,7 @@ export function JournalPreview() {
           viewport={{ once: true, amount: 0.15 }}
           className="pdy-journal-grid"
         >
-          {homeJournal.articles.map((article) => (
+          {articles.map((article) => (
             <JournalCard key={article.href} article={article} />
           ))}
         </motion.div>
