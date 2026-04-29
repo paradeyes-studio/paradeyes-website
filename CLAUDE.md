@@ -118,6 +118,18 @@ L'agent conversationnel IRIS sera intégré en Étape 9. Le site doit prévoir :
 - Route API stub pour Claude API via Vercel Function
 - Schéma Sanity pour les paramètres IRIS
 
+## Pattern de consommation Sanity avec fallback
+
+Tous les composants de la home consomment Sanity avec fallback systématique sur `home-fallback.ts`,
+
+```tsx
+const data = sanityData?.section ?? homeFallback.section
+```
+
+Cette règle est obligatoire pour toutes les futures contributions. Le fetch Sanity est centralisé dans `src/app/[locale]/page.tsx` (3 fetches en parallèle, `homePage`, `siteSettings`, `contact`), et chaque section reçoit ses données via une prop `data` typée. Si Sanity retourne `null` ou un champ vide, le fallback `home-fallback.ts` prend le relais sans rendu cassé.
+
+Le pattern est identique pour les composants client et serveur (le fetch est server, la prop est sérialisée vers le client). Aucun composant ne fait son propre fetch Sanity.
+
 ## Dashboard (NE PAS CASSER)
 
 dashboard.paradeyesagency.com est un projet séparé déjà en production.
