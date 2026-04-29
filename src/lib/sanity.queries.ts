@@ -89,13 +89,29 @@ export type SiteSettingsData = {
 
 /**
  * Home page content. Hero, proof, offers, method, projects highlight, journal highlight, IRIS.
+ *
+ * Extended 2026-04-29 to fetch all fields available in the Dashboard `homePage` schema.
+ * Legacy fields (proof, offersIntro, method shorthand, projectsHighlight, journalHighlight, iris)
+ * are kept for backward compat. New fields aligned with the Dashboard schema (heroBadge,
+ * heroTitle, offresCards, methodeSteps, momentsItems, etc) are additive and optional.
+ *
+ * Components still consume `home-fallback.ts` as the primary source. Wiring each section
+ * to Sanity is the next mission (estimated 4-6h with interactive testing).
  */
 export const homePageQuery = groq`*[_type == "homePage"][0]{
+  // === Hero (legacy + complete) ===
+  heroBadge,
+  heroTitle,
+  heroSubtitle,
+  heroCtaPrimary,
+  heroCtaSecondary,
+  heroSignatureMarque,
+  heroIntroIris,
   heroBadgePositionnement,
   heroPhraseAccroche,
-  heroSubtitle,
   heroPlaceholderIris,
   heroBadges[]{label},
+  heroTrustBadges[]{label},
   hero{
     eyebrow,
     title,
@@ -103,63 +119,131 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
     ctaLabel,
     ctaHref
   },
+
+  // === Problemes ===
+  problemesTitle,
+  problemesSubtitle,
+  problemesItems[]{title, description},
+  problemesTransition,
+  problemesDouleurs[]{title, sousTexte},
+
+  // === Offres ===
+  offresTitle,
+  offresSubtitle,
+  offresCards[],
+  offresCtaLabel,
+  offersIntro{eyebrow, title, description},
+
+  // === Chiffres ===
+  chiffresTitle,
+  chiffresSubtitle,
+  chiffresItems[],
+  chiffresTransition,
   proof{
     eyebrow,
     title,
     description,
     brands[]->{name, logo}
   },
-  offersIntro{
-    eyebrow,
-    title,
-    description
-  },
+
+  // === Methode ===
+  methodeTitle,
+  methodeSubtitle,
+  methodeSteps[],
   method{
     eyebrow,
     title,
-    steps[]{
-      label,
-      title,
-      description
-    }
+    steps[]{label, title, description}
   },
+
+  // === Moments de croissance ===
+  momentsTitle,
+  momentsSubtitle,
+  momentsPhraseSortie,
+  momentsBandeauSeo,
+  momentsTransition,
+  momentsItems[]->{_id, title, description, number},
+
+  // === Temoignages ===
+  temoignagesTitle,
+  temoignagesSubtitle,
+  temoignagesFeatured[]->{
+    _id,
+    quote,
+    authorName,
+    authorRole,
+    authorCompany,
+    rating,
+    isVerified,
+    isFeatured,
+    kpiValue,
+    kpiLabel,
+    quoteHighlight
+  },
+
+  // === Etudes de cas ===
+  etudesTitle,
+  etudesSubtitle,
+  etudesFeatured[]->{
+    _id,
+    slug,
+    title,
+    description,
+    badges,
+    metrics,
+    location,
+    year,
+    cover
+  },
+  etudesCtaLabel,
+  etudesUrl,
   projectsHighlight{
     eyebrow,
     title,
-    projects[]->{
-      _id,
-      slug,
-      title,
-      cover
-    }
+    projects[]->{_id, slug, title, cover}
   },
+
+  // === FAQ ===
+  faqTitle,
+  faqSubtitle,
+  faqCtaFinal,
+
+  // === CTA Final ===
+  ctaFinalTitle,
+  ctaFinalSubtitle,
+  ctaFinalIris{title, description, prefillContext},
+  ctaFinalCalendly{title, description, embedUrl},
+  ctaFinalTrustSignal,
+
+  // === Journal highlight (legacy) ===
   journalHighlight{
     eyebrow,
     title,
-    articles[]->{
-      _id,
-      slug,
-      title,
-      excerpt,
-      publishedAt
-    }
+    articles[]->{_id, slug, title, excerpt, publishedAt}
   },
-  iris{
-    eyebrow,
-    title,
-    description
-  }
+
+  // === IRIS (legacy) ===
+  iris{eyebrow, title, description}
 }`;
 
 export type HomePageData = {
   // Localized fields may arrive as plain strings or as
   // internationalized-array entries ({_key, language, value}[]).
   // Resolution happens at the page level via resolveLocalized().
+
+  // === Hero (extended) ===
+  heroBadge?: unknown;
+  heroTitle?: unknown;
+  heroSubtitle?: unknown;
+  heroCtaPrimary?: unknown;
+  heroCtaSecondary?: unknown;
+  heroSignatureMarque?: unknown;
+  heroIntroIris?: unknown;
   heroBadgePositionnement?: unknown;
   heroPhraseAccroche?: unknown;
-  heroSubtitle?: unknown;
   heroPlaceholderIris?: unknown;
   heroBadges?: unknown;
+  heroTrustBadges?: unknown;
   hero?: {
     eyebrow: string;
     title: string;
@@ -167,22 +251,62 @@ export type HomePageData = {
     ctaLabel?: string;
     ctaHref?: string;
   };
+
+  // === Problemes ===
+  problemesTitle?: unknown;
+  problemesSubtitle?: unknown;
+  problemesItems?: unknown;
+  problemesTransition?: unknown;
+  problemesDouleurs?: unknown;
+
+  // === Offres ===
+  offresTitle?: unknown;
+  offresSubtitle?: unknown;
+  offresCards?: unknown;
+  offresCtaLabel?: unknown;
+  offersIntro?: { eyebrow: string; title: string; description: string };
+
+  // === Chiffres ===
+  chiffresTitle?: unknown;
+  chiffresSubtitle?: unknown;
+  chiffresItems?: unknown;
+  chiffresTransition?: unknown;
   proof?: {
     eyebrow: string;
     title: string;
     description: string;
     brands?: Array<{ name: string; logo?: { asset: { _ref: string } } }>;
   };
-  offersIntro?: {
-    eyebrow: string;
-    title: string;
-    description: string;
-  };
+
+  // === Methode ===
+  methodeTitle?: unknown;
+  methodeSubtitle?: unknown;
+  methodeSteps?: unknown;
   method?: {
     eyebrow: string;
     title: string;
     steps?: Array<{ label: string; title: string; description: string }>;
   };
+
+  // === Moments ===
+  momentsTitle?: unknown;
+  momentsSubtitle?: unknown;
+  momentsPhraseSortie?: unknown;
+  momentsBandeauSeo?: unknown;
+  momentsTransition?: unknown;
+  momentsItems?: unknown;
+
+  // === Temoignages ===
+  temoignagesTitle?: unknown;
+  temoignagesSubtitle?: unknown;
+  temoignagesFeatured?: unknown;
+
+  // === Etudes ===
+  etudesTitle?: unknown;
+  etudesSubtitle?: unknown;
+  etudesFeatured?: unknown;
+  etudesCtaLabel?: unknown;
+  etudesUrl?: string;
   projectsHighlight?: {
     eyebrow: string;
     title: string;
@@ -193,6 +317,20 @@ export type HomePageData = {
       cover?: { asset: { _ref: string } };
     }>;
   };
+
+  // === FAQ ===
+  faqTitle?: unknown;
+  faqSubtitle?: unknown;
+  faqCtaFinal?: unknown;
+
+  // === CTA Final ===
+  ctaFinalTitle?: unknown;
+  ctaFinalSubtitle?: unknown;
+  ctaFinalIris?: unknown;
+  ctaFinalCalendly?: unknown;
+  ctaFinalTrustSignal?: unknown;
+
+  // === Journal highlight (legacy) ===
   journalHighlight?: {
     eyebrow: string;
     title: string;
