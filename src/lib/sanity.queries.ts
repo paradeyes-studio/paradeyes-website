@@ -136,15 +136,36 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   // === Offres ===
   offresTitle,
   offresSubtitle,
-  offresCards[],
+  offresEyebrow,
+  offresTitleBefore,
+  offresTitleItalic,
+  offresTitleAfter,
+  offresCards[]{
+    number,
+    tag,
+    title,
+    titleItalic,
+    promesse,
+    glyph,
+    livrables,
+    duration,
+    size,
+    "slug": slug->slug.current
+  },
   offresCtaLabel,
   offersIntro{eyebrow, title, description},
 
   // === Chiffres ===
   chiffresTitle,
   chiffresSubtitle,
+  chiffresEyebrow,
+  chiffresTitleBefore,
+  chiffresTitleItalic,
+  chiffresTitleAfter,
   chiffresItems[],
   chiffresTransition,
+  chiffresClientsLabel,
+  chiffresClients,
   proof{
     eyebrow,
     title,
@@ -155,7 +176,23 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   // === Methode ===
   methodeTitle,
   methodeSubtitle,
-  methodeSteps[],
+  methodeEyebrow,
+  methodeTitleBefore,
+  methodeTitleItalic,
+  methodeTitleAfter,
+  methodeSteps[]{
+    number,
+    title,
+    titleItalic,
+    paragraph,
+    tag,
+    headlineBefore,
+    headlineItalic,
+    headlineAfter,
+    livrablesItems[]{label, duration}
+  },
+  methodeTimelineLabel,
+  methodeTimeline[]{label, duration, flex},
   method{
     eyebrow,
     title,
@@ -165,41 +202,52 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   // === Moments de croissance ===
   momentsTitle,
   momentsSubtitle,
+  momentsEyebrow,
+  momentsTitleBefore,
+  momentsTitleItalic,
+  momentsTitleAfter,
   momentsPhraseSortie,
   momentsBandeauSeo,
   momentsTransition,
-  momentsItems[]->{_id, title, description, number},
+  momentsItems[]->{_id, title, description, "order": order, "slug": slug.current},
 
   // === Temoignages ===
   temoignagesTitle,
   temoignagesSubtitle,
+  temoignagesEyebrow,
+  temoignagesTitleBefore,
+  temoignagesTitleItalic,
+  temoignagesTitleAfter,
   temoignagesFeatured[]->{
     _id,
-    quote,
-    authorName,
-    authorRole,
-    authorCompany,
-    rating,
-    isVerified,
-    isFeatured,
-    kpiValue,
-    kpiLabel,
-    quoteHighlight
+    "quote": quoteShort,
+    "quoteLong": quoteLong,
+    "authorName": author.name,
+    "authorRole": author.role,
+    "authorPhoto": author.photo,
+    "companyName": company.name,
+    "companyLogo": company.logo,
+    featured
   },
 
   // === Etudes de cas ===
   etudesTitle,
   etudesSubtitle,
+  etudesEyebrow,
+  etudesTitleBefore,
+  etudesTitleItalic,
+  etudesTitleAfter,
   etudesFeatured[]->{
     _id,
-    slug,
+    "slug": slug.current,
     title,
-    description,
-    badges,
-    metrics,
-    location,
-    year,
-    cover
+    shortTag,
+    shortSubtitle,
+    homeMetrics[]{value, label},
+    homeLocation,
+    homeBgVariant,
+    "year": metadata.year,
+    coverImage
   },
   etudesCtaLabel,
   etudesUrl,
@@ -209,14 +257,44 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
     projects[]->{_id, slug, title, cover}
   },
 
+  // === Journal (Phase 3 nouvelle section) ===
+  journalEyebrow,
+  journalTitleBefore,
+  journalTitleItalic,
+  journalTitleAfter,
+  journalSubtitle,
+  journalCtaLabel,
+  journalCtaUrl,
+  journalArticles[]->{
+    _id,
+    "slug": slug.current,
+    title,
+    excerpt,
+    category,
+    "readingTime": readingTime,
+    publishedAt,
+    coverImage
+  },
+
   // === FAQ ===
   faqTitle,
   faqSubtitle,
+  faqEyebrow,
+  faqTitleBefore,
+  faqTitleItalic,
+  faqTitleAfter,
   faqCtaFinal,
+  faqItems[]->{_id, question, answer, category, order},
 
   // === CTA Final ===
   ctaFinalTitle,
   ctaFinalSubtitle,
+  ctaFinalEyebrow,
+  ctaFinalTitleBefore,
+  ctaFinalTitleItalic,
+  ctaFinalTitleAfter,
+  ctaFinalCtaLabel,
+  ctaFinalCtaUrl,
   ctaFinalIris{title, description, prefillContext},
   ctaFinalCalendly{title, description, embedUrl},
   ctaFinalTrustSignal,
@@ -278,6 +356,10 @@ export type HomePageData = {
   // === Offres ===
   offresTitle?: unknown;
   offresSubtitle?: unknown;
+  offresEyebrow?: unknown;
+  offresTitleBefore?: unknown;
+  offresTitleItalic?: unknown;
+  offresTitleAfter?: unknown;
   offresCards?: unknown;
   offresCtaLabel?: unknown;
   offersIntro?: { eyebrow: string; title: string; description: string };
@@ -285,8 +367,14 @@ export type HomePageData = {
   // === Chiffres ===
   chiffresTitle?: unknown;
   chiffresSubtitle?: unknown;
+  chiffresEyebrow?: unknown;
+  chiffresTitleBefore?: unknown;
+  chiffresTitleItalic?: unknown;
+  chiffresTitleAfter?: unknown;
   chiffresItems?: unknown;
   chiffresTransition?: unknown;
+  chiffresClientsLabel?: unknown;
+  chiffresClients?: unknown;
   proof?: {
     eyebrow: string;
     title: string;
@@ -297,7 +385,13 @@ export type HomePageData = {
   // === Methode ===
   methodeTitle?: unknown;
   methodeSubtitle?: unknown;
+  methodeEyebrow?: unknown;
+  methodeTitleBefore?: unknown;
+  methodeTitleItalic?: unknown;
+  methodeTitleAfter?: unknown;
   methodeSteps?: unknown;
+  methodeTimelineLabel?: unknown;
+  methodeTimeline?: unknown;
   method?: {
     eyebrow: string;
     title: string;
@@ -307,6 +401,10 @@ export type HomePageData = {
   // === Moments ===
   momentsTitle?: unknown;
   momentsSubtitle?: unknown;
+  momentsEyebrow?: unknown;
+  momentsTitleBefore?: unknown;
+  momentsTitleItalic?: unknown;
+  momentsTitleAfter?: unknown;
   momentsPhraseSortie?: unknown;
   momentsBandeauSeo?: unknown;
   momentsTransition?: unknown;
@@ -315,11 +413,19 @@ export type HomePageData = {
   // === Temoignages ===
   temoignagesTitle?: unknown;
   temoignagesSubtitle?: unknown;
+  temoignagesEyebrow?: unknown;
+  temoignagesTitleBefore?: unknown;
+  temoignagesTitleItalic?: unknown;
+  temoignagesTitleAfter?: unknown;
   temoignagesFeatured?: unknown;
 
   // === Etudes ===
   etudesTitle?: unknown;
   etudesSubtitle?: unknown;
+  etudesEyebrow?: unknown;
+  etudesTitleBefore?: unknown;
+  etudesTitleItalic?: unknown;
+  etudesTitleAfter?: unknown;
   etudesFeatured?: unknown;
   etudesCtaLabel?: unknown;
   etudesUrl?: string;
@@ -334,14 +440,35 @@ export type HomePageData = {
     }>;
   };
 
+  // === Journal (Phase 3 nouvelle section) ===
+  journalEyebrow?: unknown;
+  journalTitleBefore?: unknown;
+  journalTitleItalic?: unknown;
+  journalTitleAfter?: unknown;
+  journalSubtitle?: unknown;
+  journalCtaLabel?: unknown;
+  journalCtaUrl?: string;
+  journalArticles?: unknown;
+
   // === FAQ ===
   faqTitle?: unknown;
   faqSubtitle?: unknown;
+  faqEyebrow?: unknown;
+  faqTitleBefore?: unknown;
+  faqTitleItalic?: unknown;
+  faqTitleAfter?: unknown;
   faqCtaFinal?: unknown;
+  faqItems?: unknown;
 
   // === CTA Final ===
   ctaFinalTitle?: unknown;
   ctaFinalSubtitle?: unknown;
+  ctaFinalEyebrow?: unknown;
+  ctaFinalTitleBefore?: unknown;
+  ctaFinalTitleItalic?: unknown;
+  ctaFinalTitleAfter?: unknown;
+  ctaFinalCtaLabel?: unknown;
+  ctaFinalCtaUrl?: string;
   ctaFinalIris?: unknown;
   ctaFinalCalendly?: unknown;
   ctaFinalTrustSignal?: unknown;
