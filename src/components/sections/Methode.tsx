@@ -46,7 +46,18 @@ const reducedVariants: Variants = {
   visible: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
 };
 
-export function Methode() {
+export interface MethodeData {
+  eyebrow?: string;
+  title?: { before: string; italic: string; after: string };
+  sub?: string;
+  steps?: typeof homeMethode.steps;
+}
+
+export function Methode({ data = {} }: { data?: MethodeData } = {}) {
+  const eyebrow = data.eyebrow ?? homeMethode.eyebrow;
+  const headline = data.title ?? homeMethode.headline;
+  const sub = data.sub ?? homeMethode.sub;
+  const steps = data.steps ?? homeMethode.steps;
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
@@ -99,20 +110,20 @@ export function Methode() {
     >
       <Particles count={18} variant="green" />
       <header className="pdy-methode-header">
-        <p className="pdy-methode-eyebrow">{homeMethode.eyebrow}</p>
+        <p className="pdy-methode-eyebrow">{eyebrow}</p>
         <SectionHeadline
-          before={homeMethode.headline.before}
-          italic={homeMethode.headline.italic}
-          after={homeMethode.headline.after}
+          before={headline.before}
+          italic={headline.italic}
+          after={headline.after}
           className="pdy-methode-title"
           id="methode-title"
         />
-        <p className="pdy-methode-sub">{homeMethode.sub}</p>
+        <p className="pdy-methode-sub">{sub}</p>
       </header>
 
       <div className="pdy-methode-track-wrapper">
         <div ref={trackRef} className="pdy-methode-track">
-          {homeMethode.steps.map((step, idx) => (
+          {steps.map((step, idx) => (
             <motion.article
               key={step.number}
               className="pdy-methode-panel"

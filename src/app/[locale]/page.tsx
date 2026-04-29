@@ -106,7 +106,11 @@ export default async function Home({ params }: Props) {
         />
         <div className="pdy-narrative-section">
           <NarrativeThread variant="methode-cases" />
-          <Methode />
+          <Methode
+            data={{
+              sub: resolveLocalized(homeData?.methodeSubtitle, typedLocale),
+            }}
+          />
           <Cases />
         </div>
         <Testimonials />
