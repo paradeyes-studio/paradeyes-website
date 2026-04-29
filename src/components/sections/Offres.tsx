@@ -1,17 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { homeOffres } from "@/content/home-fallback";
 import type { OffreCardItem } from "@/lib/sanity-mappers";
 import { SectionHeadline } from "@/components/ui/SectionHeadline";
 import { OffreCard } from "./offres/OffreCard";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
 
 function renderSubWithBreak(sub: string) {
   const marker = "croissance.";
@@ -37,57 +30,35 @@ export interface OffresData {
   cards?: ReadonlyArray<OffreCardItem>;
 }
 
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (idx: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      delay: idx * 0.1,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  }),
+};
+
+const reducedVariants: Variants = {
+  hidden: { opacity: 1, y: 0 },
+  visible: { opacity: 1, y: 0 },
+};
+
 export function Offres({ data = {} }: { data?: OffresData } = {}) {
   const eyebrow = data.eyebrow ?? homeOffres.eyebrow;
   const headline = data.title ?? homeOffres.headline;
   const sub = data.sub ?? homeOffres.sub;
   const cards = data.cards ?? homeOffres.cards;
   const reduced = useReducedMotion();
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const progressRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const track = trackRef.current;
-    const progress = progressRef.current;
-    if (!section || !track || !progress) return;
-
-    if (reduced || window.innerWidth < 1024) {
-      track.style.transform = "translateX(0)";
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      const trackWidth = track.scrollWidth;
-      const viewportWidth = window.innerWidth;
-      const distance = Math.max(0, trackWidth - viewportWidth);
-
-      gsap.to(track, {
-        x: -distance,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${distance + window.innerHeight * 0.2}`,
-          scrub: 1.2,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            progress.style.transform = `scaleX(${self.progress})`;
-          },
-        },
-      });
-    }, section);
-
-    return () => ctx.revert();
-  }, [reduced]);
+  const variants = reduced ? reducedVariants : cardVariants;
 
   return (
     <section
-      ref={sectionRef}
-      className="pdy-offres pdy-section-stacked pdy-section-stacked--z1"
+      className="pdy-offres pdy-offres--flat"
       data-section-theme="light"
       id="section-offres"
       aria-labelledby="offres-title"
@@ -104,16 +75,20 @@ export function Offres({ data = {} }: { data?: OffresData } = {}) {
         <p className="pdy-offres-sub">{renderSubWithBreak(sub)}</p>
       </header>
 
-      <div className="pdy-offres-track-wrapper">
-        <div ref={trackRef} className="pdy-offres-track">
-          {cards.map((card) => (
-            <OffreCard key={card.number} data={card} />
-          ))}
-        </div>
-      </div>
-
-      <div className="pdy-offres-progress-wrapper" aria-hidden="true">
-        <div ref={progressRef} className="pdy-offres-progress" />
+      <div className="pdy-offres-grid">
+        {cards.map((card, idx) => (
+          <motion.div
+            key={card.number}
+            className="pdy-offres-grid-cell"
+            custom={idx}
+            variants={variants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+          >
+            <OffreCard data={card} />
+          </motion.div>
+        ))}
       </div>
     </section>
   );

@@ -2173,6 +2173,54 @@ h1, h2, h3, h4 {
   .pdy-offres-progress-wrapper { display: none; }
 }
 
+/* === Offres flat (simplification 2026-04-29) === */
+.pdy-offres.pdy-offres--flat {
+  height: auto;
+  min-height: 0;
+  padding: 120px 5vw;
+  overflow: visible;
+}
+.pdy-offres--flat .pdy-offres-header {
+  position: relative;
+  inset: auto;
+  padding: 0 0 64px;
+  background: transparent;
+  pointer-events: auto;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.pdy-offres--flat .pdy-offres-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.pdy-offres--flat .pdy-offres-grid-cell {
+  display: flex;
+}
+.pdy-offres--flat .pdy-offres-grid-cell > .pdy-offre-card {
+  width: 100%;
+}
+@media (max-width: 1024px) {
+  .pdy-offres--flat .pdy-offres-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+@media (max-width: 640px) {
+  .pdy-offres--flat {
+    padding: 80px 20px;
+  }
+  .pdy-offres--flat .pdy-offres-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .pdy-offres--flat .pdy-offres-header {
+    padding: 0 0 48px;
+  }
+}
+
 /* ================================================================
    3.2.1 MOMENTS
 ================================================================ */
