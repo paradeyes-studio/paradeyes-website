@@ -23,7 +23,18 @@ const fadeOnly = (delay: number): Variants => ({
   visible: { opacity: 1, transition: { duration: 0.4, delay } },
 });
 
-export function Faq() {
+export interface FaqData {
+  eyebrow?: string;
+  title?: { before: string; italic: string; after: string };
+  sub?: string;
+  items?: typeof homeFaq.items;
+}
+
+export function Faq({ data = {} }: { data?: FaqData } = {}) {
+  const eyebrow = data.eyebrow ?? homeFaq.eyebrow;
+  const headline = data.title ?? homeFaq.headline;
+  const sub = data.sub ?? homeFaq.sub;
+  const items = data.items ?? homeFaq.items;
   const reduced = useReducedMotion();
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -47,12 +58,12 @@ export function Faq() {
             viewport={{ once: true, amount: 0.3 }}
             className="pdy-eyebrow"
           >
-            {homeFaq.eyebrow}
+            {eyebrow}
           </motion.p>
           <SectionHeadline
-            before={homeFaq.headline.before}
-            italic={homeFaq.headline.italic}
-            after={homeFaq.headline.after}
+            before={headline.before}
+            italic={headline.italic}
+            after={headline.after}
             className="pdy-section-h2"
           />
           <motion.p
@@ -62,7 +73,7 @@ export function Faq() {
             viewport={{ once: true, amount: 0.3 }}
             className="pdy-section-sub"
           >
-            {homeFaq.sub}
+            {sub}
           </motion.p>
         </div>
 
@@ -73,7 +84,7 @@ export function Faq() {
           viewport={{ once: true, amount: 0.15 }}
           className="pdy-faq-list"
         >
-          {homeFaq.items.map((it, i) => {
+          {items.map((it, i) => {
             const isOpen = openIndex === i;
             const itemId = `${idBase}-${i}`;
             return (

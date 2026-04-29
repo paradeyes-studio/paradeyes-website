@@ -129,7 +129,11 @@ export default async function Home({ params }: Props) {
             No simple Sanity field maps to the structured items shape today;
             wiring stays at the prop contract level for future Studio expansion. */}
         <JournalPreview />
-        <Faq />
+        <Faq
+          data={{
+            sub: resolveLocalized(homeData?.faqSubtitle, typedLocale),
+          }}
+        />
         <MarqueeTags />
       </main>
 
