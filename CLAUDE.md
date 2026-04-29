@@ -145,6 +145,35 @@ Cette règle garantit que le Studio reste fonctionnel et que le rendu visuel res
 
 Pour les champs structurés à mark italique signature (titres éclatés before/italic/after), le pattern actuel utilise 3 strings séparés. Si un futur chantier introduit du Portable Text via `array of block` côté Sanity, le rendu côté website devra utiliser `@portabletext/react` avec un mapping de marks personnalisé (ex : `em` rendu avec la classe italique signature). Voir `SANITY_PHASE3_FIELD_AUDIT.md` pour le détail des champs concernés.
 
+## Pattern wiring shape-by-shape (Phase 4)
+
+Le wiring Sanity → composants est centralisé dans `src/app/[locale]/page.tsx`, pas dans les composants. Chaque composant expose une interface `data?: SectionData` avec des sous-champs typés (eyebrow, title `{before, italic, after}`, sub, arrays). Le composant utilise systématiquement `data?.field ?? homeFallback.field`.
+
+Helpers utilitaires dans `page.tsx` :
+- `resolveLocalized(field, locale)` : résout un champ i18n Sanity en string
+- `resolveTitleEclate(beforeField, italicField, afterField, locale)` : résout les 3 parties d'un titre éclaté en `{before, italic, after}`, retourne `undefined` si l'un manque (déclenche fallback)
+- `resolvePlainStringArray(field)` : résout un array Sanity de strings simples (clients, marquee lines)
+- `resolveHeaderNavItems(field, locale)` : résout `siteSettings.headerLinks` en `Array<{label, href}>`
+- `resolveLocalizedBadges(field, locale)` : résout un array de badges i18n
+
+Pattern de wiring d'une nouvelle section :
+```tsx
+<MaSection
+  data={{
+    eyebrow: resolveLocalized(homeData?.maSectionEyebrow, typedLocale),
+    title: resolveTitleEclate(
+      homeData?.maSectionTitleBefore,
+      homeData?.maSectionTitleItalic,
+      homeData?.maSectionTitleAfter,
+      typedLocale,
+    ),
+    sub: resolveLocalized(homeData?.maSectionSubtitle, typedLocale),
+  }}
+/>
+```
+
+Les composants n'ont jamais besoin d'être modifiés pour consommer un nouveau champ Sanity tant que leur interface `Data` couvre déjà la prop. Si un nouveau sous-champ est ajouté en Phase 5+, étendre l'interface du composant ET le mapping dans `page.tsx`.
+
 ## Dashboard (NE PAS CASSER)
 
 dashboard.paradeyesagency.com est un projet séparé déjà en production.
