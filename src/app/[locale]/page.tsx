@@ -11,7 +11,6 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { JournalPreview } from "@/components/sections/JournalPreview";
 import { Faq } from "@/components/sections/Faq";
 import { MarqueeTags } from "@/components/sections/MarqueeTags";
-import { NarrativeThread } from "@/components/visuals/NarrativeThread";
 import { sanityClient } from "@/lib/sanity";
 import {
   homePageQuery,
@@ -251,37 +250,34 @@ export default async function Home({ params }: Props) {
             ),
           }}
         />
-        <div className="pdy-narrative-section">
-          <NarrativeThread variant="methode-cases" />
-          <Methode
-            data={{
-              eyebrow: resolveLocalized(homeData?.methodeEyebrow, typedLocale),
-              title: resolveTitleEclate(
-                homeData?.methodeTitleBefore,
-                homeData?.methodeTitleItalic,
-                homeData?.methodeTitleAfter,
-                typedLocale,
-              ),
-              sub: resolveLocalized(homeData?.methodeSubtitle, typedLocale),
-              steps: mapSanityMethodeSteps(homeData?.methodeSteps, typedLocale),
-            }}
-          />
-          <Cases
-            data={{
-              eyebrow: resolveLocalized(homeData?.etudesEyebrow, typedLocale),
-              title: resolveTitleEclate(
-                homeData?.etudesTitleBefore,
-                homeData?.etudesTitleItalic,
-                homeData?.etudesTitleAfter,
-                typedLocale,
-              ),
-              sub: resolveLocalized(homeData?.etudesSubtitle, typedLocale),
-              cases: mapSanityCaseStudies(homeData?.etudesFeatured, typedLocale),
-              ctaLabel: resolveLocalized(homeData?.etudesCtaLabel, typedLocale),
-              ctaHref: typeof homeData?.etudesUrl === "string" ? homeData.etudesUrl : undefined,
-            }}
-          />
-        </div>
+        <Methode
+          data={{
+            eyebrow: resolveLocalized(homeData?.methodeEyebrow, typedLocale),
+            title: resolveTitleEclate(
+              homeData?.methodeTitleBefore,
+              homeData?.methodeTitleItalic,
+              homeData?.methodeTitleAfter,
+              typedLocale,
+            ),
+            sub: resolveLocalized(homeData?.methodeSubtitle, typedLocale),
+            steps: mapSanityMethodeSteps(homeData?.methodeSteps, typedLocale),
+          }}
+        />
+        <Cases
+          data={{
+            eyebrow: resolveLocalized(homeData?.etudesEyebrow, typedLocale),
+            title: resolveTitleEclate(
+              homeData?.etudesTitleBefore,
+              homeData?.etudesTitleItalic,
+              homeData?.etudesTitleAfter,
+              typedLocale,
+            ),
+            sub: resolveLocalized(homeData?.etudesSubtitle, typedLocale),
+            cases: mapSanityCaseStudies(homeData?.etudesFeatured, typedLocale),
+            ctaLabel: resolveLocalized(homeData?.etudesCtaLabel, typedLocale),
+            ctaHref: typeof homeData?.etudesUrl === "string" ? homeData.etudesUrl : undefined,
+          }}
+        />
         <Testimonials
           data={{
             eyebrow: resolveLocalized(homeData?.temoignagesEyebrow, typedLocale),
