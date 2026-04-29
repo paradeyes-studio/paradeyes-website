@@ -24,13 +24,28 @@ const fadeOnly = (delay: number): Variants => ({
   visible: { opacity: 1, transition: { duration: 0.4, delay } },
 });
 
-export function Cases() {
+export interface CasesData {
+  eyebrow?: string;
+  title?: { before: string; italic: string; after: string };
+  sub?: string;
+  cases?: typeof homeCases.cases;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+export function Cases({ data = {} }: { data?: CasesData } = {}) {
+  const eyebrow = data.eyebrow ?? homeCases.eyebrow;
+  const headline = data.title ?? homeCases.headline;
+  const sub = data.sub ?? homeCases.sub;
+  const cases = data.cases ?? homeCases.cases;
+  const ctaLabel = data.ctaLabel ?? "Découvrir toutes les réalisations";
+  const ctaHref = data.ctaHref ?? "/realisations";
   const reduced = useReducedMotion();
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
   const trackRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
-  const total = homeCases.cases.length;
+  const total = cases.length;
 
   useEffect(() => {
     const track = trackRef.current;
@@ -75,12 +90,12 @@ export function Cases() {
             viewport={{ once: true, amount: 0.3 }}
             className="pdy-eyebrow"
           >
-            {homeCases.eyebrow}
+            {eyebrow}
           </motion.p>
           <SectionHeadline
-            before={homeCases.headline.before}
-            italic={homeCases.headline.italic}
-            after={homeCases.headline.after}
+            before={headline.before}
+            italic={headline.italic}
+            after={headline.after}
             className="pdy-section-h2"
           />
           <motion.p
@@ -90,7 +105,7 @@ export function Cases() {
             viewport={{ once: true, amount: 0.3 }}
             className="pdy-section-sub"
           >
-            {homeCases.sub}
+            {sub}
           </motion.p>
         </header>
 
@@ -118,7 +133,7 @@ export function Cases() {
         </div>
 
         <div ref={trackRef} className="pdy-cases-track" role="region" aria-label="Études de cas">
-          {homeCases.cases.map((c) => (
+          {cases.map((c) => (
             <CaseCard key={c.number} data={c} />
           ))}
         </div>
@@ -131,8 +146,8 @@ export function Cases() {
         </div>
 
         <div className="pdy-cases-cta-wrapper">
-          <Link href="/realisations" className="pdy-cases-cta">
-            <span className="pdy-cases-cta-text">Découvrir toutes les réalisations</span>
+          <Link href={ctaHref} className="pdy-cases-cta">
+            <span className="pdy-cases-cta-text">{ctaLabel}</span>
             <ArrowUpRight className="pdy-cases-cta-arrow" aria-hidden="true" />
           </Link>
         </div>

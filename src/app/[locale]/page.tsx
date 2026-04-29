@@ -116,7 +116,13 @@ export default async function Home({ params }: Props) {
               sub: resolveLocalized(homeData?.methodeSubtitle, typedLocale),
             }}
           />
-          <Cases />
+          <Cases
+            data={{
+              sub: resolveLocalized(homeData?.etudesSubtitle, typedLocale),
+              ctaLabel: resolveLocalized(homeData?.etudesCtaLabel, typedLocale),
+              ctaHref: typeof homeData?.etudesUrl === "string" ? homeData.etudesUrl : undefined,
+            }}
+          />
         </div>
         <Testimonials />
         <JournalPreview />
