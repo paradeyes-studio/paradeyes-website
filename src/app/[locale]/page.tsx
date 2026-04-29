@@ -171,7 +171,7 @@ export default async function Home({ params }: Props) {
             sub: resolveLocalized(homeData?.faqSubtitle, typedLocale),
           }}
         />
-        <MarqueeTags />
+        <MarqueeTags data={homeData?.marqueeTagsSection} />
       </main>
 
       <Footer

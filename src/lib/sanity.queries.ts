@@ -221,6 +221,16 @@ export const homePageQuery = groq`*[_type == "homePage"][0]{
   ctaFinalCalendly{title, description, embedUrl},
   ctaFinalTrustSignal,
 
+  // === Bandeau de tags (MarqueeTags) ===
+  marqueeTagsSection{
+    line1,
+    line1Accent,
+    line2,
+    line2Accent,
+    line3,
+    line3Accent
+  },
+
   // === Journal highlight (legacy) ===
   journalHighlight{
     eyebrow,
@@ -335,6 +345,16 @@ export type HomePageData = {
   ctaFinalIris?: unknown;
   ctaFinalCalendly?: unknown;
   ctaFinalTrustSignal?: unknown;
+
+  // === MarqueeTags ===
+  marqueeTagsSection?: {
+    line1?: string[];
+    line1Accent?: string;
+    line2?: string[];
+    line2Accent?: string;
+    line3?: string[];
+    line3Accent?: string;
+  };
 
   // === Journal highlight (legacy) ===
   journalHighlight?: {
