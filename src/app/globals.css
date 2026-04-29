@@ -3114,6 +3114,95 @@ h1, h2, h3, h4 {
   min-width:8%;
 }
 
+/* === Marquee tags section break visuel light === */
+.pdy-marquee-tags-section {
+  background: var(--color-white-warm);
+  padding: 80px 0;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+@media (max-width: 768px) {
+  .pdy-marquee-tags-section {
+    padding: 60px 0;
+  }
+}
+
+.pdy-marquee-tags-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pdy-marquee-tags-row {
+  display: flex;
+  gap: 16px;
+  width: max-content;
+  animation-duration: 80s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.pdy-marquee-tags-row.direction-right {
+  animation-name: pdy-marquee-right;
+}
+
+.pdy-marquee-tags-row.direction-left {
+  animation-name: pdy-marquee-left;
+}
+
+@keyframes pdy-marquee-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pdy-marquee-left {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.pdy-marquee-tags-section:hover .pdy-marquee-tags-row {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdy-marquee-tags-row {
+    animation: none;
+    transform: translateX(0);
+  }
+}
+
+.pdy-marquee-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  background: #FFFFFF;
+  border: 0.5px solid rgba(2, 50, 54, 0.08);
+  border-radius: 999px;
+  font-family: var(--font-satoshi), system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #003135;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: -0.005em;
+}
+
+.pdy-marquee-tag.is-accent {
+  color: #4A6CFF;
+  border-color: rgba(74, 108, 255, 0.18);
+  background: rgba(74, 108, 255, 0.04);
+}
+
+@media (max-width: 768px) {
+  .pdy-marquee-tag {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
 /* === TestimonialHero featured 2 cols === */
 .pdy-testimonial-hero {
   position: relative;

@@ -10,6 +10,7 @@ import { Cases } from "@/components/sections/Cases";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { JournalPreview } from "@/components/sections/JournalPreview";
 import { Faq } from "@/components/sections/Faq";
+import { MarqueeTags } from "@/components/sections/MarqueeTags";
 import { NarrativeThread } from "@/components/visuals/NarrativeThread";
 import { sanityClient } from "@/lib/sanity";
 import { homePageQuery, type HomePageData } from "@/lib/sanity.queries";
@@ -103,6 +104,7 @@ export default async function Home({ params }: Props) {
         <Testimonials />
         <JournalPreview />
         <Faq />
+        <MarqueeTags />
       </main>
 
       <Footer locale={typedLocale} showPreFooter preFooterVariant="default" />
