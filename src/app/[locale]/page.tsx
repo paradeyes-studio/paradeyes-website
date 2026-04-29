@@ -13,7 +13,14 @@ import { Faq } from "@/components/sections/Faq";
 import { MarqueeTags } from "@/components/sections/MarqueeTags";
 import { NarrativeThread } from "@/components/visuals/NarrativeThread";
 import { sanityClient } from "@/lib/sanity";
-import { homePageQuery, type HomePageData } from "@/lib/sanity.queries";
+import {
+  homePageQuery,
+  type HomePageData,
+  siteSettingsQuery,
+  type SiteSettingsData,
+  contactQuery,
+  type ContactData,
+} from "@/lib/sanity.queries";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -24,6 +31,24 @@ async function getHomeData(): Promise<HomePageData | null> {
     return await sanityClient.fetch<HomePageData | null>(homePageQuery);
   } catch (error) {
     console.error("[home] Sanity fetch failed:", error);
+    return null;
+  }
+}
+
+async function getSiteSettings(): Promise<SiteSettingsData | null> {
+  try {
+    return await sanityClient.fetch<SiteSettingsData | null>(siteSettingsQuery);
+  } catch (error) {
+    console.error("[home] Sanity siteSettings fetch failed:", error);
+    return null;
+  }
+}
+
+async function getContact(): Promise<ContactData | null> {
+  try {
+    return await sanityClient.fetch<ContactData | null>(contactQuery);
+  } catch (error) {
+    console.error("[home] Sanity contact fetch failed:", error);
     return null;
   }
 }
@@ -66,7 +91,11 @@ export default async function Home({ params }: Props) {
   setRequestLocale(locale);
 
   const typedLocale = locale as "fr" | "en";
-  const homeData = await getHomeData();
+  const [homeData, siteSettings, contact] = await Promise.all([
+    getHomeData(),
+    getSiteSettings(),
+    getContact(),
+  ]);
 
   return (
     <>
@@ -146,6 +175,12 @@ export default async function Home({ params }: Props) {
             homeData?.ctaFinalSubtitle,
             typedLocale,
           ),
+        }}
+        data={{
+          tagline:
+            resolveLocalized(siteSettings?.footerBaseline, typedLocale) ??
+            resolveLocalized(siteSettings?.baseline, typedLocale),
+          email: contact?.email,
         }}
       />
     </>

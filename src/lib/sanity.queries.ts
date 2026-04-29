@@ -61,6 +61,8 @@ export const siteSettingsQuery = groq`*[_type == "siteSettings"][0]{
   siteName,
   tagline,
   defaultOgImage,
+  baseline,
+  footerBaseline,
   footerStatement,
   footerLocation,
   preFooterDefault{
@@ -76,6 +78,8 @@ export type SiteSettingsData = {
   siteName: string;
   tagline: string;
   defaultOgImage?: { asset: { _ref: string } };
+  baseline?: unknown;
+  footerBaseline?: unknown;
   footerStatement?: string;
   footerLocation?: string;
   preFooterDefault?: {
