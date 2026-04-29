@@ -3652,6 +3652,64 @@ h1, h2, h3, h4 {
   margin: 3px 0 0;
 }
 
+/* === Cases flat (simplification 2026-04-29) === */
+.pdy-cases.pdy-cases--flat {
+  background: var(--color-white-warm);
+  padding: 120px 5vw;
+  overflow: visible;
+}
+.pdy-cases--flat .pdy-cases-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}
+.pdy-cases--flat .pdy-cases-head {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 64px;
+  padding: 0;
+}
+.pdy-cases--flat .pdy-cases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-bottom: 80px;
+}
+.pdy-cases--flat .pdy-cases-grid-cell {
+  display: flex;
+}
+.pdy-cases--flat .pdy-cases-grid-cell > .pdy-case-card {
+  width: 100%;
+  flex-shrink: 0;
+}
+.pdy-cases--flat .pdy-case-card {
+  /* Override carousel min-width and scroll-snap */
+  min-width: 0;
+  scroll-snap-align: none;
+}
+.pdy-cases--flat .pdy-case-card-cover img {
+  /* Override le mask-image bottom du pattern carousel */
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+.pdy-cases--flat .pdy-cases-cta-wrapper {
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .pdy-cases.pdy-cases--flat {
+    padding: 80px 20px;
+  }
+  .pdy-cases--flat .pdy-cases-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+  .pdy-cases--flat .pdy-cases-head {
+    margin-bottom: 48px;
+  }
+}
+
 /* ================================================================
    3.3.2 TESTIMONIALS — hero featured + grid of 3 minis
 ================================================================ */

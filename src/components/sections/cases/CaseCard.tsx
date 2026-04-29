@@ -2,7 +2,6 @@
 
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { useTilt } from "@/hooks/useTilt";
 
 interface CaseCardData {
   number: string;
@@ -22,15 +21,12 @@ interface CaseCardProps {
 }
 
 export function CaseCard({ data }: CaseCardProps) {
-  const tiltRef = useTilt<HTMLElement>({ max: 4, perspective: 1200 });
   const slug = data.href.replace("/realisations/", "");
 
   return (
     <article
-      ref={tiltRef}
       className={`pdy-case-card pdy-case-card-bg-${data.bgVariant}`}
       data-case-number={data.number}
-      style={{ transformStyle: "preserve-3d" }}
     >
       <div className="pdy-case-pattern" aria-hidden="true" />
       <div className="pdy-case-card-cover" aria-hidden="true">
