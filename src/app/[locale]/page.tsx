@@ -99,7 +99,11 @@ export default async function Home({ params }: Props) {
           }}
         />
         <Moments />
-        <Chiffres />
+        <Chiffres
+          data={{
+            sub: resolveLocalized(homeData?.chiffresSubtitle, typedLocale),
+          }}
+        />
         <div className="pdy-narrative-section">
           <NarrativeThread variant="methode-cases" />
           <Methode />

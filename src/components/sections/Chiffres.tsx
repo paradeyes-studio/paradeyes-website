@@ -56,7 +56,22 @@ function StatItem({ data }: StatItemProps) {
   );
 }
 
-export function Chiffres() {
+export interface ChiffresData {
+  eyebrow?: string;
+  title?: { before: string; italic: string; after: string };
+  sub?: string;
+  stats?: typeof homeChiffres.stats;
+  clients?: typeof homeChiffres.clients;
+  clientsLabel?: string;
+}
+
+export function Chiffres({ data = {} }: { data?: ChiffresData } = {}) {
+  const eyebrow = data.eyebrow ?? homeChiffres.eyebrow;
+  const headline = data.title ?? homeChiffres.headline;
+  const sub = data.sub ?? homeChiffres.sub;
+  const stats = data.stats ?? homeChiffres.stats;
+  const clients = data.clients ?? homeChiffres.clients;
+  const clientsLabel = data.clientsLabel ?? homeChiffres.clientsLabel;
   const reduced = useReducedMotion();
   const v = (delay: number) => (reduced ? fadeOnly(delay) : fadeUp(delay));
   const reveal = useSectionReveal<HTMLElement>(0.15);
@@ -76,12 +91,12 @@ export function Chiffres() {
             viewport={{ once: true, amount: 0.3 }}
             className="pdy-eyebrow"
           >
-            {homeChiffres.eyebrow}
+            {eyebrow}
           </motion.p>
           <SectionHeadline
-            before={homeChiffres.headline.before}
-            italic={homeChiffres.headline.italic}
-            after={homeChiffres.headline.after}
+            before={headline.before}
+            italic={headline.italic}
+            after={headline.after}
             className="pdy-section-h2"
           />
           <motion.p
@@ -91,19 +106,19 @@ export function Chiffres() {
             viewport={{ once: true, amount: 0.3 }}
             className="pdy-section-sub"
           >
-            {homeChiffres.sub}
+            {sub}
           </motion.p>
         </header>
 
         <div className="pdy-chiffres-stats">
-          {homeChiffres.stats.map((stat) => (
+          {stats.map((stat) => (
             <StatItem key={stat.number} data={stat} />
           ))}
         </div>
 
         <ClientsMarquee
-          clients={homeChiffres.clients}
-          label={homeChiffres.clientsLabel}
+          clients={clients}
+          label={clientsLabel}
         />
       </div>
     </section>
