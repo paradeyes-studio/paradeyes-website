@@ -105,7 +105,7 @@ export function Methode({ data = {} }: { data?: MethodeData } = {}) {
   return (
     <section
       ref={sectionRef}
-      className="pdy-methode pdy-bloc-dark pdy-bloc-dark--secondary pdy-section-stacked pdy-section-stacked--z4"
+      className="pdy-methode pdy-bloc-dark pdy-bloc-dark--secondary"
       data-section-theme="dark"
       aria-labelledby="methode-title"
     >

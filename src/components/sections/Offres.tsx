@@ -87,7 +87,7 @@ export function Offres({ data = {} }: { data?: OffresData } = {}) {
   return (
     <section
       ref={sectionRef}
-      className="pdy-offres pdy-section-stacked pdy-section-stacked--z1"
+      className="pdy-offres"
       data-section-theme="light"
       id="section-offres"
       aria-labelledby="offres-title"

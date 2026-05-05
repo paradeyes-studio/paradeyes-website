@@ -69,7 +69,7 @@ export function Testimonials({ data = {} }: { data?: TestimonialsData } = {}) {
   return (
     <section
       ref={reveal}
-      className="pdy-testimonials pdy-bloc-dark pdy-bloc-dark--tertiary pdy-section-stacked pdy-section-stacked--z6 pdy-section-reveal"
+      className="pdy-testimonials pdy-bloc-dark pdy-bloc-dark--tertiary pdy-section-reveal"
       data-section-theme="dark"
       aria-labelledby="testimonials-title"
     >

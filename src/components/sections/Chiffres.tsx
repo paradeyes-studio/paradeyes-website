@@ -80,7 +80,7 @@ export function Chiffres({ data = {} }: { data?: ChiffresData } = {}) {
   return (
     <section
       ref={reveal}
-      className="pdy-chiffres pdy-section-stacked pdy-section-stacked--z3 pdy-section-reveal"
+      className="pdy-chiffres pdy-section-reveal"
       data-section-theme="light"
     >
       <div className="pdy-chiffres-inner">

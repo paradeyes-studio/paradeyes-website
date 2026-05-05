@@ -7,6 +7,17 @@
    */
   --color-green-deep: #003135;
   --color-green-electric: #57EEA1;
+
+  /*
+   * Section cards palette (refonte 2026-05-05)
+   * Tokens dédiés au système SectionCard (variants deep-green, cream, ivory, electric).
+   * Coexiste avec --color-green-deep / --color-white-warm sans les remplacer.
+   */
+  --color-deep-green: #023236;
+  --color-electric-green: #57EEA1;
+  --color-cream: #FAF7F2;
+  --color-cream-deep: #F2EDE5;
+  --color-ivory: #FFFCF7;
   --color-dark-bluish: #14222E;
   --color-violet-spark: #6549F6;
   --color-white-warm: #FAFAF7;
@@ -608,7 +619,10 @@ h1, h2, h3, h4 {
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
+  /* Refonte 2026-05-05 — alignement avec le système SectionCard.
+     Radius 24px (rounded-square) cohérent avec les cards rounded-[32px]
+     du body. Remplace l'ancien pill 999px. */
+  border-radius: 24px;
   box-shadow:
     0 8px 32px -8px rgba(0, 0, 0, 0.32),
     0 0 0 1px rgba(255, 255, 255, 0.04) inset;
@@ -620,6 +634,20 @@ h1, h2, h3, h4 {
     color 320ms var(--ease-cinema-out);
   isolation: isolate;
   color: rgba(255, 255, 255, 0.95);
+}
+
+@media (min-width: 768px) {
+  .pdy-header-capsule {
+    top: 24px;
+    width: min(1280px, calc(100vw - 48px));
+  }
+}
+
+@media (min-width: 1024px) {
+  .pdy-header-capsule {
+    top: 32px;
+    width: min(1280px, calc(100vw - 64px));
+  }
 }
 
 .pdy-header-capsule--scrolled {
@@ -1808,12 +1836,6 @@ h1, h2, h3, h4 {
   background: var(--color-white-warm);
   color: var(--color-green-deep);
   overflow: hidden;
-  /* Override le margin-top:-64px herite de .pdy-section-stacked uniquement
-     pour la transition Hero -> Offres. Supprime l'overlap stacked qui
-     creait un bord blanc visible en bas du Hero (Offres rendu par-dessus
-     Hero dans les 64 derniers pixels du viewport). Les autres transitions
-     stacked (Offres -> Moments -> ...) conservent leur lift wedges. */
-  margin-top: 0;
 }
 
 .pdy-offres-header {
@@ -3857,24 +3879,10 @@ h1, h2, h3, h4 {
   isolation: isolate;
   contain: layout style paint;
   overflow: hidden;
-  border-top-left-radius: var(--section-radius);
-  border-top-right-radius: var(--section-radius);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  /* Overlap sur la section precedente (MarqueeTags, light) pour que les coins
-     arrondis du haut revelent la couleur claire de MarqueeTags au lieu du body
-     dark. Aligne sur le pattern .pdy-section-stacked des sections du body.
-     Box-shadow upward retiree pour eviter la courbe d ombre parasite. */
-  margin-top: -64px;
+  /* Refonte 2026-05-05 — système SectionCard parent porte le radius et la
+     séparation par gap flex. Les border-radius et margin-top négatif d'origine
+     (overlap sur MarqueeTags) ne sont plus nécessaires. */
   z-index: 9;
-}
-
-@media (max-width: 767px) {
-  .pdy-prefooter {
-    border-top-left-radius: var(--section-radius-mobile);
-    border-top-right-radius: var(--section-radius-mobile);
-    margin-top: -36px;
-  }
 }
 @media (max-width: 1023px){.pdy-prefooter{padding:96px 24px 60px}}
 @media (max-width: 767px){.pdy-prefooter{padding:80px 20px 60px}}

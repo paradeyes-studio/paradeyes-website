@@ -136,7 +136,7 @@ export function Moments({ data = {} }: { data?: MomentsData } = {}) {
   return (
     <section
       ref={reveal}
-      className="pdy-moments pdy-bloc-dark pdy-section-stacked pdy-section-stacked--z2 pdy-section-reveal"
+      className="pdy-moments pdy-bloc-dark pdy-section-reveal"
       data-section-theme="dark"
       aria-labelledby="moments-title"
     >
